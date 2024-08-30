@@ -20,6 +20,7 @@
         "vite": "^4.5.3"
     },
     "dependencies": {
-        "@heroicons/react": "^2.1.5"
+        "@heroicons/react": "^2.1.5",
+        "react-chartjs-2": "^5.2.0"
     }
 }
