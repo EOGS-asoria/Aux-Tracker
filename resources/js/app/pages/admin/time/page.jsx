@@ -35,7 +35,7 @@ export default function AdminTimePage() {
               loading={false}
               type={'submit'}
             >
-              Sample Button
+               Button
             </Button>
           </div>
         </div>

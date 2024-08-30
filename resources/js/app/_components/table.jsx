@@ -195,8 +195,6 @@
 
 
 
-
-
 import { useLayoutEffect, useRef, useState } from "react";
 import Input from "./input";
 import Button from "./button";
@@ -243,32 +241,38 @@ export default function Table({
         setCurrentPage(1); // Reset to the first page when changing rows per page
     }
 
+    const totalEntries = data.length;
+    const totalPages = Math.ceil(totalEntries / rowsPerPage);
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    const paginationData = {
+        current_page: currentPage,
+        last_page: totalPages,
+    };
+
     return (
         <div className="flow-root w-full shadow-2xl">
             <div className="overflow-x-auto">
                 <div className="inline-block min-w-full py-2 align-middle">
                     <div className="flex w-full items-center justify-between px-5 m-3">
-                        <div>
-                            {/* <Button className="text-black">
-                                Clear
-                            </Button> */}
 
-                            <div className="inline-flex items-center space-x-2 p-1">
-                                <span>Show</span>
-                                <Select
-                                    options={[
-                                        { value: '10', label: '10' },
-                                        { value: '20', label: '20' },
-                                        { value: '40', label: '40' },
-                                        { value: '60', label: '60' },
-                                        { value: '80', label: '80' },
-                                        { value: '100', label: '100' },
-                                    ]}
-                                    value={rowsPerPage}
-                                    onChange={handleRowsPerPageChange}
-                                />
-                                <span>entries</span>
-                            </div>
+                        <div className="inline-flex items-center space-x-2 p-1">
+                            <span>Show</span>
+                            <Select
+                                options={[
+                                    { value: '10', label: '10' },
+                                    { value: '20', label: '20' },
+                                    { value: '40', label: '40' },
+                                    { value: '60', label: '60' },
+                                    { value: '80', label: '80' },
+                                    { value: '100', label: '100' },
+                                ]}
+                                value={rowsPerPage}
+                                onChange={handleRowsPerPageChange}
+                            />
+                            <span>entries</span>
 
                         </div>
                         <div>
@@ -326,7 +330,7 @@ export default function Table({
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {data.map((row, rowIndex) => (
+                                {paginatedData.map((row, rowIndex) => (
                                     <tr
                                         key={rowIndex}
                                         className={
@@ -373,7 +377,7 @@ export default function Table({
                                                 key={column.key}
                                                 className={classNames(
                                                     "whitespace-nowrap py-4 pr-3 text-sm font-medium",
-                                                    dataChecked.includes(row)
+                                                    dataChecked.includes(row.id)
                                                         ? "text-indigo-600"
                                                         : "text-gray-900"
                                                 )}
@@ -388,9 +392,11 @@ export default function Table({
                             </tbody>
                         </table>
                     </div>
-                  <Pagination
-                  
-                  /> 
+                    <Pagination
+                        currentPage={currentPage}
+                        lastPage={totalPages}
+                        setCurrentPage={setCurrentPage}
+                    />
                 </div>
             </div>
         </div>
