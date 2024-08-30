@@ -264,7 +264,7 @@ export default function Table({
                                     value={rowsPerPage}
                                     onChange={handleRowsPerPageChange}
                                 />
-                                <span>entries</span>
+                                <span>entriesss</span>
                             </div>
 
                         </div>
