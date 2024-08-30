@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Table from '@/app/_components/table';
 
+
 export default function UsersTableSection() {
     const [dataChecked, setDataChecked] = useState([]);
 
@@ -72,7 +73,9 @@ export default function UsersTableSection() {
                     ]}
                     isCheckbox={true}
                 />
+                
             </div>
+            
         </div>
     );
 }

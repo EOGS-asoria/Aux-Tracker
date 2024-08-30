@@ -195,10 +195,13 @@
 
 
 
+
+
 import { useLayoutEffect, useRef, useState } from "react";
 import Input from "./input";
 import Button from "./button";
 import Select from "./select";
+import Pagination from "./pagination";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -264,7 +267,7 @@ export default function Table({
                                     value={rowsPerPage}
                                     onChange={handleRowsPerPageChange}
                                 />
-                                <span>entriesssssss</span>
+                                <span>entries</span>
                             </div>
 
                         </div>
@@ -385,6 +388,9 @@ export default function Table({
                             </tbody>
                         </table>
                     </div>
+                  <Pagination
+                  
+                  /> 
                 </div>
             </div>
         </div>

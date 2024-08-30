@@ -47,11 +47,10 @@ export default function Pagination({ data }) {
                     <Link
                         key={index}
                         href={typeof page === 'number' ? `?page=${page}` : "#"}
-                        className={`inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium ${
-                            currentPage === page
-                                ? "text-blue-600 border-blue-600"
-                                : "text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                        }`}
+                        className={`inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium ${currentPage === page
+                            ? "text-blue-600 border-blue-600"
+                            : "text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                            }`}
                     >
                         {page}
                     </Link>
