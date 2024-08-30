@@ -59,16 +59,16 @@ export default function LogTableSection() {
                             title: "Details",
                             key: "details",
                         },
-                        {
-                            title: "Action",
-                            key: "action",
-                            render: (_, record) => (
-                                <div className="flex space-x-4">
-                                    <button onClick={() => handleView(record)} className="text-blue-500 hover:underline">View</button>
-                                    <button onClick={() => handleDelete(record)} className="text-red-500 hover:underline">Delete</button>
-                                </div>
-                            )
-                        }
+                        // {
+                        //     title: "Action",
+                        //     key: "action",
+                        //     render: (_, record) => (
+                        //         <div className="flex space-x-4">
+                        //             <button onClick={() => handleView(record)} className="text-blue-500 hover:underline">View</button>
+                        //             <button onClick={() => handleDelete(record)} className="text-red-500 hover:underline">Delete</button>
+                        //         </div>
+                        //     )
+                        // }
                     ]}
                     isCheckbox={true}
                 />
