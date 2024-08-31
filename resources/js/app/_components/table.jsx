@@ -194,7 +194,6 @@
 
 
 
-
 import { useLayoutEffect, useRef, useState } from "react";
 import Input from "./input";
 import Button from "./button";
@@ -219,6 +218,7 @@ export default function Table({
     const checkbox = useRef();
     const [checked, setChecked] = useState(false);
     const [indeterminate, setIndeterminate] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(''); // State for search term
 
     useLayoutEffect(() => {
         const isIndeterminate =
@@ -239,13 +239,24 @@ export default function Table({
     function handleRowsPerPageChange(e) {
         setRowsPerPage(Number(e.target.value));
         setCurrentPage(1); // Reset to the first page when changing rows per page
+    } 
+
+    function handleSearchChange(e) {
+        setSearchTerm(e.target.value.toLowerCase());
     }
 
-    const totalEntries = data.length;
+    // Filter data based on search term
+    const filteredData = data.filter(row =>
+        Object.values(row).some(value =>
+            value.toString().toLowerCase().includes(searchTerm)
+        )
+    );
+
+    const totalEntries = filteredData.length;
     const totalPages = Math.ceil(totalEntries / rowsPerPage);
     const startIndex = (currentPage - 1) * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    const paginatedData = data.slice(startIndex, endIndex);
+    const paginatedData = filteredData.slice(startIndex, endIndex);
 
     const paginationData = {
         current_page: currentPage,
@@ -257,7 +268,6 @@ export default function Table({
             <div className="overflow-x-auto">
                 <div className="inline-block min-w-full py-2 align-middle">
                     <div className="flex w-full items-center justify-between px-5 m-3">
-
                         <div className="inline-flex items-center space-x-2 p-1">
                             <span>Show</span>
                             <Select
@@ -273,13 +283,16 @@ export default function Table({
                                 onChange={handleRowsPerPageChange}
                             />
                             <span>entries</span>
-
                         </div>
-                        <div>
+                        {/* Search Input */}
+                        <div className="mb-4">
                             <Input
-                                placeholder="search"
+                                placeholder="Search"
                                 label="Search"
                                 type="search"
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                className="w-1/3" // Adjust width as needed
                             />
                         </div>
                     </div>

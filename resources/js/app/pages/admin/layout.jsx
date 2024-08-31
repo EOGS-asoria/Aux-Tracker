@@ -12,7 +12,7 @@ import {
 import {
     Bars3Icon,
     BellIcon,
-    CalendarIcon,
+    ClockIcon,
     // ChartPieIcon,
     Cog6ToothIcon,
     // DocumentDuplicateIcon,
@@ -23,21 +23,16 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Link } from '@inertiajs/react'
+import Select from '@/app/_components/select';
 // import Notification from '@/app/_components/notification'
 
 const navigation = [
     { name: 'Dashboard', href: '/administrator/dashboard', icon: HomeIcon, current: true },
     { name: 'Users', href: '/administrator/users', icon: UsersIcon, current: false },
     { name: 'Time keeping', href: '/administrator/time', icon: FolderIcon, current: false },
-    { name: 'Table logs', href: '/administrator/table_log', icon: CalendarIcon, current: false },
-    // { name: 'Documents', href: '/administrator/products', icon: DocumentDuplicateIcon, current: false },
-    // { name: 'Reports', href: '/administrator/products', icon: ChartPieIcon, current: false },
+    { name: 'logs', href: '/administrator/logs', icon: ClockIcon, current: false },
 ]
-const teams = [
-    // { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    // { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-    // { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-]
+
 const userNavigation = [
     { name: 'Your profile', href: '#' },
     { name: 'Sign out', href: '#' },
@@ -105,29 +100,7 @@ export default function AdminLayout({ children }) {
                                                 ))}
                                             </ul>
                                         </li>
-                                        <li>
-                                            {/* <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div> */}
-                                            <ul role="list" className="-mx-2 mt-2 space-y-1">
-                                                {teams.map((team) => (
-                                                    <li key={team.name}>
-                                                        <a
-                                                            href={team.href}
-                                                            className={classNames(
-                                                                team.current
-                                                                    ? 'bg-gray-800 text-white'
-                                                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                                                                'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                                                            )}
-                                                        >
-                                                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
-                                                                {team.initial}
-                                                            </span>
-                                                            <span className="truncate">{team.name}</span>
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </li>
+
                                         <li className="mt-auto">
                                             <a
                                                 href="#"
@@ -178,29 +151,7 @@ export default function AdminLayout({ children }) {
                                         ))}
                                     </ul>
                                 </li>
-                                <li>
-                                    {/* <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div> */}
-                                    <ul role="list" className="-mx-2 mt-2 space-y-1">
-                                        {teams.map((team) => (
-                                            <li key={team.name}>
-                                                <a
-                                                    href={team.href}
-                                                    className={classNames(
-                                                        team.current
-                                                            ? 'bg-gray-800 text-white'
-                                                            : 'text-gray-400 hover:bg-gray-800 hover:text-white',
-                                                        'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
-                                                    )}
-                                                >
-                                                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
-                                                        {team.initial}
-                                                    </span>
-                                                    <span className="truncate">{team.name}</span>
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
+
                                 <li className="mt-auto">
                                     <a
                                         href="#"
@@ -225,22 +176,24 @@ export default function AdminLayout({ children }) {
                         {/* Separator */}
                         <div aria-hidden="true" className="h-6 w-px bg-gray-900/10 lg:hidden" />
 
-                        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-                            <form action="#" method="GET" className="relative flex flex-1">
-                                <label htmlFor="search-field" className="sr-only">
-                                    Search
-                                </label>
-                                <MagnifyingGlassIcon
-                                    aria-hidden="true"
-                                    className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-                                />
-                                <input
-                                    id="search-field"
-                                    name="search"
-                                    type="search"
-                                    placeholder="Search..."
-                                    className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                                />
+                        <div className="relative">
+                            <Select
+                                options={[
+                                    { value: 'Clock In', label: 'Clock In' },
+                                    { value: 'Break', label: 'Break' },
+                                    { value: 'Back', label: 'Back' },
+                                    { value: 'Clock Out', label: 'Clock Out' },
+                                ]}
+                                // value=""  
+                                onChange=""
+                                label="Select Time"
+                                name="select"
+                            />
+                        </div>
+                        <div className="flex flex-1 gap-x-4">
+                            <form action="#" method="GET" className="  flex flex-1">
+
+
                             </form>
                             <div className="flex items-center gap-x-4 lg:gap-x-6">
                                 <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">

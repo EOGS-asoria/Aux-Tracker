@@ -52,8 +52,8 @@ Route::prefix('administrator')->group(function () {
     Route::get('/time', function () {
         return Inertia::render('admin/time/page');
     });
-    Route::get('/table_log', function () {
-        return Inertia::render('admin/table_log/page');
+    Route::get('/logs', function () {
+        return Inertia::render('admin/logs/page');
     });
 });
 

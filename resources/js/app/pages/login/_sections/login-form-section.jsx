@@ -24,7 +24,7 @@ export default function LoginFormSection() {
                 setErrors(error.response.data.errors);
             }
         }
-    }
+    } 
 
     return (
 
