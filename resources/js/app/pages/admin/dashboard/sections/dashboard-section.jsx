@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@/app/_components/table';
 import { Line } from 'react-chartjs-2';
 import {
@@ -17,20 +17,45 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 export default function DashboardTableSection() {
     const [dataChecked, setDataChecked] = useState([]);
 
-    const totalProducts = 150;
-    const totalUsers = 75;
-    const totalSales = 3200;
+    const [countUsers, setCountUsers] = useState(0);
+    const [countLogs, setCountLogs] = useState(0);
+    const [countTime, setCountTime] = useState(0);
+
+    // Values to count up to
+    const totalUsers = 100; // Example value for total users
+    const totalLogs = 500; // Example value for total logs
+    const totalTime = 1200; // Example value for total time in minutes
+
+    useEffect(() => {
+        const animateCount = (setter, endValue) => {
+            let startValue = 0;
+            const step = endValue / 100; // Adjust the step value for smoothness
+
+            const interval = setInterval(() => {
+                startValue += step;
+                if (startValue >= endValue) {
+                    clearInterval(interval);
+                    startValue = endValue;
+                }
+                setter(Math.round(startValue));
+            }, 20);
+        };
+
+        animateCount(setCountUsers, totalUsers);
+        animateCount(setCountLogs, totalLogs);
+        animateCount(setCountTime, totalTime);
+    }, []);
 
     // Sample data for the graph
     const data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
             {
-                label: 'Sales',
-                data: [1200, 1900, 3000, 5000, 2000, 3000, 4000],
+                label: 'Activity',
+                data: [30, 45, 60, 80, 70, 90, 100], // Example data for activity
                 fill: false,
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgba(255, 99, 132, 0.2)',
+                backgroundColor: 'rgb(75, 192, 192)',
+                borderColor: 'rgba(75, 192, 192, 0.2)',
             },
         ],
     };
@@ -43,7 +68,7 @@ export default function DashboardTableSection() {
             },
             title: {
                 display: true,
-                text: 'Sales Over Time',
+                text: 'Activity Over Time',
             },
         },
     };
@@ -53,37 +78,37 @@ export default function DashboardTableSection() {
             <h1 className="text-3xl font-bold mb-8 text-gray-700">Dashboard</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {/* Total Products */}
-                <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-box fa-2x text-blue-500 mr-4"></i>
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-600">Total Products</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{totalProducts}</p>
-                    </div>
-                </div>
-
                 {/* Total Users */}
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-users fa-2x text-green-500 mr-4"></i>
+                    <i className="fas fa-user fa-2x text-blue-500 mr-4"></i>
                     <div>
                         <h2 className="text-xl font-semibold text-gray-600">Total Users</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{totalUsers}</p>
+                        <p className="text-3xl font-bold text-gray-900 mt-2">{countUsers}</p>
                     </div>
                 </div>
 
-                {/* Total Sales */}
+                {/* Total Logs */}
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-dollar-sign fa-2x text-yellow-500 mr-4"></i>
+                    <i className="fas fa-file-alt fa-2x text-green-500 mr-4"></i>
                     <div>
-                        <h2 className="text-xl font-semibold text-gray-600">Total Sales</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">${totalSales}</p>
+                        <h2 className="text-xl font-semibold text-gray-600">Total Logs</h2>
+                        <p className="text-3xl font-bold text-gray-900 mt-2">{countLogs}</p>
+                    </div>
+                </div>
+
+                {/* Total Time */}
+                <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
+                    <i className="fas fa-clock fa-2x text-yellow-500 mr-4"></i>
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-600">Total Time (mins)</h2>
+                        <p className="text-3xl font-bold text-gray-900 mt-2">{countTime}</p>
                     </div>
                 </div>
             </div>
 
             {/* Responsive Graph Section */}
             <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold text-gray-600 mb-4">Sales Graph</h2>
+                <h2 className="text-xl font-semibold text-gray-600 mb-4">Activity Graph</h2>
                 <Line data={data} options={options} />
             </div>
         </div>
