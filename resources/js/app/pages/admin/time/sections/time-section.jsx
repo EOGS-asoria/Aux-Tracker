@@ -1,7 +1,7 @@
             import React, { useState, useEffect } from 'react';
             import Button from '@/app/_components/button';
             import Select from '@/app/_components/select';
-            import Table from '@/app/_components/table'; // Import your Table component
+            import Table from '@/app/_components/table'; 
 
             export default function TimePageSection() {
                 const [selectedTime, setSelectedTime] = useState('');
@@ -11,7 +11,7 @@
                 const [intervalId, setIntervalId] = useState(null);
                 const [warningMessage, setWarningMessage] = useState(''); 
                 const [hasClockedIn, setHasClockedIn] = useState(false); 
-                const [entries, setEntries] = useState([]); // State to keep track of all actions
+                const [entries, setEntries] = useState([]); 
                 const [dataChecked, setDataChecked] = useState([]);
                 const [rowsPerPage, setRowsPerPage] = useState(10);
                 const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +23,7 @@
                     const now = new Date();
                     const formattedDate = now.toLocaleDateString();
                     const formattedTime = now.toLocaleTimeString();
-                    const formattedCurrentTime = formatTime(time); // Get formatted current time
+                    const formattedCurrentTime = formatTime(time); 
                     let status = 'Pending';
                     if (value === 'Clock Out') {
                         status = 'Completed';
@@ -37,7 +37,7 @@
                         logName: value,
                         timestamp: `${formattedDate} ${formattedTime}`,
                         status,
-                        user: 'User', // Replace with dynamic user if available
+                        user: 'User', 
                         details: `Action performed: ${value}`,
                         currentTime: formattedCurrentTime
                     };
@@ -50,7 +50,7 @@
                             startTimer(); 
                             setHasClockedIn(true); 
                             setWarningMessage(''); 
-                            setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Clock In' }]); // Add Clock In entry
+                            setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Clock In' }]); 
                         }
                     } else if (!hasClockedIn) {
                         setWarningMessage('Please Clock In first before taking any other action.'); 
@@ -58,13 +58,13 @@
                         setIsPaused(true); 
                         pauseTimer(); 
                         setWarningMessage('Clock is paused.'); 
-                        setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Break' }]); // Add Break entry
+                        setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Break' }]); 
                     } else if (value === 'Back') {
                         if (isPaused) {
                             setIsPaused(false); 
                             resumeTimer(); 
                             setWarningMessage(''); 
-                            setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Back' }]); // Add Back entry
+                            setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Back' }]); 
                         } else {
                             setWarningMessage('Cannot go back without taking a break first.'); 
                         }
@@ -74,7 +74,7 @@
                         setHasClockedIn(false); 
                         setIsPaused(false); 
                         setWarningMessage(''); 
-                        setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Clock Out' }]); // Add Clock Out entry
+                        setEntries(prevEntries => [...prevEntries, { ...entry, logName: 'Clock Out' }]); 
                     }
                 };
 
