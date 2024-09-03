@@ -111,9 +111,19 @@
                     const secs = seconds % 60;
                     return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 };
+                const [isVisible, setIsVisible] = useState(false);
 
+                // Toggle visibility after the component mounts
+                React.useEffect(() => {
+                    setIsVisible(true);
+                }, []);
+            
                 return (
-                    <div>
+                    <div
+                    className={` mx-auto p-4 transition-transform duration-700 ease-in-out ${
+                        isVisible ? 'translate-y-0' : '-translate-y-full'
+                    }`}
+                >
                         <div className="p-6 bg-gray-100 min-h-screen">
                             <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center mb-6">
                                 <h1 className="text-3xl font-bold mt-4 mb-8 text-gray-700">Time Keeping</h1>

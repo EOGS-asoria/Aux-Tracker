@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
     Dialog,
     DialogBackdrop,
@@ -8,57 +8,51 @@ import {
     MenuItem,
     MenuItems,
     TransitionChild,
-} from '@headlessui/react'
+} from '@headlessui/react';
 import {
     Bars3Icon,
     BellIcon,
     ClockIcon,
-    // ChartPieIcon,
     Cog6ToothIcon,
-    // DocumentDuplicateIcon,
     FolderIcon,
     HomeIcon,
     UsersIcon,
     XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Link } from '@inertiajs/react'
+} from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Link, usePage } from '@inertiajs/react';
 import Select from '@/app/_components/select';
-// import Notification from '@/app/_components/notification'
-
-const navigation = [
-    { name: 'Dashboard', href: '/administrator/dashboard', icon: HomeIcon, current: true },
-    { name: 'Users', href: '/administrator/users', icon: UsersIcon, current: false },
-    { name: 'Time keeping', href: '/administrator/time', icon: FolderIcon, current: false },
-    { name: 'logs', href: '/administrator/logs', icon: ClockIcon, current: false },
-]
 
 const userNavigation = [
-    { name: 'Your profile', href: '#' },
+    { name: 'Your profile', href: '/administrator/profile' },
     { name: 'Sign out', href: '#' },
-]
+];
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function AdminLayout({ children }) {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
-    const [show, setShow] = useState(true)
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    
+    // State for active navigation item
+    const { url } = usePage(); // Retrieves the current URL from Inertia.js
+
+    // Navigation items
+    const navigation = [
+        { name: 'Dashboard', href: '/administrator/dashboard', icon: HomeIcon },
+        { name: 'Users', href: '/administrator/users', icon: UsersIcon },
+        { name: 'Time keeping', href: '/administrator/time', icon: FolderIcon },
+        { name: 'Logs', href: '/administrator/logs', icon: ClockIcon },
+    ];
+
     return (
         <>
             <div>
                 <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
-                    <DialogBackdrop
-                        transition
-                        className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
-                    />
-
+                    <DialogBackdrop className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0" />
                     <div className="fixed inset-0 flex">
-                        <DialogPanel
-                            transition
-                            className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
-                        >
+                        <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full">
                             <TransitionChild>
                                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
                                     <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
@@ -67,16 +61,9 @@ export default function AdminLayout({ children }) {
                                     </button>
                                 </div>
                             </TransitionChild>
-                            {/* Sidebar component, swap this element with another sidebar if you like */}
                             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                                 <div className="flex h-16 shrink-0 items-center">
-                                    <div className="flex justify-center items-center w-full">
-                                        <img
-                                            alt="Your Company"
-                                            src="../images/logo.png"
-                                            className="max-h-16 w-auto max-w-full"
-                                        />
-                                    </div>
+                                    <img alt="Your Company" src="../images/logo.png" className="max-h-16 w-auto max-w-full" />
                                 </div>
                                 <nav className="flex flex-1 flex-col">
                                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -84,10 +71,10 @@ export default function AdminLayout({ children }) {
                                             <ul role="list" className="-mx-2 space-y-1">
                                                 {navigation.map((item) => (
                                                     <li key={item.name}>
-                                                        <a
+                                                        <Link
                                                             href={item.href}
                                                             className={classNames(
-                                                                item.current
+                                                                url === item.href
                                                                     ? 'bg-gray-800 text-white'
                                                                     : 'text-gray-400 hover:bg-gray-800 hover:text-white',
                                                                 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
@@ -95,7 +82,7 @@ export default function AdminLayout({ children }) {
                                                         >
                                                             <item.icon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                                             {item.name}
-                                                        </a>
+                                                        </Link>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -119,14 +106,9 @@ export default function AdminLayout({ children }) {
 
                 {/* Static sidebar for desktop */}
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-                    {/* Sidebar component, swap this element with another sidebar if you like */}
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
                         <div className="grid place-items-center">
-                            <img
-                                alt="Empire One Logo"
-                                src="../images/logo.png"
-                                className="h-20"
-                            />
+                            <img alt="Empire One Logo" src="../images/logo.png" className="h-20" />
                         </div>
 
                         <nav className="flex flex-1 flex-col">
@@ -138,7 +120,7 @@ export default function AdminLayout({ children }) {
                                                 <Link
                                                     href={item.href}
                                                     className={classNames(
-                                                        item.current
+                                                        url === item.href
                                                             ? 'bg-gray-800 text-white'
                                                             : 'text-gray-400 hover:bg-gray-800 hover:text-white',
                                                         'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
@@ -184,17 +166,13 @@ export default function AdminLayout({ children }) {
                                     { value: 'Back', label: 'Back' },
                                     { value: 'Clock Out', label: 'Clock Out' },
                                 ]}
-                                // value=""  
-                                onChange=""
                                 label="Select Time"
                                 name="select"
                             />
                         </div>
+
                         <div className="flex flex-1 gap-x-4">
-                            <form action="#" method="GET" className="  flex flex-1">
-
-
-                            </form>
+                            <form action="#" method="GET" className="flex flex-1"></form>
                             <div className="flex items-center gap-x-4 lg:gap-x-6">
                                 <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                                     <span className="sr-only">View notifications</span>
@@ -215,20 +193,17 @@ export default function AdminLayout({ children }) {
                                         />
                                         <span className="hidden lg:flex lg:items-center">
                                             <span aria-hidden="true" className="ml-4 text-sm font-semibold leading-6 text-gray-900">
-                                                Tom Cook
+                                            John Doe
                                             </span>
                                             <ChevronDownIcon aria-hidden="true" className="ml-2 h-5 w-5 text-gray-400" />
                                         </span>
                                     </MenuButton>
-                                    <MenuItems
-                                        transition
-                                        className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                                    >
+                                    <MenuItems className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                                         {userNavigation.map((item) => (
                                             <MenuItem key={item.name}>
                                                 <a
                                                     href={item.href}
-                                                    className="block px-3 py-1 text-sm leading-6 text-gray-900 data-[focus]:bg-gray-50"
+                                                    className="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50"
                                                 >
                                                     {item.name}
                                                 </a>
@@ -248,5 +223,5 @@ export default function AdminLayout({ children }) {
                 </div>
             </div>
         </>
-    )
+    );
 }

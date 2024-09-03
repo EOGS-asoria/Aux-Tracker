@@ -55,6 +55,9 @@ Route::prefix('administrator')->group(function () {
     Route::get('/logs', function () {
         return Inertia::render('admin/logs/page');
     });
+    Route::get('/profile', function () {
+        return Inertia::render('admin/profile/page');
+    });
 });
 
 // Route::get('/register', function () {
