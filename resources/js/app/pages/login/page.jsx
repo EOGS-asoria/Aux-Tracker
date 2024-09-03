@@ -19,7 +19,7 @@ const LoginPage = () => {
         <div className="bubble"></div>
         <div className="bubble"></div>
 
-        <div className="bg-gray-100 p-5 flex rounded-2xl shadow-lg max-w-3xl relative z-10">
+        <div className="bg-gray-100 p-5 flex rounded-2xl shadow-xl max-w-3xl relative z-10">
           <div className="md:w-1/2 px-5">
             <LoginHeaderSection />
 

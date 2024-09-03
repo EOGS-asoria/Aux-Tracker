@@ -192,7 +192,7 @@ export default function UsersTableSection() {
                             label="Status"
                             name="status"
                             required={true}
-                            value={newUser.status}
+                            // value={newUser.status}
                         />
                     </div>
                     <div className="mb-4">

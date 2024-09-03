@@ -169,7 +169,7 @@ export default function LogTableSection() {
                                     <button onClick={() => handleDelete(record)} className="text-red-500 hover:underline">Delete</button>
                                 </div>
                             )
-                        }
+                        } 
                     ]}
                     isCheckbox={true}
                     rowsPerPage={rowsPerPage}
