@@ -22,6 +22,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link, usePage } from '@inertiajs/react';
 import Select from '@/app/_components/select';
+import Button from '@/app/_components/button';
 
 const userNavigation = [
     { name: 'Your profile', href: '/administrator/profile' },
@@ -34,7 +35,7 @@ function classNames(...classes) {
 
 export default function AdminLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    
+    const [isDropdown, setIsDropdown] = useState(false);
     // State for active navigation item
     const { url } = usePage(); // Retrieves the current URL from Inertia.js
 
@@ -158,18 +159,74 @@ export default function AdminLayout({ children }) {
                         {/* Separator */}
                         <div aria-hidden="true" className="h-6 w-px bg-gray-900/10 lg:hidden" />
 
-                        <div className="relative">
-                            <Select
-                                options={[
-                                    { value: 'Clock In', label: 'Clock In' },
-                                    { value: 'Break', label: 'Break' },
-                                    { value: 'Back', label: 'Back' },
-                                    { value: 'Clock Out', label: 'Clock Out' },
-                                ]}
-                                label="Select Time"
-                                name="select"
-                            />
+
+
+
+
+                        <div className="p-4">
+                            <div className="block sm:hidden">
+                                {/* Toggle Button for Dropdown */}
+                                <Button
+                                    onClick={() => setIsDropdown(!isDropdown)}
+                                    className="bg-gray-500 text-white w-full px-6 py-2 rounded-md hover:bg-gray-600 transition duration-300 ease-in-out shadow"
+                                    type="button"
+                                >
+                                    Select Option
+                                </Button>
+
+                                {/* Dropdown for Small Screens */}
+                                {isDropdown && (
+                                    <select className="mt-4 w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-md shadow">
+                                        <option>Clock In</option>
+                                        <option>Break</option>
+                                        <option>Back</option>
+                                        <option>Clock Out</option>
+                                    </select>
+                                )}
+                            </div>
+
+                            <div className="hidden sm:inline-flex gap-6 items-center justify-center">
+                                {/* Buttons for Larger Screens */}
+                                <div>
+                                    <Button
+                                        onClick=""
+                                        className="bg-blue-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-blue-600 transition duration-300 ease-in-out shadow"
+                                        type="button"
+                                    >
+                                        Clock In
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button
+                                        onClick=""
+                                        className="bg-yellow-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-yellow-600 transition duration-300 ease-in-out shadow"
+                                        type="button"
+                                    >
+                                        Break
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button
+                                        onClick=""
+                                        className="bg-green-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-green-600 transition duration-300 ease-in-out shadow"
+                                        type="button"
+                                    >
+                                        Back
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button
+                                        onClick=""
+                                        className="bg-red-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-red-600 transition duration-300 ease-in-out shadow"
+                                        type="button"
+                                    >
+                                        Clock Out
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
+
+
 
                         <div className="flex flex-1 gap-x-4">
                             <form action="#" method="GET" className="flex flex-1"></form>
@@ -193,7 +250,7 @@ export default function AdminLayout({ children }) {
                                         />
                                         <span className="hidden lg:flex lg:items-center">
                                             <span aria-hidden="true" className="ml-4 text-sm font-semibold leading-6 text-gray-900">
-                                            John Doe
+                                                John Doe
                                             </span>
                                             <ChevronDownIcon aria-hidden="true" className="ml-2 h-5 w-5 text-gray-400" />
                                         </span>

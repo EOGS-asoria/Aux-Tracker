@@ -175,7 +175,7 @@ export default function UsersTableSection() {
                         <Input
                             name="year"
                             label="Year"
-                            type="year"
+                            type="number"
                             className="rounded-md w-full"
                             required={true}
                             value={newUser.year}
@@ -192,7 +192,7 @@ export default function UsersTableSection() {
                             label="Status"
                             name="status"
                             required={true}
-                            // value={newUser.status}
+                        // value={newUser.status}
                         />
                     </div>
                     <div className="mb-4">
