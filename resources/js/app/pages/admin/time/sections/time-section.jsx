@@ -231,11 +231,11 @@ export default function TimePageSection() {
                             {selectedTime === 'Clock In' && !isPaused
                                 ? `You Clocked at ${clockInTime}`
                                 : selectedTime === 'Break' && isPaused
-                                    ? `You Break at ${clockInTime}`
+                                    ? `You Break In at ${clockInTime}`
                                     : selectedTime === 'Back' && !isPaused
-                                        ? ` `
+                                        ? `Back at ${new Date().toLocaleTimeString()}`
                                         : selectedTime === 'Clock Out'
-                                            ? `  `
+                                            ? `You Clocked Out at ${new Date().toLocaleTimeString()}`
                                             : !hasClockedIn
                                                 ? ''
                                                 : `Current Time: ${formatTime(time)}`
