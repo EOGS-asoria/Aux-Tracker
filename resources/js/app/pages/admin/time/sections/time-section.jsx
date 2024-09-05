@@ -8,7 +8,7 @@ import moment from 'moment';
 
 
 export default function TimePageSection() {
-    const { time } = useSelector((state) => state.app)
+    const { time } = useSelector((state) => state.app) 
     const dispatch = useDispatch()
     const [selectedTime, setSelectedTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
