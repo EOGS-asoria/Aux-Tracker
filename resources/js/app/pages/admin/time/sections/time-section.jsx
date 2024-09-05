@@ -24,7 +24,8 @@ export default function TimePageSection() {
     const [breakStartTime, setBreakStartTime] = useState(null);
     const [isBreakOver, setIsBreakOver] = useState(false);
     const [clockInTime, setClockInTime] = useState('');
-    
+
+
 
     useEffect(() => {
         if (breakTimeRemaining > 0 && breakStartTime) {
@@ -148,7 +149,13 @@ export default function TimePageSection() {
                                                 ? ''
                                                 : ``
                             }
+
+                            {/* Display Message Using Redux */}
                             {time.status} {time.timer}
+                            {time.status} {time.timer}
+
+
+
                         </h2>
                         {selectedTime === 'Break' && isPaused && breakTimeRemaining > 0 && (
                             <>

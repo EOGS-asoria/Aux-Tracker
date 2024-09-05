@@ -73,14 +73,14 @@ export default function AdminLayout({ children }) {
             'Back': 'bg-green-500',
             'Clock Out': 'bg-red-500',
         };
-        dispatch(setTime({ 
+        dispatch(setTime({
             status: value,
             timer: moment().format('LLLL')
         }));
         setMessage(`You ${value}`);
         setColor(colorMap[value]); // Set the color based on button click
     }
-
+    
     return (
         <>
             <div>
