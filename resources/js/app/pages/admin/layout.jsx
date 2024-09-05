@@ -73,7 +73,7 @@ export default function AdminLayout({ children }) {
             'Back': 'bg-green-500',
             'Clock Out': 'bg-red-500',
         };
-        dispatch(setTime({
+        dispatch(setTime({ 
             status: value,
             timer: moment().format('LLLL')
         }));
