@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Button from '@/app/_components/button';
 import Select from '@/app/_components/select';
 import Table from '@/app/_components/table';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTime } from '@/app/_redux/app-slice';
+import moment from 'moment';
+
 
 export default function TimePageSection() {
+    const { time } = useSelector((state) => state.app) 
+    const dispatch = useDispatch()
     const [selectedTime, setSelectedTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
-    const [time, setTime] = useState(0);
+    // const [time, setTime] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
     const [warningMessage, setWarningMessage] = useState('');
     const [hasClockedIn, setHasClockedIn] = useState(false);
@@ -17,12 +23,30 @@ export default function TimePageSection() {
     const [currentPage, setCurrentPage] = useState(1);
     const [breakTimeRemaining, setBreakTimeRemaining] = useState(0);
     const [breakStartTime, setBreakStartTime] = useState(null);
-    const [breakEndTime, setBreakEndTime] = useState(null);
     const [isBreakOver, setIsBreakOver] = useState(false);
     const [clockInTime, setClockInTime] = useState('');
-    const [isClockInWarningShown, setIsClockInWarningShown] = useState(false);
-    const [isBreakWarningShown, setIsBreakWarningShown] = useState(false);
-    const [showClockInWarning, setShowClockInWarning] = useState(false); // New state for showing clock-in warning
+
+
+
+    // Action logs functions for buttons outside
+
+    useEffect(() => {
+        if (time.status) {
+            setEntries((prevEntries) => [
+                ...prevEntries,
+                {
+                    logName: time.status,
+                    timestamp: time.timer,
+                    status: time.status,
+                    user: 'User',
+                    details: `${time.status} action logged.`,
+                    currentTime: new Date().toLocaleTimeString()
+                }
+            ]);
+        }
+    }, [time]);
+
+
 
     useEffect(() => {
         if (breakTimeRemaining > 0 && breakStartTime) {
@@ -42,103 +66,11 @@ export default function TimePageSection() {
 
     const handleSelectChange = (e) => {
         const value = e.target.value;
-        setSelectedTime(value);
-
-        const now = new Date();
-        const formattedTime = now.toLocaleTimeString();
-        let status = '';
-        let logMessage = '';
-
-        if (value === 'Clock Out') {
-            if (!hasClockedIn) {
-                setWarningMessage('Cannot Clock Out without clocking in first.');
-                return;
-            }
-            status = 'Completed';
-            logMessage = `You Clocked Out at ${formattedTime}`;
-            setIsDisabled(false);
-            stopTimer();
-            setHasClockedIn(false);
-            setIsPaused(false);
-        } else if (value === 'Break') {
-            if (!hasClockedIn) {
-                setWarningMessage('Please Clock In First');
-                return;
-            }
-            if (isPaused) {
-                setWarningMessage('Break already in progress.');
-                return;
-            }
-            status = 'Paused';
-            logMessage = `You Break at ${formattedTime}`;
-            setIsPaused(true);
-            pauseTimer();
-            setBreakStartTime(Date.now()); // Start the break timer
-            setClockInTime(formattedTime);
-            setBreakTimeRemaining(15 * 60); // Set break time to 15 minutes in seconds
-            setIsBreakWarningShown(true);
-        } else if (value === 'Back') {
-            if (!hasClockedIn) {
-                setWarningMessage('Please Clock In First');
-                return;
-            }
-            if (!isPaused) {
-                setWarningMessage('Cannot go back without taking a break first.');
-                return;
-            }
-            // If conditions are met, proceed with the 'Back' action
-            setBreakEndTime(new Date().toLocaleTimeString());
-            status = 'Resume';
-            logMessage = `Back at ${formattedTime}`;
-            setIsPaused(false);
-            resumeTimer();
-            const breakDuration = Math.floor((Date.now() - breakStartTime) / 1000);
-            const minutes = Math.floor(breakDuration / 60);
-            const seconds = breakDuration % 60;
-            const formattedDuration = `${minutes} minutes ${seconds} seconds`;
-            setEntries(prevEntries => [
-                ...prevEntries,
-                {
-                    logName: 'Back',
-                    timestamp: `${now.toLocaleDateString()} ${formattedTime}`,
-                    status: `Break Ended`,
-                    user: 'User',
-                    details: `Back at ${formattedTime} ${formattedDuration} break`,
-                    currentTime: `Break Ended at ${formattedTime} (${formattedDuration})`
-                }
-            ]);
-        } else if (value === 'Clock In') {
-            if (hasClockedIn) {
-                setWarningMessage('Cannot Clock In again while the timer is running.');
-                return;
-            } else {
-                status = 'Clocked In';
-                logMessage = `You Clocked In at ${formattedTime}`;
-                setIsDisabled(true);
-                startTimer();
-                setHasClockedIn(true);
-                setWarningMessage('');
-                setClockInTime(formattedTime);
-                setIsClockInWarningShown(true);
-                setShowClockInWarning(false); // Hide warning after clocking in
-            }
-        }
-
-        // Do not add entry if warning message is set
-        if (!warningMessage) {
-            const entry = {
-                logName: value,
-                timestamp: `${now.toLocaleDateString()} ${formattedTime}`,
-                status,
-                user: 'User',
-                details: `Action performed: ${value}`,
-                currentTime: logMessage
-            };
-
-            setEntries(prevEntries => [...prevEntries, entry]);
-        }
+        dispatch(setTime({
+            status: value,
+            timer: moment().format('LLLL')
+        }))
     };
-
 
     useEffect(() => {
         return () => clearInterval(intervalId);
@@ -157,7 +89,6 @@ export default function TimePageSection() {
         clearInterval(intervalId);
         setIntervalId(null);
     };
-
 
     const resumeTimer = () => {
         if (isPaused) {
@@ -186,14 +117,12 @@ export default function TimePageSection() {
         }
     };
 
-
     const stopTimer = () => {
         clearInterval(intervalId);
         setIntervalId(null);
         setTime(0);
         setBreakTimeRemaining(0); // Reset break time
     };
-
 
     const formatTime = (seconds) => {
         const mins = Math.floor(seconds / 60);
@@ -206,6 +135,7 @@ export default function TimePageSection() {
             <div className="p-6 bg-gray-100 min-h-screen">
                 <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center mb-6">
                     <h1 className="text-3xl font-bold mt-4 mb-8 text-gray-700">Time Keeping</h1>
+
                     <div className="flex flex-col space-y-4 w-full max-w-md">
                         <div className="relative">
                             <Select
@@ -238,8 +168,14 @@ export default function TimePageSection() {
                                             ? `You Clocked Out at ${new Date().toLocaleTimeString()}`
                                             : !hasClockedIn
                                                 ? ''
-                                                : `Current Time: ${formatTime(time)}`
+                                                : ``
                             }
+
+                            {/* Display Message Using Redux */}
+                            {time.status} {time.timer}
+
+
+
                         </h2>
                         {selectedTime === 'Break' && isPaused && breakTimeRemaining > 0 && (
                             <>
@@ -254,14 +190,14 @@ export default function TimePageSection() {
                         )}
                     </div>
 
-                    <Button
+                    {/* <Button
                         className="flex items-center justify-center"
                         loading={false}
                         type={'submit'}
                         onClick={() => alert(`Selected action: ${selectedTime}`)}
                     >
-                        Submit
-                    </Button>
+                        Submit 
+                    </Button> */}
                 </div>
 
                 <div className="mt-8 p-4 bg-white rounded-lg shadow-md">
