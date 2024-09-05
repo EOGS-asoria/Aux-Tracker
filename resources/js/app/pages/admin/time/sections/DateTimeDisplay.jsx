@@ -5,7 +5,7 @@ const DateTimeDisplay = () => {
 
   useEffect(() => {
     const updateDateTime = () => {
-      setDateTime(new Date()); 
+      setDateTime(new Date());
     };
 
     // Update the date and time every second
