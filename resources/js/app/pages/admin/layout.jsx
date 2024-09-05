@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Dialog,
     DialogBackdrop,
@@ -21,8 +21,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link, usePage } from '@inertiajs/react';
-import Select from '@/app/_components/select';
 import Button from '@/app/_components/button';
+import { useDispatch } from 'react-redux';
+import { setTime } from '@/app/_redux/app-slice';
+import moment from 'moment';
 
 const userNavigation = [
     { name: 'Your profile', href: '/administrator/profile' },
@@ -36,16 +38,48 @@ function classNames(...classes) {
 export default function AdminLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
-    // State for active navigation item
+    const [message, setMessage] = useState('');
+    const [color, setColor] = useState('bg-blue-500'); // State for message color
+    const [fadeOut, setFadeOut] = useState(false);
+    const dispatch = useDispatch();
     const { url } = usePage(); // Retrieves the current URL from Inertia.js
 
-    // Navigation items
     const navigation = [
         { name: 'Dashboard', href: '/administrator/dashboard', icon: HomeIcon },
         { name: 'Users', href: '/administrator/users', icon: UsersIcon },
         { name: 'Time keeping', href: '/administrator/time', icon: FolderIcon },
         { name: 'Logs', href: '/administrator/logs', icon: ClockIcon },
     ];
+
+    useEffect(() => {
+        let timer;
+        if (message) {
+            timer = setTimeout(() => {
+                setFadeOut(true);
+                setTimeout(() => {
+                    setMessage('');
+                    setColor('bg-blue-500'); // Reset to default color
+                    setFadeOut(false);
+                }, 500); // Duration of the fade-out animation
+            }, 700); // Duration before fading out
+        }
+        return () => clearTimeout(timer);
+    }, [message]);
+
+    function time_handler(value) {
+        const colorMap = {
+            'Clock In': 'bg-blue-500',
+            'Break': 'bg-yellow-500',
+            'Back': 'bg-green-500',
+            'Clock Out': 'bg-red-500',
+        };
+        dispatch(setTime({
+            status: value,
+            timer: moment().format('LLLL')
+        }));
+        setMessage(`You ${value}`);
+        setColor(colorMap[value]); // Set the color based on button click
+    }
 
     return (
         <>
@@ -91,7 +125,7 @@ export default function AdminLayout({ children }) {
 
                                         <li className="mt-auto">
                                             <a
-                                                href="#"
+                                                href="/administrator/profile"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
@@ -136,13 +170,18 @@ export default function AdminLayout({ children }) {
                                 </li>
 
                                 <li className="mt-auto">
-                                    <a
-                                        href="#"
-                                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                                    <Link
+                                        href="/administrator/profile"
+                                        className={classNames(
+                                            url === '/administrator/profile'
+                                                ? 'bg-gray-800 text-white'
+                                                : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                                            'group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
+                                        )}
                                     >
                                         <Cog6ToothIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                         Settings
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
@@ -158,10 +197,6 @@ export default function AdminLayout({ children }) {
 
                         {/* Separator */}
                         <div aria-hidden="true" className="h-6 w-px bg-gray-900/10 lg:hidden" />
-
-
-
-
 
                         <div className="p-4">
                             <div className="block sm:hidden">
@@ -185,11 +220,11 @@ export default function AdminLayout({ children }) {
                                 )}
                             </div>
 
+                            {/* Buttons for Larger Screens */}
                             <div className="hidden sm:inline-flex gap-6 items-center justify-center">
-                                {/* Buttons for Larger Screens */}
                                 <div>
                                     <Button
-                                        onClick=""
+                                        onClick={() => time_handler('Clock In')}
                                         className="bg-blue-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-blue-600 transition duration-300 ease-in-out shadow"
                                         type="button"
                                     >
@@ -198,7 +233,7 @@ export default function AdminLayout({ children }) {
                                 </div>
                                 <div>
                                     <Button
-                                        onClick=""
+                                        onClick={() => time_handler('Break')}
                                         className="bg-yellow-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-yellow-600 transition duration-300 ease-in-out shadow"
                                         type="button"
                                     >
@@ -207,7 +242,7 @@ export default function AdminLayout({ children }) {
                                 </div>
                                 <div>
                                     <Button
-                                        onClick=""
+                                        onClick={() => time_handler('Back')}
                                         className="bg-green-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-green-600 transition duration-300 ease-in-out shadow"
                                         type="button"
                                     >
@@ -216,7 +251,7 @@ export default function AdminLayout({ children }) {
                                 </div>
                                 <div>
                                     <Button
-                                        onClick=""
+                                        onClick={() => time_handler('Clock Out')}
                                         className="bg-red-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-red-600 transition duration-300 ease-in-out shadow"
                                         type="button"
                                     >
@@ -225,8 +260,6 @@ export default function AdminLayout({ children }) {
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div className="flex flex-1 gap-x-4">
                             <form action="#" method="GET" className="flex flex-1"></form>
@@ -274,6 +307,13 @@ export default function AdminLayout({ children }) {
 
                     <main className="py-10">
                         <div className="px-4 sm:px-6 lg:px-8">
+                            {message && (
+                                <div
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
+                                >
+                                    {message}
+                                </div>
+                            )}
                             {children}
                         </div>
                     </main>
