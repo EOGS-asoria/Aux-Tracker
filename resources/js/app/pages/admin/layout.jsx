@@ -37,7 +37,12 @@ export default function AdminLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
     // State for active navigation item
+
+
+
     const { url } = usePage(); // Retrieves the current URL from Inertia.js
+
+
 
     // Navigation items
     const navigation = [
@@ -46,6 +51,7 @@ export default function AdminLayout({ children }) {
         { name: 'Time keeping', href: '/administrator/time', icon: FolderIcon },
         { name: 'Logs', href: '/administrator/logs', icon: ClockIcon },
     ];
+
 
     return (
         <>
@@ -89,15 +95,22 @@ export default function AdminLayout({ children }) {
                                             </ul>
                                         </li>
 
+
+
+
                                         <li className="mt-auto">
-                                            <a
-                                                href="#"
-                                                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                                            >
+                                            <a href="/administrator/profile"
+                                                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white">
                                                 <Cog6ToothIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
                                                 Settings
                                             </a>
                                         </li>
+
+
+
+
+
+
                                     </ul>
                                 </nav>
                             </div>
@@ -135,15 +148,31 @@ export default function AdminLayout({ children }) {
                                     </ul>
                                 </li>
 
+
+
+
                                 <li className="mt-auto">
-                                    <a
-                                        href="#"
-                                        className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                                    <Link
+                                        href="/administrator/profile"
+                                        className={classNames(
+                                            url === '/administrator/profile' // Check for exact match
+                                                ? 'bg-gray-800 text-white'    // Active styles when the URL matches
+                                                : 'text-gray-400 hover:bg-gray-800 hover:text-white', // Default styles
+                                            'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
+                                        )}
                                     >
                                         <Cog6ToothIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
-                                        Settings
-                                    </a>
+                                        Profile Settings
+                                    </Link>
                                 </li>
+
+
+
+
+
+
+
+
                             </ul>
                         </nav>
                     </div>
