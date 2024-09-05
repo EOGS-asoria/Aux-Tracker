@@ -253,7 +253,7 @@ export default function AdminLayout({ children }) {
                                         className="bg-blue-500 text-white px-6 py-2 rounded-md w-36 flex items-center justify-center hover:bg-blue-600 transition duration-300 ease-in-out shadow"
                                         type="button"
                                     >
-                                        Clock In
+                                        Clock Inss
                                     </Button>
                                 </div>
                                 <div>
