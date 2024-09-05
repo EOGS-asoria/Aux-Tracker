@@ -26,6 +26,7 @@ import { useDispatch } from 'react-redux';
 import { setTime } from '@/app/_redux/app-slice';
 import moment from 'moment';
 
+
 const userNavigation = [
     { name: 'Your profile', href: '/administrator/profile' },
     { name: 'Sign out', href: '#' },
@@ -80,7 +81,31 @@ export default function AdminLayout({ children }) {
         setMessage(`You ${value}`);
         setColor(colorMap[value]); // Set the color based on button click
     }
-    
+
+
+    // const logAction = (actionName) => {
+    //     const timestamp = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+    //     const actionDetails = {
+    //         logName: actionName,
+    //         timestamp: timestamp,
+    //         status: actionName,
+    //         user: 'User',
+    //         details: `${actionName} action performed.`,
+    //         currentTime: new Date().toLocaleTimeString()
+    //     };
+    //     // Assuming there's a function or mechanism to store logs
+    //     // Example: dispatch(logActionToStore(actionDetails));
+    //     console.log(actionDetails); // Replace with actual logging implementation
+    // };
+
+    // const handleButtonClick = (action) => {
+    //     dispatch(setTime({
+    //         status: action,
+    //         timer: new Date().toLocaleTimeString() // Use actual time if needed
+    //     }));
+    //     logAction(action);
+    // };
+
     return (
         <>
             <div>

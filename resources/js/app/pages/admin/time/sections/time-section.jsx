@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTime } from '@/app/_redux/app-slice';
 import moment from 'moment';
 
+
 export default function TimePageSection() {
     const { time } = useSelector((state) => state.app)
     const dispatch = useDispatch()
@@ -24,6 +25,26 @@ export default function TimePageSection() {
     const [breakStartTime, setBreakStartTime] = useState(null);
     const [isBreakOver, setIsBreakOver] = useState(false);
     const [clockInTime, setClockInTime] = useState('');
+
+
+
+    // Action logs functions for buttons outside
+
+    useEffect(() => {
+        if (time.status) {
+            setEntries((prevEntries) => [
+                ...prevEntries,
+                {
+                    logName: time.status,
+                    timestamp: time.timer,
+                    status: time.status,
+                    user: 'User',
+                    details: `${time.status} action logged.`,
+                    currentTime: new Date().toLocaleTimeString()
+                }
+            ]);
+        }
+    }, [time]);
 
 
 
@@ -151,7 +172,6 @@ export default function TimePageSection() {
                             }
 
                             {/* Display Message Using Redux */}
-                            {time.status} {time.timer}
                             {time.status} {time.timer}
 
 
