@@ -8,7 +8,7 @@ export const appSlice = createSlice({
       timer: ''
     },
     logs: []  
-  },
+  }, 
   reducers: {
     setTime: (state, action) => {
       state.time = action.payload;

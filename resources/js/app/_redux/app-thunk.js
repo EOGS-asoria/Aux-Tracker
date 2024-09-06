@@ -6,3 +6,4 @@ export function addCartProducts(product_id) {
   
   };
 }
+ 
