@@ -61,47 +61,47 @@ export default function AdminLayout({ children }) {
         { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
     ];
 
-    useEffect(() => {
-        let timer;
-        if (message) {
-            timer = setTimeout(() => {
-                setFadeOut(true);
-                setTimeout(() => {
-                    setMessage("");
-                    setColor("bg-blue-500");
-                    setFadeOut(false);
-                }, 500);
-            }, 700);
-        }
-        return () => clearTimeout(timer);
-    }, [message]);
+    // useEffect(() => {
+    //     let timer;
+    //     if (message) {
+    //         timer = setTimeout(() => {
+    //             setFadeOut(true);
+    //             setTimeout(() => {
+    //                 setMessage("");
+    //                 setColor("bg-blue-500");
+    //                 setFadeOut(false);
+    //             }, 500);
+    //         }, 700);
+    //     }
+    //     return () => clearTimeout(timer);
+    // }, [message]);
 
-    useEffect(() => {
-        if (breakIn && breakStartTime) {
-            const interval = setInterval(() => {
-                const endTime = moment(breakStartTime).add(15, "minutes");
-                const now = moment();
-                const duration = moment.duration(endTime.diff(now));
+    // useEffect(() => {
+    //     if (breakIn && breakStartTime) {
+    //         const interval = setInterval(() => {
+    //             const endTime = moment(breakStartTime).add(15, "minutes");
+    //             const now = moment();
+    //             const duration = moment.duration(endTime.diff(now));
 
-                if (duration.asSeconds() <= 0) {
-                    setRemainingTime("Break Time is Over");
-                    setBreakIn(false);
-                    setBreakStartTime(null);
-                    clearInterval(interval);
-                } else {
-                    const minutes = Math.floor(duration.asMinutes());
-                    const seconds = duration.seconds();
-                    setRemainingTime(
-                        `Break Time Remaining: ${minutes} minutes ${seconds} seconds`
-                    );
-                }
-            }, 1000);
+    //             if (duration.asSeconds() <= 0) {
+    //                 setRemainingTime("Break Time is Over");
+    //                 setBreakIn(false);
+    //                 setBreakStartTime(null);
+    //                 clearInterval(interval);
+    //             } else {
+    //                 const minutes = Math.floor(duration.asMinutes());
+    //                 const seconds = duration.seconds();
+    //                 setRemainingTime(
+    //                     `Break Time Remaining: ${minutes} minutes ${seconds} seconds`
+    //                 );
+    //             }
+    //         }, 1000);
 
-            return () => clearInterval(interval);
-        } else {
-            setRemainingTime(""); // Clear remaining time when not on break
-        }
-    }, [breakIn, breakStartTime]);
+    //         return () => clearInterval(interval);
+    //     } else {
+    //         setRemainingTime(""); // Clear remaining time when not on break
+    //     }
+    // }, [breakIn, breakStartTime]);
 
     return (
         <>
