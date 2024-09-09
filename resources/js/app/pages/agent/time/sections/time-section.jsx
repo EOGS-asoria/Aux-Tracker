@@ -8,7 +8,7 @@ import moment from 'moment';
 
 
 export default function TimePageSection() {
-    const { time } = useSelector((state) => state.app)
+    const { time } = useSelector((state) => state.app) 
     const dispatch = useDispatch()
     const [selectedTime, setSelectedTime] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
@@ -153,31 +153,10 @@ export default function TimePageSection() {
                             />
                         </div>
 
-
-
-
-
                         {warningMessage && <p className="text-red-500">{warningMessage}</p>}
                     </div>
 
                     <div className="mt-6 text-center">
-
-
-
-
-
-                        {/* Display Message Using Redux */}
-                        {time.status} {time.timer}
-
-
-
-
-
-
-
-
-
-
                         <h2 className="text-xl font-semibold mb-4">
                             {selectedTime === 'Clock In' && !isPaused
                                 ? `You Clocked at ${clockInTime}`

@@ -46,8 +46,8 @@ Route::prefix('administrator')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('admin/dashboard/page');
     });
-    Route::get('/users', function () {
-        return Inertia::render('admin/users/page');
+    Route::get('/agent', function () {
+        return Inertia::render('admin/agent/page');
     });
     Route::get('/time', function () {
         return Inertia::render('admin/time/page');
@@ -60,8 +60,21 @@ Route::prefix('administrator')->group(function () {
     });
 });
 
+
+
+// agent
+
+Route::prefix('agent')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('agent/dashboard/page');
+    });
+    Route::get('/time', function () {
+        return Inertia::render('agent/time/page');
+    });
+
+    
+});
+
 // Route::get('/register', function () {
 //     return Inertia::render('register/page'); // Match this with your actual file path
 // });
-
-

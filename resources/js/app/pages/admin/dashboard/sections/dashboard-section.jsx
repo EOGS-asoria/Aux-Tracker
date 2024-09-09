@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Table from '@/app/_components/table';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -14,23 +13,35 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-export default function DashboardTableSection() {
-    const [dataChecked, setDataChecked] = useState([]);
+export default function AdminDashboard() {
+    const [totalAgents, setTotalAgents] = useState(0);
+    const [totalIn, setTotalIn] = useState(0);
+    const [totalOut, setTotalOut] = useState(0);
+    const [totalBreak, setTotalBreak] = useState(0);
+    const [totalLunch, setTotalLunch] = useState(0);
+    const [totalMeeting, setTotalMeeting] = useState(0);
+    const [totalCoaching, setTotalCoaching] = useState(0);
+    const [totalFloorSupport, setTotalFloorSupport] = useState(0);
+    const [overBreak, setOverBreak] = useState(0);
+    const [overLunch, setOverLunch] = useState(0);
 
-    const [countUsers, setCountUsers] = useState(0);
-    const [countLogs, setCountLogs] = useState(0);
-    const [countTime, setCountTime] = useState(0);
-
-    // Values to count up to
-    const totalUsers = 100; // Example value for total users
-    const totalLogs = 500; // Example value for total logs
-    const totalTime = 1200; // Example value for total time in minutes
+    const agentData = {
+        totalAgents: 100,
+        in: 50,
+        out: 20,
+        break: 15,
+        lunch: 10,
+        meeting: 5,
+        coaching: 3,
+        floorSupport: 2,
+        overBreak: 4,
+        overLunch: 3,
+    };
 
     useEffect(() => {
         const animateCount = (setter, endValue) => {
             let startValue = 0;
-            const step = endValue / 100; // Adjust the step value for smoothness
-
+            const step = endValue / 100;
             const interval = setInterval(() => {
                 startValue += step;
                 if (startValue >= endValue) {
@@ -41,21 +52,34 @@ export default function DashboardTableSection() {
             }, 20);
         };
 
-        animateCount(setCountUsers, totalUsers);
-        animateCount(setCountLogs, totalLogs);
-        animateCount(setCountTime, totalTime);
+        animateCount(setTotalAgents, agentData.totalAgents);
+        animateCount(setTotalIn, agentData.in);
+        animateCount(setTotalOut, agentData.out);
+        animateCount(setTotalBreak, agentData.break);
+        animateCount(setTotalLunch, agentData.lunch);
+        animateCount(setTotalMeeting, agentData.meeting);
+        animateCount(setTotalCoaching, agentData.coaching);
+        animateCount(setTotalFloorSupport, agentData.floorSupport);
+        animateCount(setOverBreak, agentData.overBreak);
+        animateCount(setOverLunch, agentData.overLunch);
     }, []);
 
-    // Sample data for the graph
-    const data = {
+    const graphData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
             {
-                label: 'Activity',
-                data: [30, 45, 60, 80, 70, 90, 100], // Example data for activity
+                label: 'Overbreak',
+                data: [5, 7, 8, 6, 9, 10, 12],
                 fill: false,
-                backgroundColor: 'rgb(75, 192, 192)',
-                borderColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgba(255, 99, 132, 0.2)',
+            },
+            {
+                label: 'Overlunch',
+                data: [3, 4, 6, 5, 8, 9, 11],
+                fill: false,
+                backgroundColor: 'rgb(54, 162, 235)',
+                borderColor: 'rgba(54, 162, 235, 0.2)',
             },
         ],
     };
@@ -68,48 +92,43 @@ export default function DashboardTableSection() {
             },
             title: {
                 display: true,
-                text: 'Activity Over Time',
+                text: 'Overbreak and Overlunch Trends (Monthly)',
             },
         },
     };
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold mb-8 text-gray-700">Dashboard</h1>
+        <div className="p-8 bg-gray-100 min-h-screen">
+            <h1 className="text-4xl font-bold mb-10 text-gray-800">Admin Dashboard</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {/* Total Users */}
-                <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-user fa-2x text-blue-500 mr-4"></i>
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-600">Total Users</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{countUsers}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                {/* Card Component */}
+                {[
+                    { label: "Total Agents", value: totalAgents, icon: "fas fa-users", color: "blue-500" },
+                    { label: "Total Agent In", value: totalIn, icon: "fas fa-user-clock", color: "blue-500" },
+                    { label: "Total Agent Out", value: totalOut, icon: "fas fa-user-times", color: "red-500" },
+                    { label: "Total Agent on Break", value: totalBreak, icon: "fas fa-coffee", color: "yellow-500" },
+                    { label: "Total Agent on Lunch", value: totalLunch, icon: "fas fa-utensils", color: "green-500" },
+                    { label: "Total Agent on Meeting", value: totalMeeting, icon: "fas fa-handshake", color: "purple-500" },
+                    { label: "Total Agent on Coaching", value: totalCoaching, icon: "fas fa-chalkboard-teacher", color: "orange-500" },
+                    { label: "Total Agent on Floor Support", value: totalFloorSupport, icon: "fas fa-headset", color: "teal-500" },
+                    { label: "Agent Overbreak", value: overBreak, icon: "fas fa-exclamation-triangle", color: "red-600" },
+                    { label: "Agent Overlunch", value: overLunch, icon: "fas fa-exclamation-circle", color: "red-600" },
+                ].map((item, index) => (
+                    <div key={index} className="bg-white p-6 rounded-lg shadow-md flex items-center transition-transform transform hover:scale-105 hover:shadow-lg">
+                        <i className={`${item.icon} fa-2x text-${item.color} mr-4`}></i>
+                        <div>
+                            <h2 className="text-xl font-semibold text-gray-600">{item.label}</h2>
+                            <p className="text-3xl font-bold text-gray-900 mt-2">{item.value}</p>
+                        </div>
                     </div>
-                </div>
-
-                {/* Total Logs */}
-                <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-file-alt fa-2x text-green-500 mr-4"></i>
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-600">Total Logs</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{countLogs}</p>
-                    </div>
-                </div>
-
-                {/* Total Time */}
-                <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
-                    <i className="fas fa-clock fa-2x text-yellow-500 mr-4"></i>
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-600">Total Time (mins)</h2>
-                        <p className="text-3xl font-bold text-gray-900 mt-2">{countTime}</p>
-                    </div>
-                </div>
+                ))}
             </div>
 
-            {/* Responsive Graph Section */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold text-gray-600 mb-4">Activity Graph</h2>
-                <Line data={data} options={options} />
+            {/* Graph */}
+            <div className="bg-white p-8 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold text-gray-700 mb-4">Overbreak & Overlunch Graph (Monthly)</h2>
+                <Line data={graphData} options={options} />
             </div>
         </div>
     );

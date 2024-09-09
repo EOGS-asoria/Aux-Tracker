@@ -37,7 +37,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function AdminLayout({ children }) {
+export default function AgentLayout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isDropdown, setIsDropdown] = useState(false);
     const [message, setMessage] = useState("");
@@ -55,10 +55,10 @@ export default function AdminLayout({ children }) {
     const { url } = usePage();
 
     const navigation = [
-        { name: "Dashboard", href: "/administrator/dashboard", icon: HomeIcon },
-        { name: "Agent", href: "/administrator/agent", icon: UsersIcon },
-        { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },
-        { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
+        { name: "Dashboard", href: "/agent/dashboard", icon: HomeIcon },
+        // { name: "Agent", href: "/agent/agent", icon: UsersIcon },
+        { name: "Time keeping", href: "/agent/time", icon: FolderIcon },
+        // { name: "Logs", href: "/agent/logs", icon: ClockIcon },
     ];
 
     // useEffect(() => {
@@ -359,8 +359,9 @@ export default function AdminLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
-                                        }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
+                                        fadeOut ? "opacity-0" : "opacity-100"
+                                    }`}
                                 >
                                     {message}
                                 </div>

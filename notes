@@ -1,3 +1,5 @@
+import { ModuleGraph } from "vite"
+
 Clock In 
 Clock Out
 
@@ -18,4 +20,47 @@ coaching Out
 
 floor support In
 floor support Out
+
+
+// new task
+
+//Admin/Supervisor Dashboard
+Total Agent In
+Total Agent Out
+Total Agent on Break
+Total Agent on Lunch
+Total Agent on Meeting
+Total Agent on coaching
+Total Agent on Floor support
+ 
+Agent Overbreak
+Agent Overlunch
+
+Overbreak Graph (per month)
+Overlunch Graph (per month)
+
+
+//Agent Dashboard
+
+Navbar: Current Status: (In/Active, Break, Lunch, Meeting, Coaching, Floor Support)
+
+Time In
+Break
+Lunch
+Time Out
+
+
+
+
+
+
+
+
+
+// install
+php artisan make:model TimerEvent -m
+ 
+
+  {/* Display Message Using Redux */}
+ {time.status} {time.timer}
 
