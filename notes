@@ -1,5 +1,28 @@
 import { ModuleGraph } from "vite"
 
+Time In
+
+id
+employee_id
+clock_in
+clock_in
+lunch_in
+lunch_out
+floor_in
+floor_out
+
+
+Sub Time In
+
+id
+employee_id
+in
+out
+type
+
+
+
+
 Clock In 
 Clock Out
 
@@ -56,9 +79,7 @@ Time Out
 
 
 
-
-// install
-php artisan make:model TimerEvent -m
+ 
  
 
   {/* Display Message Using Redux */}

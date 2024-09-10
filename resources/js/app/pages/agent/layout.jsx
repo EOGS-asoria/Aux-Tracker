@@ -29,7 +29,7 @@ import TimerButtonComponent from "./_components/timer-button-component";
 import TimerButtonSection from "./_sections/timer-button-section";
 
 const userNavigation = [
-    { name: "Your profile", href: "/administrator/profile" },
+    { name: "Your profile", href: "/agent/profile" },
     { name: "Sign out", href: "#" },
 ];
 
@@ -174,7 +174,7 @@ export default function AgentLayout({ children }) {
 
                                         <li className="mt-auto">
                                             <a
-                                                href="/administrator/profile"
+                                                href="/agent/profile"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon
@@ -232,7 +232,7 @@ export default function AgentLayout({ children }) {
 
                                 <li className="mt-auto">
                                     <Link
-                                        href="/administrator/profile"
+                                      href="/agent/profile"
                                         className={classNames(
                                             url === "/administrator/profile"
                                                 ? "bg-gray-800 text-white"

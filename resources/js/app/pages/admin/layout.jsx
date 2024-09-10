@@ -27,6 +27,8 @@ import { setTime } from "@/app/_redux/app-slice";
 import moment from "moment";
 import TimerButtonComponent from "./_components/timer-button-component";
 import TimerButtonSection from "./_sections/timer-button-section";
+import store from "@/store/store";
+import { get_user_thunk } from "@/app/_redux/app-thunk";
 
 const userNavigation = [
     { name: "Your profile", href: "/administrator/profile" },
@@ -54,6 +56,9 @@ export default function AdminLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
+    useEffect(()=>{
+        store.dispatch(get_user_thunk())
+    },[])
     const navigation = [
         { name: "Dashboard", href: "/administrator/dashboard", icon: HomeIcon },
         { name: "Agent", href: "/administrator/agent", icon: UsersIcon },
@@ -102,7 +107,7 @@ export default function AdminLayout({ children }) {
     //         setRemainingTime(""); // Clear remaining time when not on break
     //     }
     // }, [breakIn, breakStartTime]);
-
+ 
     return (
         <>
             <div>

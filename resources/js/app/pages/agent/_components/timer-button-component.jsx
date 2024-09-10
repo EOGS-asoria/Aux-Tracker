@@ -5,7 +5,7 @@
 
             export default function TimerButtonComponent({
                 onClick,
-                children,
+                children, 
                 type,
                 ...props
             }) {

@@ -81,7 +81,7 @@ export default function UsersTableSection() {
                         type="button"
                         onClick={handleAddNewUserClick}
                     >
-                        Add New User
+                        Add New Agent
                     </Button>
                 </div>
                 <Table

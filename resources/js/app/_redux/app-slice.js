@@ -1,26 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    time: {
-      status: '',
-      timer: ''
-    },
-    logs: []  
-  },  
-  reducers: {
-    setTime: (state, action) => {
-      state.time = action.payload;
-    },
-    addLog: (state, action) => {
-      state.logs.push(action.payload); 
-    },
+    user: {},
+    time: { status: "", timer: "" },
+    timeLogs:[]
   },
-});
+  reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload
+    },
+    setTime: (state, action) => {
+        state.time = action.payload
+      },
+      setTimeLogs: (state, action) => {
+        state.timeLogs = action.payload
+      },
+  },
+})
 
+// Action creators are generated for each case reducer function
+export const { setUser,setTime,setTimeLogs } = appSlice.actions
 
-
-export const { setTime, addLog } = appSlice.actions;
-
-export default appSlice.reducer;
+export default appSlice.reducer

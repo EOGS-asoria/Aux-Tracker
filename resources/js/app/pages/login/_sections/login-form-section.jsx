@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
-import Input from '@/app/_components/input';
-import Button from '@/app/_components/button';
-import axios from 'axios';
-import { Link } from '@inertiajs/react';
-export default function LoginFormSection() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+import React, { useEffect, useState } from "react";
+import Input from "@/app/_components/input";
+import Button from "@/app/_components/button";
+import axios from "axios";
+import { Link, useForm } from "@inertiajs/react";
+import InputError from "@/Components/InputError";
+export default function LoginFormSection({ status, canResetPassword }) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email: "",
+        password: "",
+        remember: false,
+    });
 
-    async function handleSubmit(e) {
+    useEffect(() => {
+        return () => {
+            reset("password");
+        };
+    }, []);
+
+    const submit = (e) => {
         e.preventDefault();
 
-        try {
-            const response = await axios.post('/api/login', {
-                email,
-                password
-            });
-
-            alert(response.data.message);
-            Inertia.visit('/dashboard'); // Use Inertia to navigate to dashboard
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrors(error.response.data.errors);
-            }
-        }
-    } 
-
+        post(route("login"));
+    };
+console.log('data',data)
     return (
-
-        <form className="mt-6 flex flex-col gap-5" onSubmit={handleSubmit}>
+        <form className="mt-6 flex flex-col gap-5" onSubmit={submit}>
+                  {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
             <Input
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
+                onChange={(e) => setData({
+                    ...data,
+                    [e.target.name]:e.target.value
+                })}
+                value={data.email}
                 required={true}
                 name="email"
                 label="Email Address"
@@ -39,10 +39,13 @@ export default function LoginFormSection() {
                 className="rounded-md w-full"
                 error={errors.email}
             />
-
+            <InputError message={errors.email} className="mt-2" />
             <Input
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
+                onChange={(e) => setData({
+                    ...data,
+                    [e.target.name]:e.target.value
+                })}
+                value={data.password}
                 required={true}
                 name="password"
                 label="Password"
@@ -51,7 +54,7 @@ export default function LoginFormSection() {
                 error={errors.password}
             />
 
-
+            <InputError message={errors.password} className="mt-2" />
             <Button
                 type="submit"
                 className="flex items-center justify-center"
@@ -63,7 +66,6 @@ export default function LoginFormSection() {
     );
 }
 
-
 // import React, { useState } from 'react';
 // import Button from '@/app/_components/button'
 // import Input from '@/app/_components/input'
@@ -71,8 +73,6 @@ export default function LoginFormSection() {
 
 // export default function LoginFormSection() {
 //     function onChange(params) {
-
-
 
 //     }
 //     return (
@@ -118,8 +118,6 @@ export default function LoginFormSection() {
 //             >
 //                 Submit
 //             </Button>
-
-
 
 //         </form>
 //     )

@@ -35,7 +35,6 @@ use Inertia\Inertia;
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__.'/auth.php';
 
 
 Route::get('/', function () {
@@ -72,9 +71,14 @@ Route::prefix('agent')->group(function () {
         return Inertia::render('agent/time/page');
     });
 
+    Route::get('/profile', function () {
+        return Inertia::render('agent/profile/page');
+    });
+
     
 });
 
+require __DIR__.'/auth.php';
 // Route::get('/register', function () {
 //     return Inertia::render('register/page'); // Match this with your actual file path
 // });
