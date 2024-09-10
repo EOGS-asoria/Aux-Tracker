@@ -74,11 +74,34 @@ Route::prefix('agent')->group(function () {
     Route::get('/profile', function () {
         return Inertia::render('agent/profile/page');
     });
-
-    
 });
 
-require __DIR__.'/auth.php';
+
+// Om&Am
+Route::prefix('Operations-Manager')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Operations-Manager/dashboard/page');
+    });
+    Route::get('/agent', function () {
+        return Inertia::render('Operations-Manager/agent/page');
+    });
+    Route::get('/time', function () {
+        return Inertia::render('Operations-Manager/time/page');
+    });
+    Route::get('/logs', function () {
+        return Inertia::render('Operations-Manager/logs/page');
+    });
+    Route::get('/profile', function () {
+        return Inertia::render('Operations-Manager/profile/page');
+    });
+    Route::get('/Team', function () {
+        return Inertia::render('Operations-Manager/Team/page');
+    });
+});
+
+
+
+require __DIR__ . '/auth.php';
 // Route::get('/register', function () {
 //     return Inertia::render('register/page'); // Match this with your actual file path
 // });
