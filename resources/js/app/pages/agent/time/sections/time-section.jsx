@@ -283,8 +283,24 @@ export default function TimePageSection() {
                                 : !hasClockedIn
                                 ? ""
                                 : ``}
+
+
+
+
+
+
+
                             {/* Display Message Using Redux */}
                             {time.status} {time.timer}
+
+
+
+
+
+
+
+
+                            
                         </h2>
                         {selectedTime === "Break" &&
                             isPaused &&
