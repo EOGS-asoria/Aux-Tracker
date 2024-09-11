@@ -66,7 +66,7 @@ export default function AdminLayout({ children }) {
             icon: HomeIcon,
         },
         {
-            name: "My Team Agent",
+            name: "View Team Leader",
             href: "/Operations-Manager/agent",
             icon: UsersIcon,
         },

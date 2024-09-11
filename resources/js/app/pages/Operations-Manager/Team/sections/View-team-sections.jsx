@@ -32,17 +32,17 @@ export default function ViewTeamSections() {
     const [currentPage, setCurrentPage] = useState(1);
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gray-50 min-h-screen">
             <div className="mb-4">
                 <a
                     href="/Operations-Manager/agent"
-                    className="text-blue-500 hover:underline flex items-center"
+                    className="text-blue-600 hover:underline flex items-center"
                 >
                     ← Back
                 </a>
             </div>
 
-            <h1 className="text-3xl font-bold mb-8 text-gray-700">
+            <h1 className="text-4xl font-bold mb-8 text-gray-800">
                 Team Agent Of Alice Smith
             </h1>
 
@@ -94,7 +94,7 @@ export default function ViewTeamSections() {
                         render: (_, record) => (
                             <div className="flex space-x-4">
                                 <a
-                                    href="/Operations-Manager/Team"
+                                    href="/Operations-Manager/history"
                                     className="ml-1 text-blue-500 hover:underline"
                                 >
                                     View Agent History

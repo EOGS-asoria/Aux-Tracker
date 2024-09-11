@@ -56,7 +56,7 @@ export default function TimePageSection() {
     //                 clearInterval(breakIntervalId);
     //                 setIsBreakOver(true);
     //                 setBreakTimeRemaining(0);
-    //             }
+    //             } 
     //         }, 1000);
     //         return () => clearInterval(breakIntervalId);
     //     }
@@ -180,7 +180,6 @@ export default function TimePageSection() {
                                 {status}
                             </span>
                         </p>
-
                         {/* Status Controls as Buttons */}
                         <div className="flex gap-2 mt-2">
                             <TimerButtonComponent

@@ -97,6 +97,9 @@ Route::prefix('Operations-Manager')->group(function () {
     Route::get('/Team', function () {
         return Inertia::render('Operations-Manager/Team/page');
     });
+    Route::get('/history', function () {
+        return Inertia::render('Operations-Manager/history/page');
+    });
 });
 
 

@@ -33,7 +33,22 @@ export default function UsersTableSection() {
             status: "InActive",
             teamMembers: [], // Initially empty, simulate fetch later
         },
-        // Add more users as needed
+        {
+            id: 3,
+            name: "John Doe",
+            position: "Developer",
+            year: 2023,
+            status: "Active",
+            teamMembers: [], // Initially empty, simulate fetch later
+        },
+        {
+            id: 4,
+            name: "Emily Johnson",
+            position: "Designer",
+            year: 2024,
+            status: "Active",
+            teamMembers: [], // Initially empty, simulate fetch later
+        },
     ]);
     const [expandedUserId, setExpandedUserId] = useState(null);
     const [expandedSection, setExpandedSection] = useState(null);
@@ -131,7 +146,7 @@ export default function UsersTableSection() {
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-gray-700">
-                Team Agent
+                Team Leader
             </h1>
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex items-center justify-between mb-4">
@@ -141,7 +156,7 @@ export default function UsersTableSection() {
                         type="button"
                         onClick={handleAddNewUserClick}
                     >
-                        Add New Team
+                        Add New Leader
                     </Button>
                 </div>
                 <Table
@@ -216,13 +231,13 @@ export default function UsersTableSection() {
                     setCurrentPage={setCurrentPage}
                 />
             </div>
-
+ 
             <Modal
                 open={isModalOpen}
                 setOpen={setIsModalOpen}
                 width="sm:max-w-md top-20"
             >
-                <h2 className="text-lg font-semibold mb-4">Add New Agent</h2>
+                <h2 className="text-lg font-semibold mb-4">Add New Leader</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <Input
@@ -276,7 +291,7 @@ export default function UsersTableSection() {
                             className="flex items-center justify-center w-full"
                             type="submit"
                         >
-                            Add New Agent
+                            Add
                         </Button>
                     </div>
                 </form>

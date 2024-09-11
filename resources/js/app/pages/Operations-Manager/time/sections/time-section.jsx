@@ -13,7 +13,7 @@ export default function TimePageSection() {
     const [selectedTime, setSelectedTime] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
-    
+
     const [intervalId, setIntervalId] = useState(null);
     const [warningMessage, setWarningMessage] = useState("");
     const [hasClockedIn, setHasClockedIn] = useState(false);
@@ -283,24 +283,8 @@ export default function TimePageSection() {
                                 : !hasClockedIn
                                 ? ""
                                 : ``}
-
-
-
-
-
-
-
                             {/* Display Message Using Redux */}
                             {time.status} {time.timer}
-
-
-
-
-
-
-
-
-                            
                         </h2>
                         {selectedTime === "Break" &&
                             isPaused &&
