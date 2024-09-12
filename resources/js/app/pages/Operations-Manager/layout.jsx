@@ -31,7 +31,7 @@ import store from "@/store/store";
 import { get_user_thunk } from "@/app/_redux/app-thunk";
 
 const userNavigation = [
-    { name: "Your profile", href: "/Operations-Manager/profile" },
+    { name: "Your profile", href: "/administrator/profile" },
     { name: "Sign out", href: "#" },
 ];
 
@@ -56,9 +56,9 @@ export default function AdminLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
-    useEffect(() => {
-        store.dispatch(get_user_thunk());
-    }, []);
+    useEffect(()=>{
+        store.dispatch(get_user_thunk())
+    },[])
     const navigation = [
         {
             name: "Dashboard",
@@ -119,7 +119,7 @@ export default function AdminLayout({ children }) {
     //         setRemainingTime(""); // Clear remaining time when not on break
     //     }
     // }, [breakIn, breakStartTime]);
-
+ 
     return (
         <>
             <div>
@@ -251,7 +251,7 @@ export default function AdminLayout({ children }) {
                                     <Link
                                         href="/Operations-Manager/profile"
                                         className={classNames(
-                                            url === "/administrator/profile"
+                                            url === "/Operations-Manager/profile"
                                                 ? "bg-gray-800 text-white"
                                                 : "text-gray-400 hover:bg-gray-800 hover:text-white",
                                             "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"
@@ -376,9 +376,8 @@ export default function AdminLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
-                                        fadeOut ? "opacity-0" : "opacity-100"
-                                    }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
+                                        }`}
                                 >
                                     {message}
                                 </div>

@@ -22,11 +22,14 @@ import {
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Link, usePage } from "@inertiajs/react";
 import Button from "@/app/_components/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTime } from "@/app/_redux/app-slice";
 import moment from "moment";
 import TimerButtonComponent from "./_components/timer-button-component";
-import TimerButtonSection from "./_sections/timer-button-section";
+// import TimerButtonSection from "./_sections/timer-button-section";
+import store from "@/store/store";
+import { get_user_thunk } from "@/app/_redux/app-thunk";
+import TimerButtonSection from "../admin/_sections/timer-button-section";
 
 const userNavigation = [
     { name: "Your profile", href: "/agent/profile" },
@@ -54,6 +57,9 @@ export default function AgentLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
+    useEffect(()=>{
+        store.dispatch(get_user_thunk())
+    },[])
     const navigation = [
         { name: "Dashboard", href: "/agent/dashboard", icon: HomeIcon },
         // { name: "Agent", href: "/agent/agent", icon: UsersIcon },
@@ -232,9 +238,9 @@ export default function AgentLayout({ children }) {
 
                                 <li className="mt-auto">
                                     <Link
-                                      href="/agent/profile"
+                                        href="/agent/profile"
                                         className={classNames(
-                                            url === "/administrator/profile"
+                                            url === "/agent/profile"
                                                 ? "bg-gray-800 text-white"
                                                 : "text-gray-400 hover:bg-gray-800 hover:text-white",
                                             "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"

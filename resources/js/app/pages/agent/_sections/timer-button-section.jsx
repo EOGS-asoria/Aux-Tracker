@@ -1,8 +1,12 @@
 import Button from "@/app/_components/button";
 import React, { useState } from "react";
 import TimerButtonComponent from "../_components/timer-button-component";
+import store from "@/store/store";
+import { create_time_in_thunk } from "../_redux/admin-thunk";
+import { useSelector } from "react-redux";
 
 export default function TimerButtonSection() {
+    const { user } = useSelector((state) => state.app);
     const [clockIn, setClockIn] = useState(true);
     const [breaks, setBreaks] = useState(true);
     const [lunch, setLunch] = useState(true);
@@ -10,8 +14,16 @@ export default function TimerButtonSection() {
     const [coaching, setCoaching] = useState(true);
     const [floor, setFloor] = useState(true);
 
-    function clickInHandler() {
-        setClockIn(!clockIn);
+    async function clickInHandler(value) {
+        let res = await store.dispatch(
+            create_time_in_thunk({
+                user_id: user.id,
+                clock: value,
+                date: moment().format("LLLL"),
+            })
+        );
+        store.dispatch(get_time_in_user_by_id_thunk(user.id));
+        console.log("resres", res);
     }
 
     function clickBreakHandler() {

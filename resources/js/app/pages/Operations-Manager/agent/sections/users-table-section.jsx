@@ -148,6 +148,7 @@ export default function UsersTableSection() {
             <h1 className="text-3xl font-bold mb-8 text-gray-700">
                 Team Leader
             </h1>
+
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex items-center justify-between mb-4">
                     <Button
@@ -159,6 +160,7 @@ export default function UsersTableSection() {
                         Add New Leader
                     </Button>
                 </div>
+
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
@@ -231,7 +233,7 @@ export default function UsersTableSection() {
                     setCurrentPage={setCurrentPage}
                 />
             </div>
- 
+
             <Modal
                 open={isModalOpen}
                 setOpen={setIsModalOpen}
@@ -282,7 +284,6 @@ export default function UsersTableSection() {
                             label="Status"
                             name="status"
                             required={true}
-                            value={newUser.status}
                         />
                     </div>
 

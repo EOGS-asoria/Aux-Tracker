@@ -8,12 +8,12 @@ import moment from "moment";
 import TimerButtonComponent from "../../_components/timer-button-component";
 
 export default function TimePageSection() {
-    const { time } = useSelector((state) => state.app);
+    const { time,timeLogs } = useSelector((state) => state.app);
     const dispatch = useDispatch();
     const [selectedTime, setSelectedTime] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
-    
+
     const [intervalId, setIntervalId] = useState(null);
     const [warningMessage, setWarningMessage] = useState("");
     const [hasClockedIn, setHasClockedIn] = useState(false);
@@ -56,7 +56,7 @@ export default function TimePageSection() {
     //                 clearInterval(breakIntervalId);
     //                 setIsBreakOver(true);
     //                 setBreakTimeRemaining(0);
-    //             } 
+    //             }
     //         }, 1000);
     //         return () => clearInterval(breakIntervalId);
     //     }
@@ -164,7 +164,6 @@ export default function TimePageSection() {
         // Set the new status
         setStatus(newStatus);
     }
-
     return (
         <div className="mx-auto p-4">
             <div className="p-6 bg-gray-100 min-h-screen">
@@ -286,15 +285,8 @@ export default function TimePageSection() {
 
 
 
-
-
-
                             {/* Display Message Using Redux */}
                             {time.status} {time.timer}
-
-
-
-
 
 
 
@@ -336,39 +328,29 @@ export default function TimePageSection() {
                     <Table
                         dataChecked={dataChecked}
                         setDataChecked={setDataChecked}
-                        data={entries}
+                        data={timeLogs}
                         columns={[
                             {
-                                title: "Action",
-                                key: "logName",
+                                title: "Clock In",
+                                key: "clock_in",
                             },
                             {
-                                title: "Timestamp",
-                                key: "timestamp",
+                                title: "Clock Out",
+                                key: "clock_out",
                             },
                             {
-                                title: "Current Time",
-                                key: "currentTime",
+                                title: "Lunch In",
+                                key: "lunch_in",
                             },
                             {
-                                title: "Status",
-                                key: "status",
-                                render: (text) => (
-                                    <span
-                                        className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                                            text === "Completed"
-                                                ? "bg-green-100 text-green-800"
-                                                : text === "Paused"
-                                                ? "bg-yellow-100 text-yellow-800"
-                                                : text === "Resume"
-                                                ? "bg-blue-100 text-blue-800"
-                                                : "bg-gray-100 text-gray-800"
-                                        }`}
-                                    >
-                                        {text}
-                                    </span>
-                                ),
+                                title: "Lunch Out",
+                                key: "lunch_out",
                             },
+                            {
+                                title: "Floor In",
+                                key: "floor_out",
+                            },
+                          
                             {
                                 title: "Details",
                                 key: "details",
