@@ -12,21 +12,21 @@ export default function ViewTeamSections() {
         {
             id: 1,
             name: "Michael Johnson",
-            role: "Support Agent",
+            account: "Support Agent",
             joinedYear: 2018,
             status: "Inactive", // Corrected typo
         },
         {
             id: 2,
             name: "Samantha Green",
-            role: "Senior Support Agent",
+            account: "Senior Support Agent",
             joinedYear: 2019,
             status: "Active",
         },
         {
             id: 3,
             name: "David Brown",
-            role: "Junior Agent",
+            account: "Junior Agent",
             joinedYear: 2020,
             status: "Active",
         },
@@ -37,8 +37,8 @@ export default function ViewTeamSections() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newAgent, setNewAgent] = useState({
         name: "",
-        role: "",
-        joinedYear: "",
+        account: "",
+       
         status: "",
     });
 
@@ -68,8 +68,8 @@ export default function ViewTeamSections() {
         setAgents((prevAgents) => [...prevAgents, newAgentData]);
         setNewAgent({
             name: "",
-            role: "",
-            joinedYear: "",
+            account: "",
+            
             status: "",
         });
         handleCloseModal();
@@ -79,7 +79,7 @@ export default function ViewTeamSections() {
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="mb-4">
                 <a
-                    href="/Operations-Manager/agent"
+                    href="/operations-manager/agent"
                     className="text-blue-600 hover:underline flex items-center"
                 >
                     ← Back
@@ -122,12 +122,8 @@ export default function ViewTeamSections() {
                             ),
                         },
                         {
-                            title: "Role",
-                            key: "role",
-                        },
-                        {
-                            title: "Joined Year",
-                            key: "joinedYear",
+                            title: "Account",
+                            key: "account",
                         },
                         {
                             title: "Status",
@@ -150,7 +146,7 @@ export default function ViewTeamSections() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <a
-                                        href={`/Operations-Manager/history`} // Dynamic link based on record ID
+                                        href={`/operations-manager/history`} // Dynamic link based on record ID
                                         className="text-blue-500 hover:underline"
                                     >
                                         View Agent History
@@ -187,23 +183,12 @@ export default function ViewTeamSections() {
                     </div>
                     <div className="mb-4">
                         <Input
-                            name="role"
-                            label="Role"
+                            name="account"
+                            label="Account"
                             type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newAgent.role}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <Input
-                            name="joinedYear"
-                            label="Joined Year"
-                            type="number"
-                            className="rounded-md w-full"
-                            required={true}
-                            value={newAgent.joinedYear}
+                            value={newAgent.account}
                             onChange={handleChange}
                         />
                     </div>
@@ -216,7 +201,7 @@ export default function ViewTeamSections() {
                             onChange={handleChange}
                             label="Status"
                             name="status"
-                            required={true} 
+                            required={true}
                         />
                     </div>
 

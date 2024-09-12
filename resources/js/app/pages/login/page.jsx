@@ -6,7 +6,7 @@ import LoginWithGoogleSection from './_sections/login-with-google-section';
 import LoginFormSection from './_sections/login-form-section';
 
 const LoginPage = () => {
-
+ 
 
   return (
     <div className="max-h-screen">

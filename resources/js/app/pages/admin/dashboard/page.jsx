@@ -3,7 +3,7 @@ import AdminLayout from '../layout'
 import DashboardTableSection from './sections/dashboard-section'
 
 export default function AdminDashboardPage() {
-  return (
+  return ( 
     <AdminLayout>
         <DashboardTableSection />
     </AdminLayout>

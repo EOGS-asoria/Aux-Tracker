@@ -62,20 +62,20 @@ export default function AdminLayout({ children }) {
     const navigation = [
         {
             name: "Dashboard",
-            href: "/Operations-Manager/dashboard",
+            href: "/operations-manager/dashboard",
             icon: HomeIcon,
         },
         {
             name: "View Team Leader",
-            href: "/Operations-Manager/agent",
+            href: "/operations-manager/agent",
             icon: UsersIcon,
         },
         {
             name: "Time keeping",
-            href: "/Operations-Manager/time",
+            href: "/operations-manager/time",
             icon: FolderIcon,
         },
-        { name: "Logs", href: "/Operations-Manager/logs", icon: ClockIcon },
+        { name: "Logs", href: "/operations-manager/logs", icon: ClockIcon },
     ];
 
     // useEffect(() => {
@@ -191,7 +191,7 @@ export default function AdminLayout({ children }) {
 
                                         <li className="mt-auto">
                                             <a
-                                                href="/Operations-Manager/profile"
+                                                href="/operations-manager/profile"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon
@@ -249,9 +249,9 @@ export default function AdminLayout({ children }) {
 
                                 <li className="mt-auto">
                                     <Link
-                                        href="/Operations-Manager/profile"
+                                        href="/operations-manager/profile"
                                         className={classNames(
-                                            url === "/Operations-Manager/profile"
+                                            url === "/operations-manager/profile"
                                                 ? "bg-gray-800 text-white"
                                                 : "text-gray-400 hover:bg-gray-800 hover:text-white",
                                             "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"

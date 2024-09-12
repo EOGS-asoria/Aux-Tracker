@@ -12,15 +12,15 @@ export default function UsersTableSection() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newUser, setNewUser] = useState({
         name: "",
-        position: "",
-        year: "",
+        account: "",
+
         status: "",
     });
     const [users, setUsers] = useState([
         {
             id: 1,
             name: "Alice Smith",
-            position: "Manager",
+            account: "Manager",
             year: 2024,
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
@@ -28,7 +28,7 @@ export default function UsersTableSection() {
         {
             id: 2,
             name: "Mayeng Miyot",
-            position: "Intern",
+            account: "Intern",
             year: 2090,
             status: "InActive",
             teamMembers: [], // Initially empty, simulate fetch later
@@ -36,7 +36,7 @@ export default function UsersTableSection() {
         {
             id: 3,
             name: "John Doe",
-            position: "Developer",
+            account: "Developer",
             year: 2023,
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
@@ -44,7 +44,7 @@ export default function UsersTableSection() {
         {
             id: 4,
             name: "Emily Johnson",
-            position: "Designer",
+            account: "Designer",
             year: 2024,
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
@@ -77,8 +77,8 @@ export default function UsersTableSection() {
         setUsers((prevUsers) => [...prevUsers, newUserData]);
         setNewUser({
             name: "",
-            position: "",
-            year: "",
+            account: "",
+
             status: "",
         });
         handleCloseModal();
@@ -105,27 +105,27 @@ export default function UsersTableSection() {
                                 {
                                     id: 1,
                                     name: "John Doe",
-                                    position: "Developer",
+                                    account: "Developer",
                                 },
                                 {
                                     id: 2,
                                     name: "Jane Roe",
-                                    position: "Designer",
+                                    account: "Designer",
                                 },
                                 {
                                     id: 3,
                                     name: "Mark Twain",
-                                    position: "Tester",
+                                    account: "Tester",
                                 },
                                 {
                                     id: 4,
                                     name: "Lucy Liu",
-                                    position: "Developer",
+                                    account: "Developer",
                                 },
                                 {
                                     id: 5,
                                     name: "Tom Hardy",
-                                    position: "Developer",
+                                    account: "Developer",
                                 },
                             ],
                         };
@@ -181,13 +181,10 @@ export default function UsersTableSection() {
                             ),
                         },
                         {
-                            title: "Position",
-                            key: "position",
+                            title: "Account",
+                            key: "account",
                         },
-                        {
-                            title: "Year",
-                            key: "year",
-                        },
+
                         {
                             title: "Status",
                             key: "status",
@@ -211,7 +208,7 @@ export default function UsersTableSection() {
                                 <div className="flex space-x-4">
                                     <button>
                                         <a
-                                            href="/Operations-Manager/Team"
+                                            href="/operations-manager/team"
                                             className="ml-1 text-blue-500 hover:underline"
                                         >
                                             View Team
@@ -254,26 +251,16 @@ export default function UsersTableSection() {
                     </div>
                     <div className="mb-4">
                         <Input
-                            name="position"
-                            label="Position"
-                            type="position"
+                            name="account"
+                            label="Account"
+                            type="account"
                             className="rounded-md w-full"
                             required={true}
                             value={newUser.position}
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="mb-4">
-                        <Input
-                            name="year"
-                            label="Year"
-                            type="number"
-                            className="rounded-md w-full"
-                            required={true}
-                            value={newUser.year}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    
                     <div className="mb-4">
                         <Select
                             options={[

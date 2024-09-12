@@ -134,7 +134,7 @@ export default function TimePageSection() {
 
     // Handle status change and toggle
     function handleStatusChange(action) {
-        let newStatus = action;
+        let newStatus = status;
 
         switch (action) {
             case "Active":
@@ -153,14 +153,12 @@ export default function TimePageSection() {
                 newStatus = status === "Coaching" ? "Coaching Out" : "Coaching";
                 break;
             case "Floor Support":
-                newStatus =
-                    status === "Floor Support"
-                        ? "Floor Support Out"
-                        : "Floor Support";
+                newStatus = status === "Floor Support" ? "Floor Support Out" : "Floor Support";
                 break;
             default:
                 break;
         }
+
         // Set the new status
         setStatus(newStatus);
     }
@@ -191,7 +189,7 @@ export default function TimePageSection() {
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Active
+                                {status === "Active" ? "Inactive" : "Active"}
                             </TimerButtonComponent>
                             <TimerButtonComponent
                                 onClick={() => handleStatusChange("Break")}
@@ -201,7 +199,7 @@ export default function TimePageSection() {
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Break
+                                {status === "Break" ? "Back" : "Break"}
                             </TimerButtonComponent>
                             <TimerButtonComponent
                                 onClick={() => handleStatusChange("Lunch")}
@@ -211,7 +209,7 @@ export default function TimePageSection() {
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Lunch
+                                {status === "Lunch" ? "Lunch Back" : "Lunch"}
                             </TimerButtonComponent>
                             <TimerButtonComponent
                                 onClick={() => handleStatusChange("Meeting")}
@@ -221,7 +219,7 @@ export default function TimePageSection() {
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Meeting
+                                {status === "Meeting" ? "Meeting Out" : "Meeting"}
                             </TimerButtonComponent>
                             <TimerButtonComponent
                                 onClick={() => handleStatusChange("Coaching")}
@@ -231,19 +229,17 @@ export default function TimePageSection() {
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Coaching
+                                {status === "Coaching" ? "Coaching Out" : "Coaching"}
                             </TimerButtonComponent>
                             <TimerButtonComponent
-                                onClick={() =>
-                                    handleStatusChange("Floor Support")
-                                }
+                                onClick={() => handleStatusChange("Floor Support")}
                                 className={`px-4 py-2 text-white font-semibold rounded ${
                                     status === "Floor Support"
                                         ? "bg-teal-500"
                                         : "bg-gray-400 hover:bg-gray-500"
                                 }`}
                             >
-                                Floor Support
+                                {status === "Floor Support" ? "Floor Support Out" : "Floor Support"}
                             </TimerButtonComponent>
                         </div>
                     </div>

@@ -61,6 +61,7 @@ Route::prefix('administrator')->group(function () {
 
 
 
+
 // agent
 
 Route::prefix('agent')->group(function () {
@@ -78,27 +79,27 @@ Route::prefix('agent')->group(function () {
 
 
 // Om&Am
-Route::prefix('Operations-Manager')->group(function () {
+Route::prefix('operations-manager')->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Operations-Manager/dashboard/page');
+        return Inertia::render('operations-manager/dashboard/page');
     });
     Route::get('/agent', function () {
-        return Inertia::render('Operations-Manager/agent/page');
+        return Inertia::render('operations-manager/agent/page');
     });
     Route::get('/time', function () {
-        return Inertia::render('Operations-Manager/time/page');
+        return Inertia::render('operations-manager/time/page');
     });
     Route::get('/logs', function () {
-        return Inertia::render('Operations-Manager/logs/page');
+        return Inertia::render('operations-manager/logs/page');
     });
     Route::get('/profile', function () {
-        return Inertia::render('Operations-Manager/profile/page');
+        return Inertia::render('operations-manager/profile/page');
     });
-    Route::get('/Team', function () {
-        return Inertia::render('Operations-Manager/Team/page');
+    Route::get('/team', function () {
+        return Inertia::render('operations-manager/team/page');
     });
     Route::get('/history', function () {
-        return Inertia::render('Operations-Manager/history/page');
+        return Inertia::render('operations-manager/history/page');
     });
 });
 

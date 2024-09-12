@@ -1,6 +1,6 @@
 import React from "react";
 import AdminLayout from "../layout";
-import ViewTeamSections from "./sections/View-team-sections";
+import ViewTeamSections from "./sections/view-team-sections";
 
 export default function ViewTeamPage() {
     return (
