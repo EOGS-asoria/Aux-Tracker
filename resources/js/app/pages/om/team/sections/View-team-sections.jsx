@@ -79,7 +79,7 @@ export default function ViewTeamSections() {
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="mb-4">
                 <a
-                    href="/operations-manager/agent"
+                    href="/om/agent"
                     className="text-blue-600 hover:underline flex items-center"
                 >
                     ← Back
@@ -146,7 +146,7 @@ export default function ViewTeamSections() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <a
-                                        href={`/operations-manager/history`} // Dynamic link based on record ID
+                                        href={`/om/history`} // Dynamic link based on record ID
                                         className="text-blue-500 hover:underline"
                                     >
                                         View Agent History

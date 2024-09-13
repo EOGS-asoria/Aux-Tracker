@@ -208,7 +208,7 @@ export default function UsersTableSection() {
                                 <div className="flex space-x-4">
                                     <button>
                                         <a
-                                            href="/operations-manager/team"
+                                            href="/om/team"
                                             className="ml-1 text-blue-500 hover:underline"
                                         >
                                             View Team
