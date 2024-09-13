@@ -8,7 +8,7 @@ import moment from "moment";
 import TimerButtonComponent from "../../_components/timer-button-component";
 
 export default function TimePageSection() {
-    const { time,timeLogs } = useSelector((state) => state.app);
+    const { time, timeLogs } = useSelector((state) => state.app);
     const dispatch = useDispatch();
     const [selectedTime, setSelectedTime] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
@@ -165,161 +165,155 @@ export default function TimePageSection() {
         setStatus(newStatus);
     }
     return (
-        <div className="mx-auto p-4">
-            <div className="p-6 bg-gray-100 min-h-screen">
-                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center mb-6">
-                    <h1 className="text-3xl font-bold mt-4 mb-8 text-gray-700">
-                        Time Keeping
-                    </h1>
-                    <div className="mt-4">
-                        {/* Current Status Display */}
-                        <p className="text-xl text-gray-600">
-                            Current Status:
-                            <span className="font-bold text-blue-600 ml-2">
-                                {status}
-                            </span>
-                        </p>
-                        {/* Status Controls as Buttons */}
-                        <div className="flex gap-2 mt-2">
-                            <TimerButtonComponent
-                                onClick={() => handleStatusChange("Active")}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Active"
-                                        ? "bg-blue-600"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Active
-                            </TimerButtonComponent>
-                            <TimerButtonComponent
-                                onClick={() => handleStatusChange("Break")}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Break"
-                                        ? "bg-yellow-500"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Break
-                            </TimerButtonComponent>
-                            <TimerButtonComponent
-                                onClick={() => handleStatusChange("Lunch")}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Lunch"
-                                        ? "bg-red-500"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Lunch
-                            </TimerButtonComponent>
-                            <TimerButtonComponent
-                                onClick={() => handleStatusChange("Meeting")}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Meeting"
-                                        ? "bg-green-500"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Meeting
-                            </TimerButtonComponent>
-                            <TimerButtonComponent
-                                onClick={() => handleStatusChange("Coaching")}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Coaching"
-                                        ? "bg-orange-500"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Coaching
-                            </TimerButtonComponent>
-                            <TimerButtonComponent
-                                onClick={() =>
-                                    handleStatusChange("Floor Support")
-                                }
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === "Floor Support"
-                                        ? "bg-teal-500"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
-                            >
-                                Floor Support
-                            </TimerButtonComponent>
-                        </div>
-                    </div>
+                                                        <div className="mx-auto p-4">
+                                                            <div className="p-6 bg-gray-100 min-h-screen">
+                                                                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center mb-6">
+                                                                    <h1 className="text-3xl font-bold mt-4 mb-8 text-gray-700">
+                                                                        Time Keeping
+                                                                    </h1>
+                                                                    <div className="mt-4">
+                                                                        {/* Current Status Display */}
+                                                                        <p className="text-xl text-gray-600">
+                                                                            Current Status:
+                                                                            <span className="font-bold text-blue-600 ml-2">
+                                                                                {status}
+                                                                            </span>
+                                                                        </p>
+                                                                        {/* Status Controls as Buttons */}
+                                                                        <div className="flex gap-2 mt-2">
+                                                                            <TimerButtonComponent
+                                                                                onClick={() => handleStatusChange("Active")}
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Active"
+                                                                                        ? "bg-blue-600"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Active
+                                                                            </TimerButtonComponent>
+                                                                            <TimerButtonComponent
+                                                                                onClick={() => handleStatusChange("Break")}
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Break"
+                                                                                        ? "bg-yellow-500"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Break
+                                                                            </TimerButtonComponent>
+                                                                            <TimerButtonComponent
+                                                                                onClick={() => handleStatusChange("Lunch")}
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Lunch"
+                                                                                        ? "bg-red-500"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Lunch
+                                                                            </TimerButtonComponent>
+                                                                            <TimerButtonComponent
+                                                                                onClick={() => handleStatusChange("Meeting")}
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Meeting"
+                                                                                        ? "bg-green-500"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Meeting
+                                                                            </TimerButtonComponent>
+                                                                            <TimerButtonComponent
+                                                                                onClick={() => handleStatusChange("Coaching")}
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Coaching"
+                                                                                        ? "bg-orange-500"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Coaching
+                                                                            </TimerButtonComponent>
+                                                                            <TimerButtonComponent
+                                                                                onClick={() =>
+                                                                                    handleStatusChange("Floor Support")
+                                                                                }
+                                                                                className={`px-4 py-2 text-white font-semibold rounded ${status === "Floor Support"
+                                                                                        ? "bg-teal-500"
+                                                                                        : "bg-gray-400 hover:bg-gray-500"
+                                                                                    }`}
+                                                                            >
+                                                                                Floor Support
+                                                                            </TimerButtonComponent>
+                                                                        </div>
+                                                                    </div>
 
-                    <div className="flex flex-col space-y-4 w-full max-w-md">
-                        {/* <div className="relative">
-                            <Select
-                                options={[
-                                    { value: 'Clock In', label: 'Clock In' },
-                                    { value: 'Break', label: 'Break' },
-                                    { value: 'Back', label: 'Back' },
-                                    { value: 'Clock Out', label: 'Clock Out' },
-                                ]}
-                                value={selectedTime}
-                                onChange={handleSelectChange}
-                                label="Select Time"
-                                name="select"
-                                disabled={isDisabled}
-                            />
-                        </div> */}
+                                                                    <div className="flex flex-col space-y-4 w-full max-w-md">
+                                                                        {/* <div className="relative">
+                                                                            <Select
+                                                                                options={[
+                                                                                    { value: 'Clock In', label: 'Clock In' },
+                                                                                    { value: 'Break', label: 'Break' },
+                                                                                    { value: 'Back', label: 'Back' },
+                                                                                    { value: 'Clock Out', label: 'Clock Out' },
+                                                                                ]}
+                                                                                value={selectedTime}
+                                                                                onChange={handleSelectChange}
+                                                                                label="Select Time"
+                                                                                name="select"
+                                                                                disabled={isDisabled}
+                                                                            />
+                                                                        </div> */}
 
-                        {warningMessage && (
-                            <p className="text-red-500">{warningMessage}</p>
-                        )}
-                    </div>
+                                                                        {warningMessage && (
+                                                                            <p className="text-red-500">{warningMessage}</p>
+                                                                        )}
+                                                                    </div>
 
-                    <div className="mt-6 text-center">
-                        <h2 className="text-xl font-semibold mb-4">
-                            {selectedTime === "Clock In" && !isPaused
-                                ? `You Clocked at ${clockInTime}`
-                                : selectedTime === "Break" && isPaused
-                                ? `You Break In at ${clockInTime}`
-                                : selectedTime === "Back" && !isPaused
-                                ? `Back at ${new Date().toLocaleTimeString()}`
-                                : selectedTime === "Clock Out"
-                                ? `You Clocked Out at ${new Date().toLocaleTimeString()}`
-                                : !hasClockedIn
-                                ? ""
-                                : ``}
+                                                                    <div className="mt-6 text-center">
+                                                                        <h2 className="text-xl font-semibold mb-4">
+                                                                            {selectedTime === "Clock In" && !isPaused
+                                                                                ? `You Clocked at ${clockInTime}`
+                                                                                : selectedTime === "Break" && isPaused
+                                                                                    ? `You Break In at ${clockInTime}`
+                                                                                    : selectedTime === "Back" && !isPaused
+                                                                                        ? `Back at ${new Date().toLocaleTimeString()}`
+                                                                                        : selectedTime === "Clock Out"
+                                                                                            ? `You Clocked Out at ${new Date().toLocaleTimeString()}`
+                                                                                            : !hasClockedIn
+                                                                                                ? ""
+                                                                                                : ``}
 
 
 
 
-                            {/* Display Message Using Redux */}
-                            {time.status} {time.timer}
+                                                                            {/* Display Message Using Redux */}
+                                                                            {time.status} {time.timer}
 
 
 
 
-                            
-                        </h2>
-                        {selectedTime === "Break" &&
-                            isPaused &&
-                            breakTimeRemaining > 0 && (
-                                <>
-                                    <p className="text-yellow-500">
-                                        Break is in progress...
-                                    </p>
-                                    <p className="text-yellow-500">
-                                        Break Time Remaining:{" "}
-                                        {formatTime(breakTimeRemaining)}
-                                    </p>
-                                </>
-                            )}
-                        {selectedTime === "Break" && isBreakOver && (
-                            <p className="text-green-500">Break is over</p>
-                        )}
-                    </div>
 
-                    {/* <Button
-                        className="flex items-center justify-center"
-                        loading={false}
-                        type={'submit'}
-                        onClick={() => alert(`Selected action: ${selectedTime}`)}
-                    >
-                        Submit 
-                    </Button> */}
-                </div>
+                                                                        </h2>
+                                                                        {selectedTime === "Break" &&
+                                                                            isPaused &&
+                                                                            breakTimeRemaining > 0 && (
+                                                                                <>
+                                                                                    <p className="text-yellow-500">
+                                                                                        Break is in progress...
+                                                                                    </p>
+                                                                                    <p className="text-yellow-500">
+                                                                                        Break Time Remaining:{" "}
+                                                                                        {formatTime(breakTimeRemaining)}
+                                                                                    </p>
+                                                                                </>
+                                                                            )}
+                                                                        {selectedTime === "Break" && isBreakOver && (
+                                                                            <p className="text-green-500">Break is over</p>
+                                                                        )}
+                                                                    </div>
+
+                                                                    {/* <Button
+                                                                        className="flex items-center justify-center"
+                                                                        loading={false}
+                                                                        type={'submit'}
+                                                                        onClick={() => alert(`Selected action: ${selectedTime}`)}
+                                                                    >
+                                                                        Submit 
+                                                                    </Button> */}
+                                                                </div>
 
                 <div className="mt-8 p-4 bg-white rounded-lg shadow-md">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-700">
@@ -350,7 +344,7 @@ export default function TimePageSection() {
                                 title: "Floor In",
                                 key: "floor_out",
                             },
-                          
+
                             {
                                 title: "Details",
                                 key: "details",

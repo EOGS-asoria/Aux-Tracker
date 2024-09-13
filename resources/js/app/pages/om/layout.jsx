@@ -56,26 +56,26 @@ export default function AdminLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
-    useEffect(()=>{
+    useEffect(() => {
         store.dispatch(get_user_thunk())
-    },[])
+    }, [])
     const navigation = [
         {
             name: "Dashboard",
-            href: "/operations-manager/dashboard",
+            href: "/om/dashboard",
             icon: HomeIcon,
         },
         {
             name: "View Team Leader",
-            href: "/operations-manager/agent",
+            href: "/om/agent",
             icon: UsersIcon,
         },
         {
             name: "Time keeping",
-            href: "/operations-manager/time",
+            href: "/om/time",
             icon: FolderIcon,
         },
-        { name: "Logs", href: "/operations-manager/logs", icon: ClockIcon },
+        { name: "Logs", href: "/om/logs", icon: ClockIcon },
     ];
 
     // useEffect(() => {
@@ -119,7 +119,7 @@ export default function AdminLayout({ children }) {
     //         setRemainingTime(""); // Clear remaining time when not on break
     //     }
     // }, [breakIn, breakStartTime]);
- 
+
     return (
         <>
             <div>
@@ -191,7 +191,7 @@ export default function AdminLayout({ children }) {
 
                                         <li className="mt-auto">
                                             <a
-                                                href="/operations-manager/profile"
+                                                href="/om/profile"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon
@@ -249,9 +249,9 @@ export default function AdminLayout({ children }) {
 
                                 <li className="mt-auto">
                                     <Link
-                                        href="/operations-manager/profile"
+                                        href="/om/profile"
                                         className={classNames(
-                                            url === "/operations-manager/profile"
+                                            url === "/om/profile"
                                                 ? "bg-gray-800 text-white"
                                                 : "text-gray-400 hover:bg-gray-800 hover:text-white",
                                             "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"

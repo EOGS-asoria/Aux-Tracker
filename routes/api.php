@@ -5,7 +5,7 @@ use App\Http\Controllers\TimeInController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
+/* 
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
