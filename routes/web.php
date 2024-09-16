@@ -78,7 +78,7 @@ Route::prefix('agent')->group(function () {
 });
 
 
-// Om&Am
+// Om
 Route::prefix('om')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('om/dashboard/page');
@@ -100,6 +100,31 @@ Route::prefix('om')->group(function () {
     });
     Route::get('/history', function () {
         return Inertia::render('om/history/page');
+    });
+});
+
+// Am
+Route::prefix('am')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('am/dashboard/page');
+    });
+    Route::get('/agent', function () {
+        return Inertia::render('am/agent/page');
+    });
+    Route::get('/time', function () {
+        return Inertia::render('am/time/page');
+    });
+    Route::get('/logs', function () {
+        return Inertia::render('am/logs/page');
+    });
+    Route::get('/profile', function () {
+        return Inertia::render('am/profile/page');
+    });
+    Route::get('/team', function () {
+        return Inertia::render('am/team/page');
+    });
+    Route::get('/history', function () {
+        return Inertia::render('am/history/page');
     });
 });
 

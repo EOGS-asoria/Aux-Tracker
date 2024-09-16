@@ -75,92 +75,90 @@
 // }
 
 
-
-
-
-import { ArrowLongLeftIcon, ArrowLongRightIcon } from '@heroicons/react/20/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 
 export default function Pagination({ currentPage, lastPage, setCurrentPage }) {
-    function getPageNumbers() {
-        const pages = [];
-        if (lastPage <= 5) {
-            for (let i = 1; i <= lastPage; i++) {
-                pages.push(i);
-            }
-        } else {
-            if (currentPage < 4) {
-                for (let i = 1; i <= 5; i++) {
-                    pages.push(i);
-                }
-                pages.push('...');
-                pages.push(lastPage);
-            } else if (currentPage > lastPage - 3) {
-                pages.push(1);
-                pages.push('...');
-                for (let i = lastPage - 4; i <= lastPage; i++) {
-                    pages.push(i);
-                }
-            } else {
-                pages.push(1);
-                pages.push('...');
-                for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-                    pages.push(i);
-                }
-                pages.push('...');
-                pages.push(lastPage);
-            }
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
         }
-        return pages;
+    };
+
+    const handleNext = () => {
+        if (currentPage < lastPage) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+    };
+
+    // Generate pagination items
+    const pages = [];
+    for (let i = 1; i <= lastPage; i++) {
+        pages.push(i);
     }
 
     return (
-        <nav className="flex items-center justify-between border-t border-gray-200 px-4 py-3">
-            <div className="flex w-0 flex-1">
-                {currentPage > 1 && (
-                    <button
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        className="inline-flex items-center border-t-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
-                        <ArrowLongLeftIcon
-                            aria-hidden="true"
-                            className="h-5 w-5 text-gray-400"
-                        />
-                        Previous
-                    </button>
-                )}
+        <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="flex flex-1 justify-between sm:hidden">
+                <button
+                    onClick={handlePrevious}
+                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <button
+                    onClick={handleNext}
+                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    disabled={currentPage === lastPage}
+                >
+                    Next
+                </button>
             </div>
-            <div className="hidden md:-mt-px md:flex md:w-0 md:flex-1">
-                {getPageNumbers().map((page, index) => (
-                    <button
-                        key={index}
-                        onClick={() => {
-                            if (page !== '...') {
-                                setCurrentPage(page);
-                            }
-                        }}
-                        className={`inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium ${page === currentPage
-                                ? 'border-indigo-500 text-indigo-600'
-                                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                            }`}
-                    >
-                        {page}
-                    </button>
-                ))}
+            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                <div>
+                    <p className="text-sm text-gray-700">
+                        Showing <span className="font-medium">{(currentPage - 1) * 10 + 1}</span> to <span className="font-medium">{Math.min(currentPage * 10, lastPage * 10)}</span> of{' '}
+                        <span className="font-medium">{lastPage * 10}</span> results
+                    </p>
+                </div>
+                <div>
+                    <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md shadow-sm">
+                        <button
+                            onClick={handlePrevious}
+                            className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                            disabled={currentPage === 1}
+                        >
+                            <span className="sr-only">Previous</span>
+                            <ChevronLeftIcon aria-hidden="true" className="h-5 w-5" />
+                        </button>
+                        {pages.map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => handlePageClick(page)}
+                                aria-current={page === currentPage ? "page" : undefined}
+                                className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${page === currentPage
+                                        ? "bg-indigo-600 text-white"
+                                        : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                        <button
+                            onClick={handleNext}
+                            className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                            disabled={currentPage === lastPage}
+                        >
+                            <span className="sr-only">Next</span>
+                            <ChevronRightIcon aria-hidden="true" className="h-5 w-5" />
+                        </button>
+                    </nav>
+                </div>
             </div>
-            <div className="-mt-px flex w-0 flex-1 justify-end">
-                {currentPage < lastPage && (
-                    <button
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                    >
-                        Next
-                        <ArrowLongRightIcon
-                            aria-hidden="true"
-                            className="ml-3 h-5 w-5 text-gray-400"
-                        />
-                    </button>
-                )}
-            </div>
-        </nav>
+        </div>
     );
 }
