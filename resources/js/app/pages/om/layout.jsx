@@ -19,7 +19,8 @@ import {
     UsersIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from
+    "@heroicons/react/20/solid";
 import { Link, usePage } from "@inertiajs/react";
 import Button from "@/app/_components/button";
 import { useDispatch } from "react-redux";

@@ -105,16 +105,17 @@ export default function TimePageSection() {
                             <TimerButtonComponent
                                 key={action}
                                 onClick={() => handleStatusChange(action)}
-                                className={`px-4 py-2 text-white font-semibold rounded ${
-                                    status === action
-                                        ? "bg-blue-600"
-                                        : "bg-gray-400 hover:bg-gray-500"
-                                }`}
+                                className={`flex items-center justify-center px-4 py-2 text-white font-semibold rounded w-40 ${status === action
+                                    ? "bg-blue-600"
+                                    : "bg-gray-400 hover:bg-gray-500"
+                                    }`}
                             >
                                 {status === action ? `${action} Out` : action}
                             </TimerButtonComponent>
                         ))}
                     </div>
+
+
                     {warningMessage && <p className="text-red-500">{warningMessage}</p>}
                     <div className="mt-6 text-center">
                         <h2 className="text-xl font-semibold mb-4">
@@ -128,9 +129,9 @@ export default function TimePageSection() {
                                 </p>
                             </>
                         )}
-                        {status === "Break" && breakTimeRemaining <= 0 && (
+                        {/* {status === "Break" && breakTimeRemaining <= 0 && (
                             <p className="text-green-500">Break is over</p>
-                        )}
+                        )} */}
                     </div>
                 </div>
                 <ActionLogSections />
