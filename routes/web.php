@@ -41,22 +41,32 @@ Route::get('/', function () {
     return Inertia::render('login/page');
 });
 
+
+
 Route::prefix('administrator')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('admin/dashboard/page');
     });
-    Route::get('/agent', function () {
-        return Inertia::render('admin/agent/page');
+    Route::get('/user', function () {
+        return Inertia::render('admin/user/page');
     });
-    Route::get('/time', function () {
-        return Inertia::render('admin/time/page');
+
+    Route::get('/site', function () {
+        return Inertia::render('admin/site/page');
     });
+
     Route::get('/logs', function () {
         return Inertia::render('admin/logs/page');
     });
     Route::get('/profile', function () {
         return Inertia::render('admin/profile/page');
     });
+
+
+
+    // Route::get('/time', function () {
+    //     return Inertia::render('admin/time/page');
+    // });
 });
 
 

@@ -73,7 +73,8 @@ Lunch
 Time Out
 
 Administrator (Functions)
-* Replace Agent section to User section. Adding of user must include name, position (Dropdown), Account (Dropdown), Site (Dropdown), Status (Active or Inactive)
+✅ Replace Agent section to User section. Adding of user must include name, position (Dropdown), Account (Dropdown), Site (Dropdown), Status (Active or Inactive) 
+
 * Add Site Section. (Site, Remove)
 * Add Position Section. (Operations Manager, Account Manager, Team Leader, Agent)
 * Add Account Section. must include (Account Name, Site, Date Created, Remove Function)

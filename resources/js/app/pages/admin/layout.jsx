@@ -18,6 +18,9 @@ import {
     HomeIcon,
     UsersIcon,
     XMarkIcon,
+    GlobeAsiaAustraliaIcon,
+    UserCircleIcon,
+    UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Link, usePage } from "@inertiajs/react";
@@ -56,14 +59,19 @@ export default function AdminLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
-    useEffect(()=>{
+    useEffect(() => {
         store.dispatch(get_user_thunk())
-    },[])
+    }, [])
     const navigation = [
         { name: "Dashboard", href: "/administrator/dashboard", icon: HomeIcon },
-        { name: "Agent", href: "/administrator/agent", icon: UsersIcon },
-        { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },
+        { name: "User", href: "/administrator/user", icon: UsersIcon },
+        { name: "Site", href: "/administrator/site", icon: GlobeAsiaAustraliaIcon },
+        // { name: "Position", href: "/administrator/user", icon: UserCircleIcon },
+        // { name: "Account", href: "/administrator/user", icon: UserPlusIcon },
         { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
+
+
+        // { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },
     ];
 
     // useEffect(() => {
@@ -107,7 +115,7 @@ export default function AdminLayout({ children }) {
     //         setRemainingTime(""); // Clear remaining time when not on break
     //     }
     // }, [breakIn, breakStartTime]);
- 
+
     return (
         <>
             <div>

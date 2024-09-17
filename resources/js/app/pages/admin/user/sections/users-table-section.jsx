@@ -10,34 +10,20 @@ export default function UsersTableSection() {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newUser, setNewUser] = useState({ name: '', position: '', year: '', status: '', assignedTickets: 0 });
+    const [newUser, setNewUser] = useState({
+        name: '',
+        position: '',
+        account: '',
+        site: '',
+        status: ''
+    });
     const [users, setUsers] = useState([
-        { id: 1, name: 'John Doe', position: 'Developer', year: '1993', status: 'Active', assignedTickets: 5, action: 'delete' },
-        { id: 2, name: 'Jane Smith', position: 'Designer', year: '1996', status: 'Inactive', assignedTickets: 2, action: 'delete' },
-        { id: 3, name: 'Alice Johnson', position: 'Product Manager', year: '1988', status: 'Active', assignedTickets: 3, action: 'delete' },
-        { id: 4, name: 'Bob Brown', position: 'Marketing Specialist', year: '1985', status: 'Active', assignedTickets: 4, action: 'delete' },
-        { id: 5, name: 'Charlie Davis', position: 'Sales Representative', year: '1992', status: 'Inactive', assignedTickets: 1, action: 'delete' },
-        { id: 6, name: 'Diana Evans', position: 'HR Manager', year: '1990', status: 'Active', assignedTickets: 6, action: 'delete' },
-        { id: 7, name: 'Edward Garcia', position: 'CTO', year: '1980', status: 'Active', assignedTickets: 10, action: 'delete' },
-        { id: 8, name: 'Fiona Harris', position: 'UX Designer', year: '1987', status: 'Inactive', assignedTickets: 0, action: 'delete' },
-        { id: 9, name: 'George King', position: 'Data Analyst', year: '1995', status: 'Active', assignedTickets: 7, action: 'delete' },
-        { id: 10, name: 'Hannah Lee', position: 'Customer Support', year: '1998', status: 'Inactive', assignedTickets: 3, action: 'delete' },
-        { id: 11, name: 'Ian Mitchell', position: 'Finance Director', year: '1983', status: 'Active', assignedTickets: 8, action: 'delete' },
-        { id: 12, name: 'Jasmine Nelson', position: 'Content Strategist', year: '1991', status: 'Active', assignedTickets: 4, action: 'delete' },
-        { id: 13, name: 'Kevin O’Connor', position: 'Operations Manager', year: '1989', status: 'Inactive', assignedTickets: 2, action: 'delete' },
-        { id: 14, name: 'Laura Perez', position: 'Product Designer', year: '1994', status: 'Active', assignedTickets: 9, action: 'delete' },
-        { id: 15, name: 'Michael Quinn', position: 'Web Developer', year: '1997', status: 'Active', assignedTickets: 5, action: 'delete' },
-        { id: 16, name: 'Nora Roberts', position: 'SEO Specialist', year: '1986', status: 'Inactive', assignedTickets: 1, action: 'delete' },
-        { id: 17, name: 'Oliver Scott', position: 'Chief Marketing Officer', year: '1982', status: 'Active', assignedTickets: 12, action: 'delete' },
-        { id: 18, name: 'Paula Thomas', position: 'Software Engineer', year: '1999', status: 'Active', assignedTickets: 6, action: 'delete' },
-        { id: 19, name: 'Quincy Underwood', position: 'Business Analyst', year: '1990', status: 'Inactive', assignedTickets: 2, action: 'delete' },
-        { id: 20, name: 'Rachel Vance', position: 'Administrative Assistant', year: '1988', status: 'Active', assignedTickets: 4, action: 'delete' },
-        { id: 21, name: 'Steven Wright', position: 'DevOps Engineer', year: '1994', status: 'Active', assignedTickets: 7, action: 'delete' },
-        { id: 22, name: 'Tina Adams', position: 'Business Development Manager', year: '1989', status: 'Inactive', assignedTickets: 3, action: 'delete' },
-        { id: 23, name: 'Ursula Lewis', position: 'System Administrator', year: '1991', status: 'Active', assignedTickets: 8, action: 'delete' },
-        { id: 24, name: 'Victor Martinez', position: 'Graphic Designer', year: '1995', status: 'Active', assignedTickets: 4, action: 'delete' },
-        { id: 25, name: 'Wendy Cooper', position: 'Social Media Manager', year: '1992', status: 'Inactive', assignedTickets: 2, action: 'delete' }
-
+        { id: 1, name: 'John Doe', position: 'Developer', account: 'Account1', site: 'San Carlos Site', status: 'Active' },
+        { id: 2, name: 'Jane Smith', position: 'Designer', account: 'Account2', site: 'Carcar Site', status: 'Inactive' },
+        { id: 3, name: 'Alice Johnson', position: 'Product Manager', account: 'Account3', site: '3rd Site San Carlos', status: 'Active' },
+        { id: 4, name: 'Bob Brown', position: 'Marketing Specialist', account: 'Account1', site: 'San Carlos Site', status: 'Active' },
+        { id: 5, name: 'Charlie Davis', position: 'Sales Representative', account: 'Account2', site: 'Carcar Site', status: 'Inactive' },
+        // Add more users as needed
     ]);
 
     function handleAddNewUserClick() {
@@ -57,18 +43,19 @@ export default function UsersTableSection() {
         e.preventDefault();
         const newUserData = { id: users.length + 1, ...newUser };
         setUsers(prevUsers => [...prevUsers, newUserData]);
-        setNewUser({ name: '', position: '', year: '', status: '', assignedTickets: 0 });
+        setNewUser({ name: '', position: '', account: '', site: '', status: '' });
         handleCloseModal();
     }
 
-    function clickMe(params) {
-        alert(params);
+    function handleStatusChange(userId, newStatus) {
+        setUsers(prevUsers => prevUsers.map(user =>
+            user.id === userId ? { ...user, status: newStatus } : user
+        ));
     }
 
-    const ticketOptions = Array.from({ length: 11 }, (_, i) => ({
-        value: i,
-        label: i.toString()
-    }));
+    function clickMe(id) {
+        alert(`Edit or Delete user with ID: ${id}`);
+    }
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -81,13 +68,13 @@ export default function UsersTableSection() {
                         type="button"
                         onClick={handleAddNewUserClick}
                     >
-                        Add New Agent
+                        Add New User
                     </Button>
                 </div>
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
-                    data={users} // Pass original users data
+                    data={users}
                     columns={[
                         {
                             title: "Name",
@@ -108,8 +95,12 @@ export default function UsersTableSection() {
                             key: "position",
                         },
                         {
-                            title: "Year",
-                            key: "year",
+                            title: "Account",
+                            key: "account",
+                        },
+                        {
+                            title: "Site",
+                            key: "site",
                         },
                         {
                             title: "Status",
@@ -123,17 +114,18 @@ export default function UsersTableSection() {
                             )
                         },
                         {
-                            title: "Assigned Tickets",
-                            key: "assignedTickets",
-                            render: (text) => <span>{text}</span>
-                        },
-                        {
                             title: "Action",
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <button onClick={() => clickMe(record.id)} className="text-blue-500 hover:underline">Edit</button>
                                     <button onClick={() => clickMe(record.id)} className="text-red-500 hover:underline">Delete</button>
+                                    <button
+                                        onClick={() => handleStatusChange(record.id, record.status === 'Active' ? 'Inactive' : 'Active')}
+                                        className={`text-${record.status === 'Active' ? 'red' : 'green'}-500 hover:underline`}
+                                    >
+                                        Mark as {record.status === 'Active' ? 'Inactive' : 'Active'}
+                                    </button>
                                 </div>
                             )
                         }
@@ -153,7 +145,7 @@ export default function UsersTableSection() {
                         <Input
                             name="name"
                             label="Name"
-                            type="name"
+                            type="text"
                             className="rounded-md w-full"
                             required={true}
                             value={newUser.name}
@@ -161,25 +153,46 @@ export default function UsersTableSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
-                            name="position"
-                            label="Position"
-                            type="position"
-                            className="rounded-md w-full"
-                            required={true}
+                        <Select
+                            options={[
+                                { value: 'Operations Manager', label: 'Operations Manager' },
+                                { value: 'Account Manager', label: 'Account Manager' },
+                                { value: 'Team Leader', label: 'Team Leader' },
+                                { value: 'Agent', label: 'Agent' },
+                            ]}
                             value={newUser.position}
-                            onChange={handleChange}
+                            onChange={(e) => handleChange({ target: { name: 'position', value: e.target.value } })}
+                            label="Position"
+                            name="position"
+                            required={true}
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
-                            name="year"
-                            label="Year"
-                            type="number"
-                            className="rounded-md w-full"
+                        <Select
+                            options={[
+                                { value: 'Account1', label: 'Account 1' },
+                                { value: 'Account2', label: 'Account 2' },
+                                { value: 'Account3', label: 'Account 3' },
+                            ]}
+                            value={newUser.account}
+                            onChange={(e) => handleChange({ target: { name: 'account', value: e.target.value } })}
+                            label="Account"
+                            name="account"
                             required={true}
-                            value={newUser.year}
-                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <Select
+                            options={[
+                                { value: 'San Carlos Site', label: 'San Carlos Site' },
+                                { value: 'Carcar Site', label: 'Carcar Site' },
+                                { value: '3rd Site San Carlos', label: '3rd Site San Carlos' },
+                            ]}
+                            value={newUser.site}
+                            onChange={(e) => handleChange({ target: { name: 'site', value: e.target.value } })}
+                            label="Site"
+                            name="site"
+                            required={true}
                         />
                     </div>
                     <div className="mb-4">
@@ -188,20 +201,10 @@ export default function UsersTableSection() {
                                 { value: 'Active', label: 'Active' },
                                 { value: 'Inactive', label: 'Inactive' },
                             ]}
-                            onChange={handleChange}
+                            value={newUser.status}
+                            onChange={(e) => handleChange({ target: { name: 'status', value: e.target.value } })}
                             label="Status"
                             name="status"
-                            required={true}
-                        // value={newUser.status}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <Select
-                            options={ticketOptions}
-                            value={newUser.assignedTickets}
-                            onChange={(e) => handleChange({ target: { name: 'assignedTickets', value: parseInt(e.target.value, 10) } })}
-                            label="Number"
-                            name="number"
                             required={true}
                         />
                     </div>
