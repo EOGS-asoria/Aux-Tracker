@@ -8,16 +8,16 @@ export default function SiteView() {
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState(null);
     const [sites, setSites] = useState([
+        { id: 2, site: "Carcar Site", location: "Carcar", status: "Inactive" },
         {
             id: 1,
             site: "San Carlos Site",
             location: "San Carlos",
             status: "Active",
         },
-        { id: 2, site: "Carcar Site", location: "Carcar", status: "Inactive" },
         {
             id: 3,
-            site: "3rd Site San Carlos",
+            site: "3rd Site",
             location: "San Carlos",
             status: "Active",
         },
@@ -76,10 +76,12 @@ export default function SiteView() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <button
-                                        onClick={() => clickMe(record.id)}
-                                        className="text-blue-500 hover:underline"
+                                        onClick={() =>
+                                            handleRemoveAccount(record.id)
+                                        }
+                                        className="text-red-500 hover:underline"
                                     >
-                                        View Details
+                                        Remove
                                     </button>
                                     <button
                                         onClick={() =>
