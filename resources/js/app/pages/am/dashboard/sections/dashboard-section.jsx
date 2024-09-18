@@ -8,7 +8,7 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend, 
+    Legend,
 } from "chart.js";
 
 ChartJS.register(
@@ -25,7 +25,7 @@ export default function Dashboard() {
     const [totalTeamLeaders, setTotalTeamLeaders] = useState(0);
     const [totalAgents, setTotalAgents] = useState(0);
     const [totalLogs, setTotalLogs] = useState(0);
-    
+
     const dashboardData = {
         totalTeamLeaders: 10,
         totalAgents: 50,
@@ -95,29 +95,31 @@ export default function Dashboard() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-4xl font-bold mb-10 text-gray-800">
-                Dashboard - San Carlos Site
+                Account Manager's Dashboard - San Carlos Site
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {/* Card Component */}
-                {[{
-                    label: "Total Team Leaders",
-                    value: totalTeamLeaders,
-                    icon: "fas fa-user-tie",
-                    color: "green-500",
-                },
-                {
-                    label: "Total Agents",
-                    value: totalAgents,
-                    icon: "fas fa-user-friends",
-                    color: "blue-500",
-                },
-                {
-                    label: "Total Logs",
-                    value: totalLogs,
-                    icon: "fas fa-file-alt",
-                    color: "orange-500",
-                }].map((item, index) => (
+                {[
+                    {
+                        label: "Total Team Leaders",
+                        value: totalTeamLeaders,
+                        icon: "fas fa-user-tie",
+                        color: "green-500",
+                    },
+                    {
+                        label: "Total Agents",
+                        value: totalAgents,
+                        icon: "fas fa-user-friends",
+                        color: "blue-500",
+                    },
+                    {
+                        label: "Total Logs",
+                        value: totalLogs,
+                        icon: "fas fa-file-alt",
+                        color: "orange-500",
+                    },
+                ].map((item, index) => (
                     <div
                         key={index}
                         className="bg-white p-6 rounded-lg shadow-md flex items-center transition-transform transform hover:scale-105 hover:shadow-lg"

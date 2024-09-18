@@ -8,7 +8,7 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
+    Legend,  
 } from "chart.js";
 
 ChartJS.register(
@@ -105,7 +105,7 @@ export default function OMDashboard() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-4xl font-bold mb-4 text-gray-800">
-                Dashboard
+              Operations Manager's Dashboard
             </h1>
             <h2 className="text-xl font-semibold text-gray-600 mb-10">
                 San Carlos City Site
