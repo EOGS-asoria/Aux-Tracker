@@ -5,89 +5,77 @@ import Modal from "@/app/_components/modal";
 import Input from "@/app/_components/input";
 import Select from "@/app/_components/select";
 
-export default function ViewTeamSections() {
-    // Declare necessary states
+export default function UsersTableSection() {
     const [dataChecked, setDataChecked] = useState([]);
-    const [agents, setAgents] = useState([
-        {
-            id: 1,
-            name: "Michael Johnson",
-            account: "Support Agent",
-            joinedYear: 2018,
-            status: "Inactive", // Corrected typo
-        },
-        {
-            id: 2,
-            name: "Samantha Green",
-            account: "Senior Support Agent",
-            joinedYear: 2019,
-            status: "Active",
-        },
-        {
-            id: 3,
-            name: "David Brown",
-            account: "Junior Agent",
-            joinedYear: 2020,
-            status: "Active",
-        },
-        // Add more agents as needed
-    ]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newAgent, setNewAgent] = useState({
+    const [newUser, setNewUser] = useState({
         name: "",
         account: "",
-       
         status: "",
     });
 
-    // Handle click for adding a new agent
-    const handleAddNewUserClick = () => {
+    // Filter users to only show those with the account type "AM"
+    const [users, setUsers] = useState([
+        {
+            id: 1,
+            name: "Alice Smith",
+            account: "AM",
+            status: "Active",
+        },
+        {
+            id: 2,
+            name: "Mayeng Miyot",
+            account: "Intern",
+            status: "Inactive",
+        },
+        {
+            id: 3,
+            name: "John Doe",
+            account: "Developer",
+            status: "Active",
+        },
+        {
+            id: 4,
+            name: "Emily Johnson",
+            account: "AM",
+            status: "Active",
+        },
+    ].filter(user => user.account === "AM")); // Filtered to only include AM
+
+    function handleAddNewUserClick() {
         setIsModalOpen(true);
-    };
+    }
 
-    // Close modal
-    const handleCloseModal = () => {
+    function handleCloseModal() {
         setIsModalOpen(false);
-    };
+    }
 
-    // Handle input changes
-    const handleChange = (e) => {
+    function handleChange(e) {
         const { name, value } = e.target;
-        setNewAgent((prevState) => ({ ...prevState, [name]: value }));
-    };
+        setNewUser((prevState) => ({ ...prevState, [name]: value }));
+    }
 
-    // Handle form submission
-    const handleSubmit = (e) => {
+    function handleSubmit(e) {
         e.preventDefault();
-        const newAgentData = {
-            id: agents.length + 1,
-            ...newAgent,
+        const newUserData = {
+            id: users.length + 1,
+            ...newUser,
         };
-        setAgents((prevAgents) => [...prevAgents, newAgentData]);
-        setNewAgent({
+        setUsers((prevUsers) => [...prevUsers, newUserData]);
+        setNewUser({
             name: "",
             account: "",
-            
             status: "",
         });
         handleCloseModal();
-    };
+    }
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
-            <div className="mb-4">
-                <a
-                    href="/om/agent"
-                    className="text-blue-600 hover:underline flex items-center"
-                >
-                    ← Back
-                </a>
-            </div>
-
-            <h1 className="text-4xl font-bold mb-8 text-gray-800">
-                Team Agent of Alice Smith
+        <div className="p-6 bg-gray-100 min-h-screen">
+            <h1 className="text-3xl font-bold mb-8 text-gray-700">
+                Team Leader
             </h1>
 
             <div className="bg-white p-4 rounded-lg shadow-md">
@@ -98,17 +86,17 @@ export default function ViewTeamSections() {
                         type="button"
                         onClick={handleAddNewUserClick}
                     >
-                        Add New Member
+                        Add New Leader
                     </Button>
                 </div>
 
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
-                    data={agents}
+                    data={users} // Pass filtered users data
                     columns={[
                         {
-                            title: "Agent Name",
+                            title: "Name",
                             key: "name",
                             render: (text, record) => (
                                 <div className="flex items-center">
@@ -145,12 +133,14 @@ export default function ViewTeamSections() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <a
-                                        href={`/om/history`} // Dynamic link based on record ID
-                                        className="text-blue-500 hover:underline"
-                                    >
-                                        View Agent History
-                                    </a>
+                                    <button>
+                                        <a
+                                            href="/am/agent"
+                                            className="ml-1 text-blue-500 hover:underline"
+                                        >
+                                            View Team
+                                        </a>
+                                    </button>
                                 </div>
                             ),
                         },
@@ -168,7 +158,7 @@ export default function ViewTeamSections() {
                 setOpen={setIsModalOpen}
                 width="sm:max-w-md top-20"
             >
-                <h2 className="text-lg font-semibold mb-4">Add New Member</h2>
+                <h2 className="text-lg font-semibold mb-4">Add New Leader</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <Input
@@ -177,7 +167,7 @@ export default function ViewTeamSections() {
                             type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newAgent.name}
+                            value={newUser.name}
                             onChange={handleChange}
                         />
                     </div>
@@ -188,7 +178,7 @@ export default function ViewTeamSections() {
                             type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newAgent.account}
+                            value={newUser.account}
                             onChange={handleChange}
                         />
                     </div>
@@ -204,7 +194,6 @@ export default function ViewTeamSections() {
                             required={true}
                         />
                     </div>
-
                     <div className="flex justify-end">
                         <Button
                             className="flex items-center justify-center w-full"

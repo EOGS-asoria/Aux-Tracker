@@ -1,11 +1,11 @@
 import React from "react";
 import AdminLayout from "../layout";
-import AgentSection from "./sections/team-section";
+import AddAgentSection from "./sections/add-agent-sections";
 
-export default function AdminUserPage() {
+export default function OMAddAgent() {
     return (
         <AdminLayout>
-            <AgentSection />
+            <AddAgentSection />
         </AdminLayout>
     );
 }

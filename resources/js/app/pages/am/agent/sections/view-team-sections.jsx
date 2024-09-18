@@ -79,7 +79,7 @@ export default function ViewTeamSections() {
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="mb-4">
                 <a
-                    href="/am/agent"
+                    href="/am/team"
                     className="text-blue-600 hover:underline flex items-center"
                 >
                     ← Back

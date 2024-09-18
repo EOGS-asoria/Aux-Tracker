@@ -55,6 +55,14 @@ Route::prefix('administrator')->group(function () {
         return Inertia::render('admin/site/page');
     });
 
+    Route::get('/position', function () {
+        return Inertia::render('admin/position/page');
+    });
+
+    Route::get('/account', function () {
+        return Inertia::render('admin/account/page');
+    });
+
     Route::get('/logs', function () {
         return Inertia::render('admin/logs/page');
     });
@@ -111,6 +119,12 @@ Route::prefix('om')->group(function () {
     Route::get('/history', function () {
         return Inertia::render('om/history/page');
     });
+    Route::get('/account-manager', function () {
+        return Inertia::render('om/account-manager/page');
+    });
+    Route::get('/add-agent', function () {
+        return Inertia::render('om/add-agent/page');
+    });
 });
 
 // Am
@@ -135,6 +149,9 @@ Route::prefix('am')->group(function () {
     });
     Route::get('/history', function () {
         return Inertia::render('am/history/page');
+    });
+    Route::get('/add-agent', function () {
+        return Inertia::render('am/add-agent/page');
     });
 });
 

@@ -8,7 +8,7 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
+    Legend, 
 } from "chart.js";
 
 ChartJS.register(
@@ -21,21 +21,15 @@ ChartJS.register(
     Legend
 );
 
-export default function AccountingDashboard() {
-    const [totalRevenue, setTotalRevenue] = useState(0);
-    const [totalExpenses, setTotalExpenses] = useState(0);
-    const [netProfit, setNetProfit] = useState(0);
-    const [totalAssets, setTotalAssets] = useState(0);
-    const [totalLiabilities, setTotalLiabilities] = useState(0);
-    const [totalEquity, setTotalEquity] = useState(0);
-
+export default function Dashboard() {
+    const [totalTeamLeaders, setTotalTeamLeaders] = useState(0);
+    const [totalAgents, setTotalAgents] = useState(0);
+    const [totalLogs, setTotalLogs] = useState(0);
+    
     const dashboardData = {
-        totalRevenue: 120000,
-        totalExpenses: 80000,
-        netProfit: 40000,
-        totalAssets: 150000,
-        totalLiabilities: 50000,
-        totalEquity: 100000,
+        totalTeamLeaders: 10,
+        totalAgents: 50,
+        totalLogs: 150,
     };
 
     useEffect(() => {
@@ -52,12 +46,9 @@ export default function AccountingDashboard() {
             }, 20);
         };
 
-        animateCount(setTotalRevenue, dashboardData.totalRevenue);
-        animateCount(setTotalExpenses, dashboardData.totalExpenses);
-        animateCount(setNetProfit, dashboardData.netProfit);
-        animateCount(setTotalAssets, dashboardData.totalAssets);
-        animateCount(setTotalLiabilities, dashboardData.totalLiabilities);
-        animateCount(setTotalEquity, dashboardData.totalEquity);
+        animateCount(setTotalTeamLeaders, dashboardData.totalTeamLeaders);
+        animateCount(setTotalAgents, dashboardData.totalAgents);
+        animateCount(setTotalLogs, dashboardData.totalLogs);
     }, []);
 
     const graphData = {
@@ -72,15 +63,15 @@ export default function AccountingDashboard() {
         ],
         datasets: [
             {
-                label: "Revenue",
-                data: [110000, 115000, 120000, 125000, 130000, 135000, 140000],
+                label: "Team Leaders",
+                data: [8, 9, 10, 10, 10, 10, 10],
                 fill: false,
                 backgroundColor: "rgb(75, 192, 192)",
                 borderColor: "rgba(75, 192, 192, 0.2)",
             },
             {
-                label: "Expenses",
-                data: [60000, 65000, 70000, 68000, 71000, 73000, 75000],
+                label: "Agents",
+                data: [40, 45, 50, 50, 50, 50, 50],
                 fill: false,
                 backgroundColor: "rgb(255, 99, 132)",
                 borderColor: "rgba(255, 99, 132, 0.2)",
@@ -96,7 +87,7 @@ export default function AccountingDashboard() {
             },
             title: {
                 display: true,
-                text: "Revenue and Expenses Trends (Monthly)",
+                text: "Team Leaders and Agents Trends (Monthly) - San Carlos Site",
             },
         },
     };
@@ -104,46 +95,28 @@ export default function AccountingDashboard() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-4xl font-bold mb-10 text-gray-800">
-                Accounting Manager Dashboard
+                Dashboard - San Carlos Site
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {/* Card Component */}
                 {[{
-                    label: "Total Revenue",
-                    value: `₱${totalRevenue.toLocaleString()}`,
-                    icon: "fas fa-dollar-sign",
+                    label: "Total Team Leaders",
+                    value: totalTeamLeaders,
+                    icon: "fas fa-user-tie",
                     color: "green-500",
                 },
                 {
-                    label: "Total Expenses",
-                    value: `₱${totalExpenses.toLocaleString()}`,
-                    icon: "fas fa-credit-card",
-                    color: "red-500",
-                },
-                {
-                    label: "Net Profit",
-                    value: `₱${netProfit.toLocaleString()}`,
-                    icon: "fas fa-money-bill-wave",
+                    label: "Total Agents",
+                    value: totalAgents,
+                    icon: "fas fa-user-friends",
                     color: "blue-500",
                 },
                 {
-                    label: "Total Assets",
-                    value: `₱${totalAssets.toLocaleString()}`,
-                    icon: "fas fa-building",
-                    color: "purple-500",
-                },
-                {
-                    label: "Total Liabilities",
-                    value: `₱${totalLiabilities.toLocaleString()}`,
-                    icon: "fas fa-hand-holding-usd",
+                    label: "Total Logs",
+                    value: totalLogs,
+                    icon: "fas fa-file-alt",
                     color: "orange-500",
-                },
-                {
-                    label: "Total Equity",
-                    value: `₱${totalEquity.toLocaleString()}`,
-                    icon: "fas fa-chart-line",
-                    color: "teal-500",
                 }].map((item, index) => (
                     <div
                         key={index}
@@ -167,7 +140,7 @@ export default function AccountingDashboard() {
             {/* Graph */}
             <div className="bg-white p-8 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
-                    Revenue & Expenses Graph (Monthly)
+                    Team Leaders & Agents Graph (Monthly)
                 </h2>
                 <Line data={graphData} options={options} />
             </div>

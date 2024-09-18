@@ -1,11 +1,13 @@
-import React from 'react'
-import AdminLayout from '../layout'
-import UsersTableSection from './sections/users-table-section'
+import React from "react";
+import AdminLayout from "../layout";
+import ViewTeamSections from "./sections/view-team-sections";
 
-export default function AdminUserdPage() {
-  return (
-    <AdminLayout>
-       <UsersTableSection/>
-    </AdminLayout>
-  )
+export default function ViewTeamPage() {
+    return (
+        <div>
+            <AdminLayout>
+                <ViewTeamSections />
+            </AdminLayout>
+        </div>
+    );
 }

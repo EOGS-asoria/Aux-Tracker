@@ -16,11 +16,11 @@ import {
     Cog6ToothIcon,
     FolderIcon,
     HomeIcon,
+    UserPlusIcon,
     UsersIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from
-    "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Link, usePage } from "@inertiajs/react";
 import Button from "@/app/_components/button";
 import { useDispatch } from "react-redux";
@@ -58,18 +58,24 @@ export default function AdminLayout({ children }) {
     const { url } = usePage();
 
     useEffect(() => {
-        store.dispatch(get_user_thunk())
-    }, [])
+        store.dispatch(get_user_thunk());
+    }, []);
     const navigation = [
         {
             name: "Dashboard",
             href: "/am/dashboard",
             icon: HomeIcon,
         },
+
         {
             name: "View Team Leader",
-            href: "/am/agent",
+            href: "/am/team",
             icon: UsersIcon,
+        },
+        {
+            name: "Add Agent",
+            href: "/am/add-agent",
+            icon: UserPlusIcon,
         },
         {
             name: "Time keeping",
@@ -377,8 +383,9 @@ export default function AdminLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
-                                        }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
+                                        fadeOut ? "opacity-0" : "opacity-100"
+                                    }`}
                                 >
                                     {message}
                                 </div>

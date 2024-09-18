@@ -5,55 +5,60 @@ import Modal from "@/app/_components/modal";
 import Input from "@/app/_components/input";
 import Select from "@/app/_components/select";
 
-export default function UsersTableSection() {
+export default function TeamLeaderSection() {
     const [dataChecked, setDataChecked] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newUser, setNewUser] = useState({
+    const [newLeader, setNewLeader] = useState({
         name: "",
+        position: "",
         account: "",
-
+        site: "San Carlos Site",
         status: "",
     });
-    const [users, setUsers] = useState([
+    const [leaders, setLeaders] = useState([
         {
             id: 1,
             name: "Alice Smith",
-            account: "Manager",
-            year: 2024,
+            position: "Manager",
+            account: "alice.smith",
+            site: "San Carlos",
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
         },
         {
             id: 2,
             name: "Mayeng Miyot",
-            account: "Intern",
-            year: 2090,
-            status: "InActive",
+            position: "Intern",
+            account: "mayeng.miyot",
+            site: "Carcar",
+            status: "Inactive",
             teamMembers: [], // Initially empty, simulate fetch later
         },
         {
             id: 3,
             name: "John Doe",
-            account: "Developer",
-            year: 2023,
+            position: "Developer",
+            account: "john.doe",
+            site: "3rd Site",
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
         },
         {
             id: 4,
             name: "Emily Johnson",
-            account: "Designer",
-            year: 2024,
+            position: "Designer",
+            account: "emily.johnson",
+            site: "Chicago",
             status: "Active",
             teamMembers: [], // Initially empty, simulate fetch later
         },
     ]);
-    const [expandedUserId, setExpandedUserId] = useState(null);
+    const [expandedLeaderId, setExpandedLeaderId] = useState(null);
     const [expandedSection, setExpandedSection] = useState(null);
 
-    function handleAddNewUserClick() {
+    function handleAddNewLeaderClick() {
         setIsModalOpen(true);
     }
 
@@ -63,77 +68,91 @@ export default function UsersTableSection() {
 
     function handleChange(e) {
         const { name, value } = e.target;
-        setNewUser((prevState) => ({ ...prevState, [name]: value }));
+        setNewLeader((prevState) => ({ ...prevState, [name]: value }));
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        const newUserData = {
-            id: users.length + 1,
-            ...newUser,
+        const newLeaderData = {
+            id: leaders.length + 1,
+            ...newLeader,
             teamMembers: [],
-            history: [],
-        }; // Initialize with no team members and history
-        setUsers((prevUsers) => [...prevUsers, newUserData]);
-        setNewUser({
+        }; // Initialize with no team members
+        setLeaders((prevLeaders) => [...prevLeaders, newLeaderData]);
+        setNewLeader({
             name: "",
+            position: "",
             account: "",
-
+            site: "",
             status: "",
         });
         handleCloseModal();
     }
 
-    function toggleExpandUser(userId) {
-        setExpandedUserId(expandedUserId === userId ? null : userId);
+    function handleRemoveLeader(id) {
+        setLeaders((prevLeaders) =>
+            prevLeaders.filter((leader) => leader.id !== id)
+        );
     }
 
-    function toggleExpandSection(userId, section) {
-        if (expandedUserId === userId) {
+    function toggleExpandLeader(leaderId) {
+        setExpandedLeaderId(expandedLeaderId === leaderId ? null : leaderId);
+    }
+
+    function toggleExpandSection(leaderId, section) {
+        if (expandedLeaderId === leaderId) {
             setExpandedSection(expandedSection === section ? null : section);
         } else {
-            setExpandedUserId(userId);
+            setExpandedLeaderId(leaderId);
             setExpandedSection(section);
 
             // Simulate fetching team members data on demand
             if (section === "team") {
-                const updatedUsers = users.map((user) => {
-                    if (user.id === userId && user.teamMembers.length === 0) {
+                const updatedLeaders = leaders.map((leader) => {
+                    if (
+                        leader.id === leaderId &&
+                        leader.teamMembers.length === 0
+                    ) {
                         return {
-                            ...user,
+                            ...leader,
                             teamMembers: [
                                 {
                                     id: 1,
                                     name: "John Doe",
-                                    account: "Developer",
+                                    position: "Developer",
+                                    account: "john.doe",
                                 },
                                 {
                                     id: 2,
                                     name: "Jane Roe",
-                                    account: "Designer",
+                                    position: "Designer",
+                                    account: "jane.roe",
                                 },
                                 {
                                     id: 3,
                                     name: "Mark Twain",
-                                    account: "Tester",
+                                    position: "Tester",
+                                    account: "mark.twain",
                                 },
                                 {
                                     id: 4,
                                     name: "Lucy Liu",
-                                    account: "Developer",
+                                    position: "Developer",
+                                    account: "lucy.liu",
                                 },
                                 {
                                     id: 5,
                                     name: "Tom Hardy",
-                                    account: "Developer",
+                                    position: "Developer",
+                                    account: "tom.hardy",
                                 },
                             ],
                         };
                     }
-                    return user;
+                    return leader;
                 });
 
-                setUsers(updatedUsers);
+                setLeaders(updatedLeaders);
             }
         }
     }
@@ -155,7 +174,7 @@ export default function UsersTableSection() {
                         className="flex items-center justify-center"
                         loading={false}
                         type="button"
-                        onClick={handleAddNewUserClick}
+                        onClick={handleAddNewLeaderClick}
                     >
                         Add New Leader
                     </Button>
@@ -164,7 +183,7 @@ export default function UsersTableSection() {
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
-                    data={users} // Pass original users data
+                    data={leaders} // Pass updated leaders data
                     columns={[
                         {
                             title: "Name",
@@ -181,10 +200,17 @@ export default function UsersTableSection() {
                             ),
                         },
                         {
+                            title: "Position",
+                            key: "position",
+                        },
+                        {
                             title: "Account",
                             key: "account",
                         },
-
+                        {
+                            title: "Site",
+                            key: "site",
+                        },
                         {
                             title: "Status",
                             key: "status",
@@ -200,7 +226,6 @@ export default function UsersTableSection() {
                                 </span>
                             ),
                         },
-
                         {
                             title: "Action",
                             key: "action",
@@ -208,16 +233,19 @@ export default function UsersTableSection() {
                                 <div className="flex space-x-4">
                                     <button>
                                         <a
-                                            href="/am/team"
+                                            href="/om/agent"
                                             className="ml-1 text-blue-500 hover:underline"
                                         >
                                             View Team
                                         </a>
                                     </button>
-                                    <button>
-                                        {/* <a href="#" className="ml-1">
-                                            View History
-                                        </a> */}
+                                    <button
+                                        onClick={() =>
+                                            handleRemoveLeader(record.id)
+                                        }
+                                        className="text-red-500 hover:underline"
+                                    >
+                                        Remove
                                     </button>
                                 </div>
                             ),
@@ -242,10 +270,21 @@ export default function UsersTableSection() {
                         <Input
                             name="name"
                             label="Name"
-                            type="name"
+                            type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newUser.name}
+                            value={newLeader.name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <Input
+                            name="position"
+                            label="Position"
+                            type="text"
+                            className="rounded-md w-full"
+                            required={true}
+                            value={newLeader.position}
                             onChange={handleChange}
                         />
                     </div>
@@ -253,14 +292,23 @@ export default function UsersTableSection() {
                         <Input
                             name="account"
                             label="Account"
-                            type="account"
+                            type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newUser.position}
+                            value={newLeader.account}
                             onChange={handleChange}
                         />
                     </div>
-                    
+                    <div className="mb-4">
+                        <Input
+                            name="site"
+                            label="Site"
+                            type="text"
+                            className="rounded-md w-full"
+                            readOnly="true"
+                            value={newLeader.site}
+                        />
+                    </div>
                     <div className="mb-4">
                         <Select
                             options={[

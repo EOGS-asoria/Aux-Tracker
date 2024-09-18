@@ -60,16 +60,15 @@ export default function AdminLayout({ children }) {
     const { url } = usePage();
 
     useEffect(() => {
-        store.dispatch(get_user_thunk())
-    }, [])
+        store.dispatch(get_user_thunk());
+    }, []);
     const navigation = [
         { name: "Dashboard", href: "/administrator/dashboard", icon: HomeIcon },
         { name: "User", href: "/administrator/user", icon: UsersIcon },
         { name: "Site", href: "/administrator/site", icon: GlobeAsiaAustraliaIcon },
-        // { name: "Position", href: "/administrator/user", icon: UserCircleIcon },
-        // { name: "Account", href: "/administrator/user", icon: UserPlusIcon },
+        { name: "Position", href: "/administrator/position", icon: UserCircleIcon },
+        { name: "Account", href: "/administrator/account", icon: UserPlusIcon },
         { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
-
 
         // { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },
     ];
@@ -372,8 +371,9 @@ export default function AdminLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
-                                        }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
+                                        fadeOut ? "opacity-0" : "opacity-100"
+                                    }`}
                                 >
                                     {message}
                                 </div>
