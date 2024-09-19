@@ -91,7 +91,7 @@ OM (Functions)
 
 AM (Functions)
 ✅ Dashboard, Team Leaders (Same Site Only), Agents (Same Site Only), Logs (Same Site Only)
-✅ Under Team Leader section, Only the Account assigned to AM will be viewed.
+✅ Under Team Leader section, Only the Account  assigned to AM will be viewed.
 ✅ Agent section: Viewing of Agents Table, Adding of Agent must include (Name, Position, Account, Team Leader (Dropdown, Same Site Only), Site (Read Only), View History Logs (Will route to Agent History Section).)
 ✅ Logs section, Same account can only be seen.
 
