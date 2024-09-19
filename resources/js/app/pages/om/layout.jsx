@@ -33,7 +33,7 @@ import store from "@/store/store";
 import { get_user_thunk } from "@/app/_redux/app-thunk";
 
 const userNavigation = [
-    { name: "Your profile", href: "/administrator/profile" },
+    { name: "Your profile", href: "/om/profile" },
     { name: "Sign out", href: "#" },
 ];
 
@@ -210,7 +210,7 @@ export default function AdminLayout({ children }) {
                                                     aria-hidden="true"
                                                     className="h-6 w-6 shrink-0"
                                                 />
-                                                Settings
+                                                Profile Settings
                                             </a>
                                         </li>
                                     </ul>
@@ -273,7 +273,7 @@ export default function AdminLayout({ children }) {
                                             aria-hidden="true"
                                             className="h-6 w-6 shrink-0"
                                         />
-                                        Settings
+                                        Profile Settings
                                     </Link>
                                 </li>
                             </ul>
@@ -388,9 +388,8 @@ export default function AdminLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
-                                        fadeOut ? "opacity-0" : "opacity-100"
-                                    }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
+                                        }`}
                                 >
                                     {message}
                                 </div>

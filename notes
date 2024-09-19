@@ -76,7 +76,7 @@ Time Out
 
 Administrator (Functions)
 ✅ Replace Agent section to User section. Adding of user must include name, position (Dropdown), Account (Dropdown), Site (Dropdown), Status (Active or Inactive) 
-✅ (confuse) Add Site Section. (Site, Remove)
+✅ Add Site Section. (Site, Remove)
 ✅ (confuse) Add Position Section. (Operations Manager, Account Manager, Team Leader, Agent)
 ✅ Add Account Section. must include (Account Name, Site, Date Created, Remove Function)
 ✅ Remove Time Keeping Section.
@@ -95,11 +95,12 @@ AM (Functions)
 ✅ Agent section: Viewing of Agents Table, Adding of Agent must include (Name, Position, Account, Team Leader (Dropdown, Same Site Only), Site (Read Only), View History Logs (Will route to Agent History Section).)
 ✅ Logs section, Same account can only be seen.
 
+
 TL (Functions)
-* Dashboard, Agents (Same Site Only, Agents assigned ), Time Keeping, Logs (Same Site Only)
-* No View Team Leader Section.
-* Replace View Team Leader section to My Team. (Only agents of his/her account can be seen).
-* Logs section, Same account can only be seen.
+✅ Dashboard, Agents (Same Site Only, Agents assigned ), Time Keeping, Logs (Same Site Only)
+✅ No View Team Leader Section.
+✅ Replace View Team Leader section to My Team. (Only agents of his/her account can be seen).
+✅ Logs section, Same account can only be seen.
 
 
 

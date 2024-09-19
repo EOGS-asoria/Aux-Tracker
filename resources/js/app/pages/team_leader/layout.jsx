@@ -16,9 +16,11 @@ import {
     Cog6ToothIcon,
     FolderIcon,
     HomeIcon,
-    UserPlusIcon,
     UsersIcon,
     XMarkIcon,
+    GlobeAsiaAustraliaIcon,
+    UserCircleIcon,
+    UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Link, usePage } from "@inertiajs/react";
@@ -32,7 +34,7 @@ import store from "@/store/store";
 import { get_user_thunk } from "@/app/_redux/app-thunk";
 
 const userNavigation = [
-    { name: "Your profile", href: "/am/profile" },
+    { name: "Your profile", href: "/team_leader/profile" },
     { name: "Sign out", href: "#" },
 ];
 
@@ -61,28 +63,11 @@ export default function AdminLayout({ children }) {
         store.dispatch(get_user_thunk());
     }, []);
     const navigation = [
-        {
-            name: "Dashboard",
-            href: "/am/dashboard",
-            icon: HomeIcon,
-        },
+        { name: "Dashboard", href: "/team_leader/dashboard", icon: HomeIcon },
+        { name: "My Team", href: "/team_leader/team", icon: UsersIcon },
+        { name: "Logs", href: "/team_leader/logs", icon: ClockIcon },
 
-        {
-            name: "View Team Leader",
-            href: "/am/team",
-            icon: UsersIcon,
-        },
-        {
-            name: "Add Agent",
-            href: "/am/add-agent",
-            icon: UserPlusIcon,
-        },
-        {
-            name: "Time keeping",
-            href: "/am/time",
-            icon: FolderIcon,
-        },
-        { name: "Logs", href: "/am/logs", icon: ClockIcon },
+        // { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },
     ];
 
     // useEffect(() => {
@@ -198,7 +183,7 @@ export default function AdminLayout({ children }) {
 
                                         <li className="mt-auto">
                                             <a
-                                                href="/am/profile"
+                                                href="/team_leader/profile"
                                                 className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                                             >
                                                 <Cog6ToothIcon
@@ -256,9 +241,9 @@ export default function AdminLayout({ children }) {
 
                                 <li className="mt-auto">
                                     <Link
-                                        href="/am/profile"
+                                        href="/team_leader/profile"
                                         className={classNames(
-                                            url === "/am/profile"
+                                            url === "/team_leader/profile"
                                                 ? "bg-gray-800 text-white"
                                                 : "text-gray-400 hover:bg-gray-800 hover:text-white",
                                             "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6"

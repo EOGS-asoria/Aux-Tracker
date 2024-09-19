@@ -127,6 +127,7 @@ Route::prefix('om')->group(function () {
     });
 });
 
+
 // Am
 Route::prefix('am')->group(function () {
     Route::get('/dashboard', function () {
@@ -152,6 +153,24 @@ Route::prefix('am')->group(function () {
     });
     Route::get('/add-agent', function () {
         return Inertia::render('am/add-agent/page');
+    });
+});
+
+
+// team leader
+Route::prefix('team_leader')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('team_leader/dashboard/page');
+    });
+    Route::get('/team', function () {
+        return Inertia::render('team_leader/team/page');
+    });
+    Route::get('/logs', function () {
+        return Inertia::render('team_leader/logs/page');
+    });
+    Route::get('/profile', function () {
+        return Inertia::render('team_leader/profile/page');
     });
 });
 

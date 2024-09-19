@@ -57,9 +57,9 @@ export default function AgentLayout({ children }) {
     const dispatch = useDispatch();
     const { url } = usePage();
 
-    useEffect(()=>{
+    useEffect(() => {
         store.dispatch(get_user_thunk())
-    },[])
+    }, [])
     const navigation = [
         { name: "Dashboard", href: "/agent/dashboard", icon: HomeIcon },
         // { name: "Agent", href: "/agent/agent", icon: UsersIcon },
@@ -187,7 +187,7 @@ export default function AgentLayout({ children }) {
                                                     aria-hidden="true"
                                                     className="h-6 w-6 shrink-0"
                                                 />
-                                                Settings
+                                                Profile Settings
                                             </a>
                                         </li>
                                     </ul>
@@ -250,7 +250,7 @@ export default function AgentLayout({ children }) {
                                             aria-hidden="true"
                                             className="h-6 w-6 shrink-0"
                                         />
-                                        Settings
+                                        Profile Settings
                                     </Link>
                                 </li>
                             </ul>
@@ -365,9 +365,8 @@ export default function AgentLayout({ children }) {
                         <div className="px-4 sm:px-6 lg:px-8">
                             {message && (
                                 <div
-                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${
-                                        fadeOut ? "opacity-0" : "opacity-100"
-                                    }`}
+                                    className={`mb-4 p-4 text-white ${color} rounded-md transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"
+                                        }`}
                                 >
                                     {message}
                                 </div>
