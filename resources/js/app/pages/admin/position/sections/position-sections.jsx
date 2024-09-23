@@ -3,51 +3,46 @@ import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
 import Input from "@/app/_components/input";
-import Select from "@/app/_components/select";
 
 export default function PositionSectionPage() {
     const [dataChecked, setDataChecked] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [newPosition, setNewPosition] = useState({
-        name: "",
+    const [newPosition, setNewPosition] = useState({ 
         account: "",
-        status: "",
+        status: "Active", // Set default status
     });
     const [positions, setPositions] = useState([
         {
             id: 1,
-            name: "Alice Smith",
-            account: "Operations Manager",
+            account: "Agent",
             year: 2024,
             status: "Active",
-            teamMembers: [], // Initially empty, simulate fetch later
+            teamMembers: [],
         },
         {
             id: 2,
-            name: "Mayeng Miyot",
-            account: "Agent",
+            account: "Senior Agent",
             year: 2090,
             status: "Inactive",
-            teamMembers: [], // Initially empty, simulate fetch later
+            teamMembers: [],
         },
         {
             id: 3,
-            name: "John Doe",
-            account: "Account Manager",
+            account: "Quality Analyst",
             year: 2023,
             status: "Active",
-            teamMembers: [], // Initially empty, simulate fetch later
+            teamMembers: [],
         },
         {
             id: 4,
-            name: "Emily Johnson",
-            account: "Team Leader",
+            account: "Trainer",
             year: 2024,
             status: "Active",
-            teamMembers: [], // Initially empty, simulate fetch later
+            teamMembers: [],
         },
+        
     ]);
     const [expandedPositionId, setExpandedPositionId] = useState(null);
     const [expandedSection, setExpandedSection] = useState(null);
@@ -72,68 +67,24 @@ export default function PositionSectionPage() {
             ...newPosition,
             teamMembers: [],
             history: [],
-        }; // Initialize with no team members and history
+        };
         setPositions((prevPositions) => [...prevPositions, newPositionData]);
-        setNewPosition({
-            name: "",
-            account: "",
-            status: "",
-        });
+        setNewPosition({ name: "", account: "", status: "Active" }); // Reset state
         handleCloseModal();
+    }
+
+    function handleRemoveAccount(id) {
+        setPositions(positions.filter(position => position.id !== id));
+    }
+
+    function handleStatusChange(id, status) {
+        setPositions(positions.map(position =>
+            position.id === id ? { ...position, status } : position
+        ));
     }
 
     function toggleExpandPosition(positionId) {
         setExpandedPositionId(expandedPositionId === positionId ? null : positionId);
-    }
-
-    function toggleExpandSection(positionId, section) {
-        if (expandedPositionId === positionId) {
-            setExpandedSection(expandedSection === section ? null : section);
-        } else {
-            setExpandedPositionId(positionId);
-            setExpandedSection(section);
-
-            // Simulate fetching team members data on demand
-            if (section === "team") {
-                const updatedPositions = positions.map((position) => {
-                    if (position.id === positionId && position.teamMembers.length === 0) {
-                        return {
-                            ...position,
-                            teamMembers: [
-                                {
-                                    id: 1,
-                                    name: "John Doe",
-                                    account: "Developer",
-                                },
-                                {
-                                    id: 2,
-                                    name: "Jane Roe",
-                                    account: "Designer",
-                                },
-                                {
-                                    id: 3,
-                                    name: "Mark Twain",
-                                    account: "Tester",
-                                },
-                                {
-                                    id: 4,
-                                    name: "Lucy Liu",
-                                    account: "Developer",
-                                },
-                                {
-                                    id: 5,
-                                    name: "Tom Hardy",
-                                    account: "Developer",
-                                },
-                            ],
-                        };
-                    }
-                    return position;
-                });
-
-                setPositions(updatedPositions);
-            }
-        }
     }
 
     return (
@@ -157,27 +108,12 @@ export default function PositionSectionPage() {
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
-                    data={positions} // Pass original positions data
+                    data={positions}
                     columns={[
-                        {
-                            title: "Name",
-                            key: "name",
-                            render: (text, record) => (
-                                <div className="flex items-center">
-                                    <img
-                                        src={`https://i.pravatar.cc/40?img=${record.id}`}
-                                        alt={record.name}
-                                        className="h-10 w-10 rounded-full mr-3"
-                                    />
-                                    <span>{record.name}</span>
-                                </div>
-                            ),
-                        },
                         {
                             title: "Position",
                             key: "account",
                         },
-
                         {
                             title: "Status",
                             key: "status",
@@ -193,24 +129,29 @@ export default function PositionSectionPage() {
                                 </span>
                             ),
                         },
-
                         {
                             title: "Action",
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <button>
-                                        <a
-                                            href="/om/team"
-                                            className="ml-1 text-blue-500 hover:underline"
-                                        >
-                                            View Team
-                                        </a>
+                                    <button
+                                        onClick={() => handleRemoveAccount(record.id)}
+                                        className="text-red-500 hover:underline"
+                                    >
+                                        Remove
                                     </button>
-                                    <button>
-                                        {/* <a href="#" className="ml-1">
-                                            View History
-                                        </a> */}
+                                    <button
+                                        onClick={() =>
+                                            handleStatusChange(
+                                                record.id,
+                                                record.status === "Active"
+                                                    ? "Inactive"
+                                                    : "Active"
+                                            )
+                                        }
+                                        className={`text-${record.status === "Active" ? "red" : "green"}-500 hover:underline`}
+                                    >
+                                        Mark as {record.status === "Active" ? "Inactive" : "Active"}
                                     </button>
                                 </div>
                             ),
@@ -224,11 +165,7 @@ export default function PositionSectionPage() {
                 />
             </div>
 
-            <Modal
-                open={isModalOpen}
-                setOpen={setIsModalOpen}
-                width="sm:max-w-md top-20"
-            >
+            <Modal open={isModalOpen} setOpen={setIsModalOpen} width="sm:max-w-md top-20">
                 <h2 className="text-lg font-semibold mb-4">Add New Position</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -243,26 +180,19 @@ export default function PositionSectionPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Operations Manager", label: "Operations Manager" },
-                                { value: "Account Manager", label: "Account Manager" },
-                                { value: "Team Leader", label: "Team Leader" },
-                                { value: "Agent", label: "Agent" },
-                            ]}
-                            onChange={(e) => handleChange({ target: { name: 'account', value: e.target.value } })}
+                        <Input
                             label="Position"
                             name="account"
                             required={true}
+                            className="rounded-md w-full"
+                            value={newPosition.account}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Active", label: "Active" },
-                                { value: "Inactive", label: "Inactive" },
-                            ]}
-                            onChange={handleChange}
+                        <Input
+                            value={newPosition.status}
+                            readOnly={true}
                             label="Status"
                             name="status"
                             required={true}

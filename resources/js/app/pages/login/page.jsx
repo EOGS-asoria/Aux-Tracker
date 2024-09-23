@@ -23,7 +23,7 @@ const LoginPage = () => {
           <div className="md:w-1/2 px-5">
             <LoginHeaderSection />
 
-            <LoginFormSection />
+            <LoginFormSection /> 
 
 
 

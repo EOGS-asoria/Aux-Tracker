@@ -11,7 +11,7 @@ export default function AccountManagerSection() {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newAccountManager, setNewAccountManager] = useState({
-        name: "", 
+        name: "",
         position: "",
         account: "",
         site: "San Carlos City",
@@ -87,7 +87,7 @@ export default function AccountManagerSection() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <a href={`/om/agent`} className="text-blue-500 hover:underline">
+                                    <a href={`/administrator/agent`} className="text-blue-500 hover:underline">
                                         View Team
                                     </a>
                                     <button

@@ -3,7 +3,6 @@ import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
 import Input from "@/app/_components/input";
-import Select from "@/app/_components/select";
 
 export default function AccountsTableSection() {
     const [dataChecked, setDataChecked] = useState([]);
@@ -13,32 +12,14 @@ export default function AccountsTableSection() {
     const [newAccount, setNewAccount] = useState({
         accountName: "",
         site: "",
-        dateCreated: "",
+        dateCreated: new Date().toISOString().split('T')[0], // Set to today's date
     });
     const [accounts, setAccounts] = useState([
         {
             id: 1,
-            accountName: "Alice Smith",
+            accountName: "AiFi",
             site: "San Carlos Site",
             dateCreated: "2024-01-15",
-        },
-        {
-            id: 2,
-            accountName: "Mayeng Miyot",
-            site: "Carcar Site",
-            dateCreated: "2090-02-22",
-        },
-        {
-            id: 3,
-            accountName: "John Doe",
-            site: "San Carlos City",
-            dateCreated: "2023-06-30",
-        },
-        {
-            id: 4,
-            accountName: "Emily Johnson",
-            site: "San Carlos Site",
-            dateCreated: "2024-04-01",
         },
     ]);
 
@@ -65,7 +46,7 @@ export default function AccountsTableSection() {
         setNewAccount({
             accountName: "",
             site: "",
-            dateCreated: "",
+            dateCreated: new Date().toISOString().split('T')[0], // Reset to today's date
         });
         handleCloseModal();
     }
@@ -95,7 +76,7 @@ export default function AccountsTableSection() {
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
-                    data={accounts} // Pass original accounts data
+                    data={accounts}
                     columns={[
                         {
                             title: "Account Name",
@@ -114,6 +95,7 @@ export default function AccountsTableSection() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
+                                    <button className="text-blue-500 hover:underline">Edit</button>
                                     <button
                                         onClick={() => handleRemoveAccount(record.id)}
                                         className="text-red-500 hover:underline"
@@ -169,7 +151,7 @@ export default function AccountsTableSection() {
                             className="rounded-md w-full"
                             required={true}
                             value={newAccount.dateCreated}
-                            onChange={handleChange}
+                            readOnly={true} // Make the date field read-only
                         />
                     </div>
 

@@ -64,7 +64,7 @@ export default function AgentLayout({ children }) {
         { name: "Dashboard", href: "/agent/dashboard", icon: HomeIcon },
         // { name: "Agent", href: "/agent/agent", icon: UsersIcon },
         { name: "Time keeping", href: "/agent/time", icon: FolderIcon },
-        // { name: "Logs", href: "/agent/logs", icon: ClockIcon },
+        { name: "Logs", href: "/agent/logs", icon: ClockIcon },
     ];
 
     // useEffect(() => {

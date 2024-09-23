@@ -50,6 +50,9 @@ Route::prefix('administrator')->group(function () {
     Route::get('/user', function () {
         return Inertia::render('admin/user/page');
     });
+    Route::get('/agent', function () {
+        return Inertia::render('admin/agent/page');
+    });
 
     Route::get('/site', function () {
         return Inertia::render('admin/site/page');
@@ -70,7 +73,19 @@ Route::prefix('administrator')->group(function () {
         return Inertia::render('admin/profile/page');
     });
 
+    Route::get('/team', function () {
+        return Inertia::render('admin/team/page');
+    });
 
+    Route::get('/account-manager', function () {
+        return Inertia::render('admin/account-manager/page');
+    });
+    Route::get('/add-agent', function () {
+        return Inertia::render('admin/add-agent/page');
+    });
+    Route::get('/history', function () {
+        return Inertia::render('admin/history/page');
+    });
 
     // Route::get('/time', function () {
     //     return Inertia::render('admin/time/page');
@@ -88,6 +103,9 @@ Route::prefix('agent')->group(function () {
     });
     Route::get('/time', function () {
         return Inertia::render('agent/time/page');
+    });
+    Route::get('/logs', function () {
+        return Inertia::render('agent/logs/page');
     });
 
     Route::get('/profile', function () {

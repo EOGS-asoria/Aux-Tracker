@@ -14,7 +14,7 @@ export default function TeamLeaderSection() {
         name: "",
         position: "",
         account: "",
-        site: "San Carlos",
+        site: "San Carlos Site",
         status: "",
     });
     const [leaders, setLeaders] = useState([
@@ -22,7 +22,7 @@ export default function TeamLeaderSection() {
             id: 1,
             name: "Alice Smith",
             position: "Manager",
-            account: "AiFi",
+            account: "alice.smith",
             site: "San Carlos",
             status: "Active",
             teamMembers: [],
@@ -31,7 +31,7 @@ export default function TeamLeaderSection() {
             id: 2,
             name: "Mayeng Miyot",
             position: "Intern",
-            account: "JTV",
+            account: "mayeng.miyot",
             site: "Carcar",
             status: "Inactive",
             teamMembers: [],
@@ -40,7 +40,7 @@ export default function TeamLeaderSection() {
             id: 3,
             name: "John Doe",
             position: "Developer",
-            account: "AiFi",
+            account: "john.doe",
             site: "3rd Site",
             status: "Active",
             teamMembers: [],
@@ -49,7 +49,7 @@ export default function TeamLeaderSection() {
             id: 4,
             name: "Emily Johnson",
             position: "Designer",
-            account: "AiFi",
+            account: "emily.johnson",
             site: "Chicago",
             status: "Active",
             teamMembers: [],
@@ -232,7 +232,7 @@ export default function TeamLeaderSection() {
                                 <div className="flex space-x-4">
                                     <button>
                                         <a
-                                            href="/om/agent"
+                                            href="/administrator/agent"
                                             className="ml-1 text-blue-500 hover:underline"
                                         >
                                             View Team
@@ -294,8 +294,9 @@ export default function TeamLeaderSection() {
                     <div className="mb-4">
                         <Select
                             options={[
-                                { value: 'AiFi', label: 'AiFi' },
-                                { value: 'JTV', label: 'JTV' }, 
+                                { value: 'Account1', label: 'Account 1' },
+                                { value: 'Account2', label: 'Account 2' },
+                                { value: 'Account3', label: 'Account 3' },
                             ]}
                             value={newLeader.account}
                             onChange={(value) => setNewLeader(prev => ({ ...prev, account: value }))}

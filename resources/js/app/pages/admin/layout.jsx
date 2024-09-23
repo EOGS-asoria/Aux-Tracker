@@ -68,6 +68,9 @@ export default function AdminLayout({ children }) {
         { name: "Site", href: "/administrator/site", icon: GlobeAsiaAustraliaIcon },
         { name: "Position", href: "/administrator/position", icon: UserCircleIcon },
         { name: "Account", href: "/administrator/account", icon: UserPlusIcon },
+        { name: "Team Leader", href: "/administrator/team", icon: UsersIcon, },
+        { name: "Add Agent", href: "/administrator/add-agent", icon: UserPlusIcon, },
+        { name: "Account Manager", href: "/administrator/account-manager", icon: UserCircleIcon, },
         { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
 
         // { name: "Time keeping", href: "/administrator/time", icon: FolderIcon },

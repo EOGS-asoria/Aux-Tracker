@@ -12,17 +12,25 @@ export default function ViewTeamSections() {
         {
             id: 1,
             name: "Michael Johnson",
-            account: "AiFi",
+            account: "Support Agent",
             joinedYear: 2018,
-            status: "Inactive",
+            status: "Inactive", // Corrected typo
         },
         {
             id: 2,
             name: "Samantha Green",
-            account: "JTV",
+            account: "Senior Support Agent",
             joinedYear: 2019,
             status: "Active",
-        }, 
+        },
+        {
+            id: 3,
+            name: "David Brown",
+            account: "Junior Agent",
+            joinedYear: 2020,
+            status: "Active",
+        },
+        // Add more agents as needed
     ]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +38,8 @@ export default function ViewTeamSections() {
     const [newAgent, setNewAgent] = useState({
         name: "",
         account: "",
-        status: "Active", // Default status
+       
+        status: "",
     });
 
     // Handle click for adding a new agent
@@ -60,7 +69,8 @@ export default function ViewTeamSections() {
         setNewAgent({
             name: "",
             account: "",
-            status: "Active", // Reset to default status
+            
+            status: "",
         });
         handleCloseModal();
     };
@@ -68,12 +78,17 @@ export default function ViewTeamSections() {
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="mb-4">
-                <a href="/om/team" className="text-blue-600 hover:underline flex items-center">
+                <a
+                    href="/administrator/team"
+                    className="text-blue-600 hover:underline flex items-center"
+                >
                     ← Back
                 </a>
             </div>
 
-            <h1 className="text-4xl font-bold mb-8 text-gray-800">Team Agent of Alice Smith</h1>
+            <h1 className="text-4xl font-bold mb-8 text-gray-800">
+                Team Agent of Alice Smith
+            </h1>
 
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex items-center justify-between mb-4">
@@ -115,10 +130,11 @@ export default function ViewTeamSections() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                                        text === "Active"
                                             ? "bg-green-100 text-green-800"
                                             : "bg-red-100 text-red-800"
-                                        }`}
+                                    }`}
                                 >
                                     {text}
                                 </span>
@@ -130,7 +146,7 @@ export default function ViewTeamSections() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <a
-                                        href={`/om/history`}
+                                        href={`/administrator/history`} // Dynamic link based on record ID
                                         className="text-blue-500 hover:underline"
                                     >
                                         View Agent History
@@ -166,24 +182,26 @@ export default function ViewTeamSections() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
+                        <Input
                             name="account"
                             label="Account"
-                            options={[
-                                { value: "AiFi", label: "AiFi" },
-                                { value: "JTV", label: "JTV" },
-                            ]}
+                            type="text"
+                            className="rounded-md w-full"
+                            required={true}
                             value={newAgent.account}
                             onChange={handleChange}
-                            required={true}
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
+                        <Select
+                            options={[
+                                { value: "Active", label: "Active" },
+                                { value: "Inactive", label: "Inactive" },
+                            ]}
+                            onChange={handleChange}
                             label="Status"
-                            value="Active" // Fixed status as read-only
-                            readOnly
-                            className="rounded-md w-full"
+                            name="status"
+                            required={true}
                         />
                     </div>
 

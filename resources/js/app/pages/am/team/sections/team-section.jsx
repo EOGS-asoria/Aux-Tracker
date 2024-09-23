@@ -13,7 +13,7 @@ export default function UsersTableSection() {
     const [newUser, setNewUser] = useState({
         name: "",
         account: "",
-        status: "",
+        status: "Active", // Default status
     });
 
     // Filter users to only show those with the account type "AM"
@@ -67,9 +67,19 @@ export default function UsersTableSection() {
         setNewUser({
             name: "",
             account: "",
-            status: "",
+            status: "Active", // Reset to default status
         });
         handleCloseModal();
+    }
+
+    function toggleUserStatus(id) {
+        setUsers((prevUsers) =>
+            prevUsers.map((user) =>
+                user.id === id
+                    ? { ...user, status: user.status === "Active" ? "Inactive" : "Active" }
+                    : user
+            )
+        );
     }
 
     return (
@@ -118,11 +128,10 @@ export default function UsersTableSection() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                                        text === "Active"
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
                                             ? "bg-green-100 text-green-800"
                                             : "bg-red-100 text-red-800"
-                                    }`}
+                                        }`}
                                 >
                                     {text}
                                 </span>
@@ -140,6 +149,20 @@ export default function UsersTableSection() {
                                         >
                                             View Team
                                         </a>
+                                    </button>
+                                    <button
+                                        onClick={() => toggleUserStatus(record.id)}
+                                        className={`text-${record.status === "Active" ? "red" : "green"}-500 hover:underline`}
+                                    >
+                                        Mark as {record.status === "Active" ? "Inactive" : "Active"}
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            handleRemoveLeader(record.id)
+                                        }
+                                        className="text-red-500 hover:underline"
+                                    >
+                                        Remove
                                     </button>
                                 </div>
                             ),
@@ -172,26 +195,23 @@ export default function UsersTableSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
+                        <Select
                             name="account"
                             label="Account"
-                            type="text"
-                            className="rounded-md w-full"
-                            required={true}
-                            value={newUser.account}
+                            options={[
+                                { value: "AIFI", label: "AIFI" },
+                                { value: "JTV", label: "JTV" },
+                            ]}
                             onChange={handleChange}
+                            required={true}
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Active", label: "Active" },
-                                { value: "Inactive", label: "Inactive" },
-                            ]}
-                            onChange={handleChange}
+                        <Input
                             label="Status"
-                            name="status"
-                            required={true}
+                            value="Active" // Fixed status as read-only
+                            readOnly
+                            className="rounded-md w-full"
                         />
                     </div>
                     <div className="flex justify-end">

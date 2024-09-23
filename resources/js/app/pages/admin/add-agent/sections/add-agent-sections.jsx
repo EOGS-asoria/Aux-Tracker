@@ -16,8 +16,7 @@ export default function AgentsTableSection() {
         account: "",
         teamLeader: "",
         site: "San Carlos",
-        status: "Active", // Default status
-    }); 
+    });
     const [agents, setAgents] = useState([
         {
             id: 1,
@@ -25,7 +24,7 @@ export default function AgentsTableSection() {
             position: "Agent",
             account: "Account1",
             teamLeader: "Michael Smith",
-            site: "Carcar",
+            site: "Carcar Site",
             status: "Active",
         },
         {
@@ -43,7 +42,7 @@ export default function AgentsTableSection() {
             position: "Agent",
             account: "Account3",
             teamLeader: "John Doe",
-            site: "San Carlos",
+            site: "San Carlos Site",
             status: "Active",
         },
     ]);
@@ -70,8 +69,7 @@ export default function AgentsTableSection() {
             position: "",
             account: "",
             teamLeader: "",
-            site: "San Carlos",
-            status: "Active",
+            site: "Carcar Site",
         });
         handleCloseModal();
     }
@@ -131,11 +129,10 @@ export default function AgentsTableSection() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                                        text === "Active"
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
                                             ? "bg-green-100 text-green-800"
                                             : "bg-red-100 text-red-800"
-                                    }`}
+                                        }`}
                                 >
                                     {text}
                                 </span>
@@ -148,7 +145,7 @@ export default function AgentsTableSection() {
                                 <div className="flex space-x-4">
                                     <button>
                                         <a
-                                            href="/om/history"
+                                            href="/administrator/history"
                                             className="ml-1 text-blue-500 hover:underline"
                                         >
                                             View History Logs
@@ -196,12 +193,24 @@ export default function AgentsTableSection() {
                         <Select
                             options={[
                                 { value: "Agent", label: "Agent" },
-                                { value: "Senior Agent", label: "Senior Agent" },
+                                {
+                                    value: "Senior Agent",
+                                    label: "Senior Agent",
+                                },
                                 { value: "Team Leader", label: "Team Leader" },
-                                { value: "Quality Analyst", label: "Quality Analyst" },
+                                {
+                                    value: "Quality Analyst",
+                                    label: "Quality Analyst",
+                                },
                                 { value: "Trainer", label: "Trainer" },
-                                { value: "Operations Manager", label: "Operations Manager" },
-                                { value: "Customer Service Representative", label: "Customer Service Representative" },
+                                {
+                                    value: "Operations Manager",
+                                    label: "Operations Manager",
+                                },
+                                {
+                                    value: "Customer Service Representative",
+                                    label: "Customer Service Representative",
+                                },
                             ]}
                             value={newAgent.position}
                             onChange={(e) =>
@@ -242,7 +251,10 @@ export default function AgentsTableSection() {
                         <Select
                             options={[
                                 { value: "Alice Smith", label: "Alice Smith" },
-                                { value: "Mayeng Miyot", label: "Mayeng Miyot" },
+                                {
+                                    value: "Mayeng Miyot",
+                                    label: "Mayeng Miyot",
+                                },
                                 { value: "John Doe", label: "John Doe" },
                             ]}
                             value={newAgent.teamLeader}
@@ -263,14 +275,6 @@ export default function AgentsTableSection() {
                         <Input
                             label="Site"
                             value={newAgent.site}
-                            readOnly
-                            className="rounded-md w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <Input
-                            label="Status"
-                            value={newAgent.status} // Display active status
                             readOnly
                             className="rounded-md w-full"
                         />

@@ -20,57 +20,56 @@ in
 out
 type
 
+//task
 
-
-
-Clock In 
-Clock Out
+✅Clock In 
+✅Clock Out
 
 //15 mins
-Break 
-Back
+✅Break 
+✅Back
 
 //
-Lunch In
-Lunch Back
+✅Lunch In
+✅Lunch Back
 
 
-meeting In
-meeting Out
+✅meeting In
+✅meeting Out
 
-coaching In
-coaching Out
+✅coaching In
+✅coaching Out
 
-floor support In
-floor support Out
+✅floor support In
+✅floor support Out
 
 
 // new task
 
 //Admin/Supervisor Dashboard
-Total Agent In
-Total Agent Out
-Total Agent on Break
-Total Agent on Lunch
-Total Agent on Meeting
-Total Agent on coaching
-Total Agent on Floor support
+✅Total Agent In
+✅Total Agent Out
+✅Total Agent on Break
+✅Total Agent on Lunch
+✅Total Agent on Meeting
+✅Total Agent on coaching
+✅Total Agent on Floor support
  
-Agent Overbreak
-Agent Overlunch
+✅Agent Overbreak
+✅Agent Overlunch
 
-Overbreak Graph (per month)
-Overlunch Graph (per month)
+✅Overbreak Graph (per month)
+✅Overlunch Graph (per month)
 
 
 //Agent Dashboard
 
-Navbar: Current Status: (In/Active, Break, Lunch, Meeting, Coaching, Floor Support)
+✅Navbar: Current Status: (In/Active, Break, Lunch, Meeting, Coaching, Floor Support)
 
-Time In
-Break
-Lunch
-Time Out
+✅Time In
+✅Break
+✅Lunch
+✅Time Out
 
 
 
@@ -92,7 +91,8 @@ OM (Functions)
 AM (Functions)
 ✅ Dashboard, Team Leaders (Same Site Only), Agents (Same Site Only), Logs (Same Site Only)
 ✅ Under Team Leader section, Only the Account  assigned to AM will be viewed.
-✅ Agent section: Viewing of Agents Table, Adding of Agent must include (Name, Position, Account, Team Leader (Dropdown, Same Site Only), Site (Read Only), View History Logs (Will route to Agent History Section).)
+✅ Agent section: Viewing of Agents 
+Table, Adding of Agent must include (Name, Position, Account, Team Leader (Dropdown, Same Site Only), Site (Read Only), View History Logs (Will route to Agent History Section).)
 ✅ Logs section, Same account can only be seen.
 
 
@@ -108,6 +108,6 @@ TL (Functions)
  
  
 
-  {/* Display Message Using Redux */}
- {time.status} {time.timer}
+ ✅ {/* Display Message Using Redux */}
+ ✅{time.status} {time.timer}
 

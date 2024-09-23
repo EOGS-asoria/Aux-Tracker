@@ -94,7 +94,7 @@ export default function LogTableSection() {
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-            <h1 className="text-3xl font-bold mb-8 text-gray-700">Table Logs</h1>
+            <h1 className="text-3xl font-bold mb-8 text-gray-700">History Logs</h1>
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <Table
                     dataChecked={dataChecked}
@@ -165,7 +165,7 @@ export default function LogTableSection() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <button onClick={() => handleView(record)} className="text-blue-500 hover:underline">View</button>
+                                    {/* <button onClick={() => handleView(record)} className="text-blue-500 hover:underline">View</button> */}
                                     <button onClick={() => handleDelete(record)} className="text-red-500 hover:underline">Delete</button>
                                 </div>
                             )

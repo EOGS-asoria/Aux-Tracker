@@ -24,6 +24,8 @@ export default function LoginFormSection({ status, canResetPassword }) {
     };
 console.log('data',data)
     return (
+
+        
         <form className="mt-6 flex flex-col gap-5" onSubmit={submit}>
                   {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
             <Input

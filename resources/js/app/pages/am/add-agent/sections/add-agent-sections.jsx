@@ -15,7 +15,7 @@ export default function AgentsTableSection() {
         position: "",
         account: "",
         teamLeader: "",
-        site: "San Carlos Site",
+        site: "San Carlos",
     });
     const [agents, setAgents] = useState([
         {

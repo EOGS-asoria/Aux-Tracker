@@ -6,59 +6,54 @@ import Input from "@/app/_components/input";
 import Select from "@/app/_components/select";
 
 export default function ViewTeamSections() {
-    // Declare necessary states
     const [dataChecked, setDataChecked] = useState([]);
     const [agents, setAgents] = useState([
         {
             id: 1,
             name: "Michael Johnson",
-            account: "Support Agent",
+            account: "AiFi",
             joinedYear: 2018,
-            status: "Inactive", // Corrected typo
+            status: "Inactive",
         },
         {
             id: 2,
             name: "Samantha Green",
-            account: "Senior Support Agent",
+            account: "AiFi",
             joinedYear: 2019,
             status: "Active",
         },
         {
             id: 3,
             name: "David Brown",
-            account: "Junior Agent",
+            account: "JTV",
             joinedYear: 2020,
             status: "Active",
         },
         // Add more agents as needed
     ]);
+    
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newAgent, setNewAgent] = useState({
         name: "",
         account: "",
-
-        status: "",
+        status: "Active", // Set default status
     });
 
-    // Handle click for adding a new agent
     const handleAddNewUserClick = () => {
         setIsModalOpen(true);
     };
 
-    // Close modal
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
 
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewAgent((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         const newAgentData = {
@@ -69,10 +64,21 @@ export default function ViewTeamSections() {
         setNewAgent({
             name: "",
             account: "",
-
-            status: "",
+            status: "Active", // Reset to default status
         });
         handleCloseModal();
+    };
+
+    const removeAgent = (id) => {
+        setAgents((prevAgents) => prevAgents.filter(agent => agent.id !== id));
+    };
+
+    const markAsInactive = (id) => {
+        setAgents((prevAgents) =>
+            prevAgents.map((agent) =>
+                agent.id === id ? { ...agent, status: "Inactive" } : agent
+            )
+        );
     };
 
     return (
@@ -124,6 +130,9 @@ export default function ViewTeamSections() {
                         {
                             title: "Account",
                             key: "account",
+                            render: (text) => (
+                                <span>{text}</span>
+                            ),
                         },
                         {
                             title: "Status",
@@ -150,6 +159,18 @@ export default function ViewTeamSections() {
                                     >
                                         View Agent History
                                     </a>
+                                    <button
+                                        onClick={() => markAsInactive(record.id)}
+                                        className="text-red-500 hover:underline"
+                                    >
+                                        Mark as Inactive
+                                    </button>
+                                    <button
+                                        onClick={() => removeAgent(record.id)}
+                                        className="text-red-500 hover:underline"
+                                    >
+                                        Remove
+                                    </button>
                                 </div>
                             ),
                         },
@@ -181,26 +202,25 @@ export default function ViewTeamSections() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
+                        <Select
                             name="account"
                             label="Account"
-                            type="text"
-                            className="rounded-md w-full"
+                            options={[
+                                { value: "JTV", label: "Support Agent" },
+                                { value: "AiFi", label: "AiFi" },
+                                { value: "AiFi", label: "AiFi" },
+                                // Add more options as needed
+                            ]}
                             required={true}
-                            value={newAgent.account}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Active", label: "Active" },
-                                { value: "Inactive", label: "Inactive" },
-                            ]}
-                            onChange={handleChange}
+                        <Input
                             label="Status"
-                            name="status"
-                            required={true}
+                            value="Active" // Fixed status as read-only
+                            readOnly
+                            className="rounded-md w-full"
                         />
                     </div>
 

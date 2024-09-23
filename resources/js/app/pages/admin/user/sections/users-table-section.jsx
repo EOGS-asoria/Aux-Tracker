@@ -111,7 +111,7 @@ export default function UsersTableSection() {
                                 >
                                     {text}
                                 </span>
-                            )
+                            ) 
                         },
                         {
                             title: "Action",
@@ -119,7 +119,7 @@ export default function UsersTableSection() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <button onClick={() => clickMe(record.id)} className="text-blue-500 hover:underline">Edit</button>
-                                    <button onClick={() => clickMe(record.id)} className="text-red-500 hover:underline">Delete</button>
+                                    <button onClick={() => clickMe(record.id)} className="text-red-500 hover:underline">Remove</button>
                                     <button
                                         onClick={() => handleStatusChange(record.id, record.status === 'Active' ? 'Inactive' : 'Active')}
                                         className={`text-${record.status === 'Active' ? 'red' : 'green'}-500 hover:underline`}
@@ -196,13 +196,9 @@ export default function UsersTableSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: 'Active', label: 'Active' },
-                                { value: 'Inactive', label: 'Inactive' },
-                            ]}
-                            value={newUser.status}
-                            onChange={(e) => handleChange({ target: { name: 'status', value: e.target.value } })}
+                        <Input
+                            value="Active"
+                            readOnly="true"
                             label="Status"
                             name="status"
                             required={true}
