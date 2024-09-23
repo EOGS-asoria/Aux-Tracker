@@ -22,7 +22,7 @@ export default function AgentSection() {
             id: 1,
             name: "Alice Smith",
             position: "Agent",
-            account: "alice.smith",
+            account: "AiFi",
             site: "San Carlos",
             status: "Active",
         },
@@ -30,7 +30,7 @@ export default function AgentSection() {
             id: 2,
             name: "Mayeng Miyot",
             position: "Agent",
-            account: "mayeng.miyot",
+            account: "AiFi",
             site: "San Carlos",
             status: "Inactive",
         },
@@ -38,15 +38,7 @@ export default function AgentSection() {
             id: 3,
             name: "John Doe",
             position: "Agent",
-            account: "john.doe",
-            site: "San Carlos",
-            status: "Active",
-        },
-        {
-            id: 4,
-            name: "Emily Johnson",
-            position: "Agent",
-            account: "emily.johnson",
+            account: "AiFi",
             site: "San Carlos",
             status: "Active",
         },
@@ -200,30 +192,36 @@ export default function AgentSection() {
                             label="Name"
                             type="text"
                             className="rounded-md w-full"
-                            required={true} 
+                            required={true}
                             value={newAgent.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
+                        <Select
+                            options={[
+                                { value: "Agent", label: "Agent" },
+                                { value: "Supervisor", label: "Supervisor" },
+                                { value: "Operations Manager", label: "Operations Manager" },
+                            ]}
                             name="position"
                             label="Position"
-                            type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newAgent.position}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
+                        <Select
+                            options={[
+                                { value: "AiFi", label: "AiFi" },
+                                { value: "JTV", label: "JTV" },
+                                { value: "AiFi", label: "AiFi" },
+                            ]}
                             name="account"
                             label="Account"
-                            type="text"
                             className="rounded-md w-full"
                             required={true}
-                            value={newAgent.account}
                             onChange={handleChange}
                         />
                     </div>
@@ -238,15 +236,12 @@ export default function AgentSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Active", label: "Active" },
-                                { value: "Inactive", label: "Inactive" },
-                            ]}
-                            onChange={handleChange}
+                        <Input
+                            value="Active"
                             label="Status"
                             name="status"
                             required={true}
+                            readOnly={true}
                         />
                     </div>
 

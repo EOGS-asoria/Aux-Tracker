@@ -17,7 +17,7 @@ export default function AgentsTableSection() {
         teamLeader: "",
         site: "San Carlos",
         status: "Active", // Default status
-    }); 
+    });
     const [agents, setAgents] = useState([
         {
             id: 1,
@@ -131,11 +131,10 @@ export default function AgentsTableSection() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                                        text === "Active"
-                                            ? "bg-green-100 text-green-800"
-                                            : "bg-red-100 text-red-800"
-                                    }`}
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-red-100 text-red-800"
+                                        }`}
                                 >
                                     {text}
                                 </span>
@@ -193,28 +192,12 @@ export default function AgentsTableSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Agent", label: "Agent" },
-                                { value: "Senior Agent", label: "Senior Agent" },
-                                { value: "Team Leader", label: "Team Leader" },
-                                { value: "Quality Analyst", label: "Quality Analyst" },
-                                { value: "Trainer", label: "Trainer" },
-                                { value: "Operations Manager", label: "Operations Manager" },
-                                { value: "Customer Service Representative", label: "Customer Service Representative" },
-                            ]}
-                            value={newAgent.position}
-                            onChange={(e) =>
-                                handleChange({
-                                    target: {
-                                        name: "position",
-                                        value: e.target.value,
-                                    },
-                                })
-                            }
+                        <Input
+                            value="Operations Manager"
                             label="Position"
                             name="position"
-                            required={true}
+                            readOnly={true}  // Read-only to make it uneditable
+                            className="rounded-md w-full"
                         />
                     </div>
                     <div className="mb-4">

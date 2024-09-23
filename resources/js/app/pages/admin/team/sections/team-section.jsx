@@ -176,7 +176,7 @@ export default function TeamLeaderSection() {
                         type="button"
                         onClick={handleAddNewLeaderClick}
                     >
-                        Add New Leader
+                        Add Team Leader
                     </Button>
                 </div>
 
@@ -263,7 +263,7 @@ export default function TeamLeaderSection() {
                 setOpen={setIsModalOpen}
                 width="sm:max-w-md top-20"
             >
-                <h2 className="text-lg font-semibold mb-4">Add New Leader</h2>
+                <h2 className="text-lg font-semibold mb-4">Add Team Leader</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <Input

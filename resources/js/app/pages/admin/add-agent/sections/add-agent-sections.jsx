@@ -137,7 +137,7 @@ export default function AgentsTableSection() {
                                     {text}
                                 </span>
                             ),
-                        },
+                        }, 
                         {
                             title: "Action",
                             key: "action",

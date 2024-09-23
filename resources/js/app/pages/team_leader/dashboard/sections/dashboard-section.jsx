@@ -102,10 +102,10 @@ export default function Dashboard() {
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-4xl font-bold mb-4 text-gray-800">
-              Operations Manager's Dashboard
+              Team Leader Dashboard
             </h1>
             <h2 className="text-xl font-semibold text-gray-600 mb-10">
-                San Carlos City Site
+                San Carlos City Site 
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">

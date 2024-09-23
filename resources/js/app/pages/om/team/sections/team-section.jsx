@@ -15,7 +15,7 @@ export default function TeamLeaderSection() {
         position: "",
         account: "",
         site: "San Carlos",
-        status: "",
+        status: "Active",  // Defaulting to 'Active'
     });
     const [leaders, setLeaders] = useState([
         {
@@ -71,6 +71,13 @@ export default function TeamLeaderSection() {
         setNewLeader((prevState) => ({ ...prevState, [name]: value }));
     }
 
+    function handlePositionChange(value) {
+        setNewLeader((prev) => ({
+            ...prev,
+            position: value,
+        }));
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         const newLeaderData = {
@@ -83,8 +90,8 @@ export default function TeamLeaderSection() {
             name: "",
             position: "",
             account: "",
-            site: "San Carlos Site",
-            status: "",
+            site: "San Carlos",
+            status: "Active",  // Reset to 'Active'
         });
         handleCloseModal();
     }
@@ -105,62 +112,8 @@ export default function TeamLeaderSection() {
         } else {
             setExpandedLeaderId(leaderId);
             setExpandedSection(section);
-
-            // Simulate fetching team members data on demand
-            if (section === "team") {
-                const updatedLeaders = leaders.map((leader) => {
-                    if (
-                        leader.id === leaderId &&
-                        leader.teamMembers.length === 0
-                    ) {
-                        return {
-                            ...leader,
-                            teamMembers: [
-                                {
-                                    id: 1,
-                                    name: "John Doe",
-                                    position: "Developer",
-                                    account: "john.doe",
-                                },
-                                {
-                                    id: 2,
-                                    name: "Jane Roe",
-                                    position: "Designer",
-                                    account: "jane.roe",
-                                },
-                                {
-                                    id: 3,
-                                    name: "Mark Twain",
-                                    position: "Tester",
-                                    account: "mark.twain",
-                                },
-                                {
-                                    id: 4,
-                                    name: "Lucy Liu",
-                                    position: "Developer",
-                                    account: "lucy.liu",
-                                },
-                                {
-                                    id: 5,
-                                    name: "Tom Hardy",
-                                    position: "Developer",
-                                    account: "tom.hardy",
-                                },
-                            ],
-                        };
-                    }
-                    return leader;
-                });
-
-                setLeaders(updatedLeaders);
-            }
         }
     }
-
-    const ticketOptions = Array.from({ length: 11 }, (_, i) => ({
-        value: i,
-        label: i.toString(),
-    }));
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -277,25 +230,20 @@ export default function TeamLeaderSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: 'Operations Manager', label: 'Operations Manager' },
-                                { value: 'Account Manager', label: 'Account Manager' },
-                                { value: 'Team Leader', label: 'Team Leader' },
-                                { value: 'Agent', label: 'Agent' },
-                            ]}
-                            value={newLeader.position}
-                            onChange={(value) => setNewLeader(prev => ({ ...prev, position: value }))}
+                        <Input
+                            value="Operations Manager"
                             label="Position"
                             name="position"
-                            required={true}
+                            readOnly={true}  // Read-only to make it uneditable
+                            className="rounded-md w-full"
                         />
                     </div>
+
                     <div className="mb-4">
                         <Select
                             options={[
                                 { value: 'AiFi', label: 'AiFi' },
-                                { value: 'JTV', label: 'JTV' }, 
+                                { value: 'JTV', label: 'JTV' },
                             ]}
                             value={newLeader.account}
                             onChange={(value) => setNewLeader(prev => ({ ...prev, account: value }))}
@@ -316,11 +264,11 @@ export default function TeamLeaderSection() {
                     </div>
                     <div className="mb-4">
                         <Input
-                            value="Active"
+                            value={newLeader.status}
                             label="Status"
                             name="status"
                             required={true}
-                            readOnly="true"
+                            readOnly={true}  // Read-only for status
                         />
                     </div>
 

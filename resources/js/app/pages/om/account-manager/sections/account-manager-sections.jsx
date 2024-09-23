@@ -11,7 +11,7 @@ export default function AccountManagerSection() {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newAccountManager, setNewAccountManager] = useState({
-        name: "", 
+        name: "",
         position: "",
         account: "",
         site: "San Carlos City",
@@ -123,22 +123,15 @@ export default function AccountManagerSection() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: 'Operations Manager', label: 'Operations Manager' },
-                                { value: 'Account Manager', label: 'Account Manager' },
-                                { value: 'Team Leader', label: 'Team Leader' },
-                                { value: 'Agent', label: 'Agent' },
-                            ]}
-                            value={newAccountManager.position}
-                            onChange={(selectedOption) => {
-                                setNewAccountManager((prev) => ({ ...prev, position: selectedOption.value }));
-                            }}
+                        <Input
+                            value="Operations Manager"
                             label="Position"
                             name="position"
-                            required={true}
+                            readOnly={true}  
+                            className="rounded-md w-full"
                         />
                     </div>
+
                     <div className="mb-4">
                         <Select
                             options={[

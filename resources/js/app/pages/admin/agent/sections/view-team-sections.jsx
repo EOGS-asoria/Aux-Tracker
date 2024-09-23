@@ -14,7 +14,7 @@ export default function ViewTeamSections() {
             name: "Michael Johnson",
             account: "Support Agent",
             joinedYear: 2018,
-            status: "Inactive", // Corrected typo
+            status: "Inactive",
         },
         {
             id: 2,
@@ -38,8 +38,7 @@ export default function ViewTeamSections() {
     const [newAgent, setNewAgent] = useState({
         name: "",
         account: "",
-       
-        status: "",
+        status: "Active", // Set default status
     });
 
     // Handle click for adding a new agent
@@ -69,8 +68,7 @@ export default function ViewTeamSections() {
         setNewAgent({
             name: "",
             account: "",
-            
-            status: "",
+            status: "Active", // Reset the status to default
         });
         handleCloseModal();
     };
@@ -130,11 +128,10 @@ export default function ViewTeamSections() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                                        text === "Active"
-                                            ? "bg-green-100 text-green-800"
-                                            : "bg-red-100 text-red-800"
-                                    }`}
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-red-100 text-red-800"
+                                        }`}
                                 >
                                     {text}
                                 </span>
@@ -182,28 +179,38 @@ export default function ViewTeamSections() {
                         />
                     </div>
                     <div className="mb-4">
-                        <Input
-                            name="account"
-                            label="Account"
-                            type="text"
-                            className="rounded-md w-full"
-                            required={true}
+                        <Select
+                            options={[
+                                { value: "Account1", label: "Account 1" },
+                                { value: "Account2", label: "Account 2" },
+                                { value: "Account3", label: "Account 3" },
+                            ]}
                             value={newAgent.account}
-                            onChange={handleChange}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: "account",
+                                        value: e.target.value,
+                                    },
+                                })
+                            }
+                            label="Account"
+                            name="account"
+                            required={true}
                         />
                     </div>
                     <div className="mb-4">
-                        <Select
-                            options={[
-                                { value: "Active", label: "Active" },
-                                { value: "Inactive", label: "Inactive" },
-                            ]}
-                            onChange={handleChange}
-                            label="Status"
+                        <Input
                             name="status"
-                            required={true}
+                            label="Status"
+                            type="text"
+                            className="rounded-md w-full"
+                            value="Active"
+                            readOnly={true}
                         />
                     </div>
+
+
 
                     <div className="flex justify-end">
                         <Button

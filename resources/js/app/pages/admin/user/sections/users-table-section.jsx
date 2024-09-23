@@ -111,7 +111,7 @@ export default function UsersTableSection() {
                                 >
                                     {text}
                                 </span>
-                            ) 
+                            )
                         },
                         {
                             title: "Action",
@@ -119,7 +119,15 @@ export default function UsersTableSection() {
                             render: (_, record) => (
                                 <div className="flex space-x-4">
                                     <button onClick={() => clickMe(record.id)} className="text-blue-500 hover:underline">Edit</button>
-                                    <button onClick={() => clickMe(record.id)} className="text-red-500 hover:underline">Remove</button>
+                                    <button>
+                                        <a
+                                            href="/administrator/history"
+                                            className="ml-1 text-blue-500 hover:underline"
+                                        >
+                                            View History Logs
+                                        </a>
+                                    </button>
+
                                     <button
                                         onClick={() => handleStatusChange(record.id, record.status === 'Active' ? 'Inactive' : 'Active')}
                                         className={`text-${record.status === 'Active' ? 'red' : 'green'}-500 hover:underline`}

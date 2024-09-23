@@ -55,7 +55,7 @@ export default function AdminLayout({ children }) {
     const [coachingIn, setCoachingIn] = useState(true);
     const [floorSupportIn, setFloorSupportIn] = useState(true);
     const [breakStartTime, setBreakStartTime] = useState(null);
-    const [remainingTime, setRemainingTime] = useState("");
+    const [remainingTime, setRemainingTime] = useState(""); 
     const dispatch = useDispatch();
     const { url } = usePage();
 
@@ -69,7 +69,7 @@ export default function AdminLayout({ children }) {
         { name: "Position", href: "/administrator/position", icon: UserCircleIcon },
         { name: "Account", href: "/administrator/account", icon: UserPlusIcon },
         { name: "Team Leader", href: "/administrator/team", icon: UsersIcon, },
-        { name: "Add Agent", href: "/administrator/add-agent", icon: UserPlusIcon, },
+        // { name: "Add Agent", href: "/administrator/add-agent", icon: UserPlusIcon, },
         { name: "Account Manager", href: "/administrator/account-manager", icon: UserCircleIcon, },
         { name: "Logs", href: "/administrator/logs", icon: ClockIcon },
 

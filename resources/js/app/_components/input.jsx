@@ -7,6 +7,7 @@ export default function Input({
     name,
     label,
     type,
+    readOnly
 }) {
     return (
             <div className="w-full" >
@@ -18,6 +19,7 @@ export default function Input({
                         type={type}
                         id={name}
                         name={name}
+                        readOnly={readOnly??false}
                         className="peer pl-8 rounded-md text-black placeholder-transparent w-full py-2.5 px-5 border-gray-500 border bg-transparent  bg-white focus-within:outline-none focus-within:border-blue-500"
                         placeholder=""
                     />
