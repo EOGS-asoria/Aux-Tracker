@@ -1,62 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
-import Input from "@/app/_components/input";
+import Input from "@/app/_components/input"; 
+import axios from "axios"; // Ensure you have axios installed
 
 export default function SiteView() {
     const [dataChecked, setDataChecked] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState(null);
-    const [sites, setSites] = useState([
-        { id: 1, site: "San Carlos Site", location: "San Carlos", status: "Active" },
-        { id: 2, site: "Carcar Site", location: "Carcar", status: "Inactive" },
-        { id: 3, site: "3rd Site", location: "San Carlos", status: "Active" },
-    ]);
-
+    const [sites, setSites] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newSite, setNewSite] = useState({
         siteName: "",
         location: "",
-        status: "Active", // Set default to Active
+        status: "Active",
     });
 
-    function handleStatusChange(siteId, newStatus) {
-        setSites((prevSites) =>
-            prevSites.map((site) =>
-                site.id === siteId ? { ...site, status: newStatus } : site
-            )
-        );
-    }
+    useEffect(() => {
+        fetchSites();
+    }, []);
 
-    function handleRemoveAccount(siteId) {
-        setSites((prevSites) => prevSites.filter((site) => site.id !== siteId));
-    }
+    const fetchSites = async () => {
+        try {
+            const response = await axios.get("/api/sites"); // Adjust the endpoint as necessary
+            setSites(response.data);
+        } catch (error) {
+            setError("Failed to fetch sites");
+        }
+    };
 
-    function handleAddNewSiteClick() {
+    const handleStatusChange = async (siteId, newStatus) => {
+        try {
+            await axios.put(`/api/sites/${siteId}`, { status: newStatus });
+            setSites((prevSites) =>
+                prevSites.map((site) =>
+                    site.id === siteId ? { ...site, status: newStatus } : site
+                )
+            );
+        } catch (error) {
+            setError("Failed to update status");
+        }
+    };
+
+    const handleRemoveAccount = async (siteId) => {
+        try {
+            await axios.delete(`/api/sites/${siteId}`);
+            setSites((prevSites) => prevSites.filter((site) => site.id !== siteId));
+        } catch (error) {
+            setError("Failed to remove site");
+        }
+    };
+
+    const handleAddNewSiteClick = () => {
         setIsModalOpen(true);
-    }
+    };
 
-    function handleCloseModal() {
+    const handleCloseModal = () => {
         setIsModalOpen(false);
-    }
+    };
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         setNewSite({ ...newSite, [e.target.name]: e.target.value });
-    }
+    };
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!newSite.siteName || !newSite.location) {
             setError("Please fill in all required fields.");
             return;
         }
-        setSites([...sites, { ...newSite, id: sites.length + 1 }]);
-        setNewSite({ siteName: "", location: "", status: "Active" }); // Reset form
-        setIsModalOpen(false); // Close modal after adding
-        setError(null); // Clear error
-    }
+        try {
+            const response = await axios.post("/api/sites", newSite);
+            setSites([...sites, response.data]);
+            setNewSite({ siteName: "", location: "", status: "Active" });
+            setIsModalOpen(false);
+            setError(null);
+        } catch (error) {
+            setError("Failed to add site");
+        }
+    };
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -80,7 +104,7 @@ export default function SiteView() {
                     columns={[
                         {
                             title: "Site Name",
-                            key: "site",
+                            key: "site_name",
                         },
                         {
                             title: "Location",

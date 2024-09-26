@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
@@ -16,12 +17,44 @@ export default function AccountManagerSection() {
         account: "",
         site: "San Carlos City",
     });
-    const [accountManagers, setAccountManagers] = useState([
-        { id: 1, name: "Alice Smith", position: "Operations Manager", account: "Account 001", site: "San Carlos City" },
-        { id: 2, name: "Mayeng Miyot", position: "Account Manager", account: "Account 002", site: "Carcar City" },
-        { id: 3, name: "John Doe", position: "Team Leader", account: "Account 003", site: "San Carlos City" },
-        { id: 4, name: "Emily Johnson", position: "Agent", account: "Account 004", site: "San Carlos City" },
-    ]);
+    const [accountManagers, setAccountManagers] = useState([]);
+    const [positions, setPositions] = useState([]);
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        fetchAccountManagers();
+        fetchPositions();
+        fetchAccounts();
+    }, []);
+
+    const fetchAccountManagers = async () => {
+        try {
+            const response = await axios.get("/api/account-managers");
+            setAccountManagers(response.data);
+        } catch (error) {
+            console.error("Error fetching account managers:", error);
+        }
+    };
+
+    const fetchPositions = async () => {
+        try {
+            const response = await axios.get("/api/positions");
+            setPositions(response.data);
+            console.log("Fetched positions:", response.data);
+        } catch (error) {
+            console.error("Error fetching positions:", error);
+        }
+    };
+
+    const fetchAccounts = async () => {
+        try {
+            const response = await axios.get("/api/accounts");
+            setAccounts(response.data);
+            console.log("Fetched accounts:", response.data);
+        } catch (error) {
+            console.error("Error fetching accounts:", error);
+        }
+    };
 
     function handleAddNewAccountManagerClick() {
         setIsModalOpen(true);
@@ -36,22 +69,36 @@ export default function AccountManagerSection() {
         setNewAccountManager((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-
-        const newAccountManagerData = {
-            id: accountManagers.length + 1,
-            ...newAccountManager,
-        };
-
-        setAccountManagers((prevManagers) => [...prevManagers, newAccountManagerData]);
-        setNewAccountManager({ name: "", position: "", account: "", site: "San Carlos City" });
-        handleCloseModal();
+        try {
+            const { name, position, account, site } = newAccountManager;
+            const response = await axios.post("/api/account-managers", {
+                name,
+                position,
+                account,
+                site,
+            });
+            setAccountManagers((prevManagers) => [
+                ...prevManagers,
+                response.data,
+            ]);
+            setNewAccountManager({
+                name: "",
+                position: "",
+                account: "",
+                site: "San Carlos City",
+            });
+            handleCloseModal();
+        } catch (error) {
+            console.error("Error adding account manager:", error);
+        }
     }
 
-    function clickMe(accountId) {
+    async function handleRemoveManager(id) {
+        await axios.delete(`/api/account-managers/${id}`);
         setAccountManagers((prevManagers) =>
-            prevManagers.filter(manager => manager.id !== accountId)
+            prevManagers.filter((manager) => manager.id !== id)
         );
     }
 
@@ -60,19 +107,15 @@ export default function AccountManagerSection() {
             <h1 className="text-3xl font-bold mb-8 text-gray-700">
                 Account Manager Management
             </h1>
-
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex items-center justify-between mb-4">
                     <Button
-                        className="flex items-center justify-center"
-                        loading={false}
                         type="button"
                         onClick={handleAddNewAccountManagerClick}
                     >
                         Add New Account Manager
                     </Button>
                 </div>
-
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
@@ -86,19 +129,16 @@ export default function AccountManagerSection() {
                             title: "Action",
                             key: "action",
                             render: (_, record) => (
-                                <div className="flex space-x-4">
-                                    <a href={`/administrator/agent`} className="text-blue-500 hover:underline">
-                                        View Team
-                                    </a>
-                                    <button
-                                        onClick={() => clickMe(record.id)}
-                                        className="text-red-500 hover:underline"
-                                    >
-                                        Remove
-                                    </button>
-                                </div>
+                                <button
+                                    onClick={() =>
+                                        handleRemoveManager(record.id)
+                                    }
+                                    className="text-red-500 hover:underline"
+                                >
+                                    Remove
+                                </button>
                             ),
-                        }
+                        },
                     ]}
                     isCheckbox={true}
                     rowsPerPage={rowsPerPage}
@@ -108,49 +148,61 @@ export default function AccountManagerSection() {
                 />
             </div>
 
-            <Modal open={isModalOpen} setOpen={setIsModalOpen} width="sm:max-w-md top-20">
-                <h2 className="text-lg font-semibold mb-4">Add New Account Manager</h2>
+            <Modal
+                open={isModalOpen}
+                setOpen={setIsModalOpen}
+                width="sm:max-w-md top-20"
+            >
+                <h2 className="text-lg font-semibold mb-4">
+                    Add New Account Manager
+                </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <Input
                             name="name"
                             label="Name"
                             type="text"
-                            className="rounded-md w-full"
-                            required={true}
+                            required
                             value={newAccountManager.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
                         <Select
-                            options={[
-                                { value: 'Operations Manager', label: 'Operations Manager' },
-                                { value: 'Account Manager', label: 'Account Manager' },
-                                { value: 'Team Leader', label: 'Team Leader' },
-                                { value: 'Agent', label: 'Agent' },
-                            ]}
+                            options={positions.map((pos) => ({
+                                value: pos.account,
+                                label: pos.account, // Adjust based on your actual property
+                            }))}
                             value={newAccountManager.position}
-                            onChange={(selectedOption) => {
-                                setNewAccountManager((prev) => ({ ...prev, position: selectedOption.value }));
-                            }}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: "position",
+                                        value: e.target.value,
+                                    },
+                                })
+                            }
                             label="Position"
-                            name="position"
-                            required={true}
+                            required
                         />
                     </div>
                     <div className="mb-4">
                         <Select
-                            options={[
-                                { value: 'Account 001', label: 'Account 001' },
-                                { value: 'Account 002', label: 'Account 002' },
-                                { value: 'Account 003', label: 'Account 003' },
-                            ]}
+                            options={accounts.map((acc) => ({
+                                value: acc.accountName,
+                                label: acc.accountName, // Adjust based on your actual property
+                            }))}
                             value={newAccountManager.account}
-                            onChange={(selectedOption) => setNewAccountManager(prev => ({ ...prev, account: selectedOption.value }))}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: "account",
+                                        value: e.target.value,
+                                    },
+                                })
+                            }
                             label="Account"
-                            name="account"
-                            required={true}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -158,16 +210,12 @@ export default function AccountManagerSection() {
                             name="site"
                             label="Site"
                             type="text"
-                            className="rounded-md w-full"
+                            readOnly
                             value={newAccountManager.site}
-                            readOnly={true}
                         />
                     </div>
-
                     <div className="flex justify-end">
-                        <Button className="flex items-center justify-center w-full" type="submit">
-                            Add
-                        </Button>
+                        <Button type="submit">Add</Button>
                     </div>
                 </form>
             </Modal>

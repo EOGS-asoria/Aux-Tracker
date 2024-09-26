@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
@@ -12,16 +13,23 @@ export default function AccountsTableSection() {
     const [newAccount, setNewAccount] = useState({
         accountName: "",
         site: "",
-        dateCreated: new Date().toISOString().split('T')[0], // Set to today's date
+        dateCreated: new Date().toISOString().split("T")[0],
     });
-    const [accounts, setAccounts] = useState([
-        {
-            id: 1,
-            accountName: "AiFi",
-            site: "San Carlos Site",
-            dateCreated: "2024-01-15",
-        },
-    ]);
+    const [accounts, setAccounts] = useState([]);
+
+    // Fetch accounts on component mount
+    useEffect(() => {
+        const fetchAccounts = async () => {
+            try {
+                const response = await axios.get("/api/accounts");
+                setAccounts(response.data);
+            } catch (error) {
+                console.error("Error fetching accounts:", error);
+            }
+        };
+
+        fetchAccounts();
+    }, []);
 
     function handleAddNewAccountClick() {
         setIsModalOpen(true);
@@ -36,23 +44,31 @@ export default function AccountsTableSection() {
         setNewAccount((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        const newAccountData = {
-            id: accounts.length + 1,
-            ...newAccount,
-        };
-        setAccounts((prevAccounts) => [...prevAccounts, newAccountData]);
-        setNewAccount({
-            accountName: "",
-            site: "",
-            dateCreated: new Date().toISOString().split('T')[0], // Reset to today's date
-        });
-        handleCloseModal();
+        try {
+            const response = await axios.post("/api/accounts", newAccount);
+            setAccounts((prevAccounts) => [...prevAccounts, response.data]);
+            setNewAccount({
+                accountName: "",
+                site: "",
+                dateCreated: new Date().toISOString().split("T")[0],
+            });
+            handleCloseModal();
+        } catch (error) {
+            console.error("Error adding account:", error);
+        }
     }
 
-    function handleRemoveAccount(id) {
-        setAccounts((prevAccounts) => prevAccounts.filter(account => account.id !== id));
+    async function handleRemoveAccount(id) {
+        try {
+            await axios.delete(`/api/accounts/${id}`);
+            setAccounts((prevAccounts) =>
+                prevAccounts.filter((account) => account.id !== id)
+            );
+        } catch (error) {
+            console.error("Error removing account:", error);
+        }
     }
 
     return (
@@ -95,9 +111,13 @@ export default function AccountsTableSection() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <button className="text-blue-500 hover:underline">Edit</button>
+                                    <button className="text-blue-500 hover:underline">
+                                        Edit
+                                    </button>
                                     <button
-                                        onClick={() => handleRemoveAccount(record.id)}
+                                        onClick={() =>
+                                            handleRemoveAccount(record.id)
+                                        }
                                         className="text-red-500 hover:underline"
                                     >
                                         Remove
@@ -151,7 +171,7 @@ export default function AccountsTableSection() {
                             className="rounded-md w-full"
                             required={true}
                             value={newAccount.dateCreated}
-                            readOnly={true} // Make the date field read-only
+                            readOnly={true}
                         />
                     </div>
 

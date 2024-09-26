@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Table from "@/app/_components/table";
 import Button from "@/app/_components/button";
 import Modal from "@/app/_components/modal";
@@ -15,171 +16,111 @@ export default function TeamLeaderSection() {
         position: "",
         account: "",
         site: "San Carlos Site",
-        status: "",
+        status: "Active",
     });
-    const [leaders, setLeaders] = useState([
-        {
-            id: 1,
-            name: "Alice Smith",
-            position: "Manager",
-            account: "alice.smith",
-            site: "San Carlos",
-            status: "Active",
-            teamMembers: [],
-        },
-        {
-            id: 2,
-            name: "Mayeng Miyot",
-            position: "Intern",
-            account: "mayeng.miyot",
-            site: "Carcar",
-            status: "Inactive",
-            teamMembers: [],
-        },
-        {
-            id: 3,
-            name: "John Doe",
-            position: "Developer",
-            account: "john.doe",
-            site: "3rd Site",
-            status: "Active",
-            teamMembers: [],
-        },
-        {
-            id: 4,
-            name: "Emily Johnson",
-            position: "Designer",
-            account: "emily.johnson",
-            site: "Chicago",
-            status: "Active",
-            teamMembers: [],
-        },
-    ]);
-    const [expandedLeaderId, setExpandedLeaderId] = useState(null);
-    const [expandedSection, setExpandedSection] = useState(null);
+    const [leaders, setLeaders] = useState([]);
+    const [positions, setPositions] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
-    function handleAddNewLeaderClick() {
+    useEffect(() => {
+        fetchLeaders();
+        fetchPositions();
+        fetchAccounts();
+    }, []);
+
+    const fetchLeaders = async () => {
+        try {
+            const response = await axios.get("/api/team-leaders");
+            setLeaders(response.data);
+        } catch (error) {
+            console.error("Error fetching leaders:", error);
+        }
+    };
+
+    const fetchPositions = async () => {
+        try {
+            const response = await axios.get("/api/positions");
+            setPositions(response.data);
+            console.log("Fetched positions:", response.data);
+        } catch (error) {
+            console.error("Error fetching positions:", error);
+        }
+    };
+
+    const fetchAccounts = async () => {
+        try {
+            const response = await axios.get("/api/accounts");
+            setAccounts(response.data);
+            console.log("Fetched accounts:", response.data);
+        } catch (error) {
+            console.error("Error fetching accounts:", error);
+        }
+    };
+
+    const handleAddNewLeaderClick = () => {
         setIsModalOpen(true);
-    }
+    };
 
-    function handleCloseModal() {
+    const handleCloseModal = () => {
         setIsModalOpen(false);
-    }
+    };
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setNewLeader((prevState) => ({ ...prevState, [name]: value }));
-    }
+    };
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const newLeaderData = {
-            id: leaders.length + 1,
-            ...newLeader,
-            teamMembers: [],
-        };
-        setLeaders((prevLeaders) => [...prevLeaders, newLeaderData]);
-        setNewLeader({
-            name: "",
-            position: "",
-            account: "",
-            site: "San Carlos Site",
-            status: "",
-        });
-        handleCloseModal();
-    }
-
-    function handleRemoveLeader(id) {
-        setLeaders((prevLeaders) =>
-            prevLeaders.filter((leader) => leader.id !== id)
-        );
-    }
-
-    function toggleExpandLeader(leaderId) {
-        setExpandedLeaderId(expandedLeaderId === leaderId ? null : leaderId);
-    }
-
-    function toggleExpandSection(leaderId, section) {
-        if (expandedLeaderId === leaderId) {
-            setExpandedSection(expandedSection === section ? null : section);
-        } else {
-            setExpandedLeaderId(leaderId);
-            setExpandedSection(section);
-
-            // Simulate fetching team members data on demand
-            if (section === "team") {
-                const updatedLeaders = leaders.map((leader) => {
-                    if (
-                        leader.id === leaderId &&
-                        leader.teamMembers.length === 0
-                    ) {
-                        return {
-                            ...leader,
-                            teamMembers: [
-                                {
-                                    id: 1,
-                                    name: "John Doe",
-                                    position: "Developer",
-                                    account: "john.doe",
-                                },
-                                {
-                                    id: 2,
-                                    name: "Jane Roe",
-                                    position: "Designer",
-                                    account: "jane.roe",
-                                },
-                                {
-                                    id: 3,
-                                    name: "Mark Twain",
-                                    position: "Tester",
-                                    account: "mark.twain",
-                                },
-                                {
-                                    id: 4,
-                                    name: "Lucy Liu",
-                                    position: "Developer",
-                                    account: "lucy.liu",
-                                },
-                                {
-                                    id: 5,
-                                    name: "Tom Hardy",
-                                    position: "Developer",
-                                    account: "tom.hardy",
-                                },
-                            ],
-                        };
-                    }
-                    return leader;
-                });
-
-                setLeaders(updatedLeaders);
-            }
+        try {
+            const { name, position, account, site, status } = newLeader;
+            const response = await axios.post("/api/team-leaders", {
+                name,
+                position,
+                account,
+                site,
+                status,
+            });
+            setLeaders((prevLeaders) => [...prevLeaders, response.data]);
+            setNewLeader({
+                name: "",
+                position: "",
+                account: "",
+                site: "San Carlos Site",
+                status: "Active",
+            });
+            handleCloseModal();
+        } catch (error) {
+            console.error("Error adding leader:", error);
         }
-    }
+    };
 
-    const ticketOptions = Array.from({ length: 11 }, (_, i) => ({
-        value: i,
-        label: i.toString(),
-    }));
+    const handleRemoveLeader = async (id) => {
+        try {
+            await axios.delete(`/api/team-leaders/${id}`);
+            setLeaders((prevLeaders) =>
+                prevLeaders.filter((leader) => leader.id !== id)
+            );
+        } catch (error) {
+            console.error("Error removing leader:", error);
+        }
+    };
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-gray-700">
-                Team Leader
+                Team Leader Management
             </h1>
-
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <div className="flex items-center justify-between mb-4">
                     <Button
                         className="flex items-center justify-center"
-                        loading={false}
                         type="button"
                         onClick={handleAddNewLeaderClick}
                     >
                         Add Team Leader
                     </Button>
                 </div>
-
                 <Table
                     dataChecked={dataChecked}
                     setDataChecked={setDataChecked}
@@ -216,10 +157,11 @@ export default function TeamLeaderSection() {
                             key: "status",
                             render: (text) => (
                                 <span
-                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${text === "Active"
-                                        ? "bg-green-100 text-green-800"
-                                        : "bg-red-100 text-red-800"
-                                        }`}
+                                    className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                                        text === "Active"
+                                            ? "bg-green-100 text-green-800"
+                                            : "bg-red-100 text-red-800"
+                                    }`}
                                 >
                                     {text}
                                 </span>
@@ -230,14 +172,6 @@ export default function TeamLeaderSection() {
                             key: "action",
                             render: (_, record) => (
                                 <div className="flex space-x-4">
-                                    <button>
-                                        <a
-                                            href="/administrator/agent"
-                                            className="ml-1 text-blue-500 hover:underline"
-                                        >
-                                            View Team
-                                        </a>
-                                    </button>
                                     <button
                                         onClick={() =>
                                             handleRemoveLeader(record.id)
@@ -271,38 +205,49 @@ export default function TeamLeaderSection() {
                             label="Name"
                             type="text"
                             className="rounded-md w-full"
-                            required={true}
+                            required
                             value={newLeader.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="mb-4">
                         <Select
-                            options={[
-                                { value: 'Operations Manager', label: 'Operations Manager' },
-                                { value: 'Account Manager', label: 'Account Manager' },
-                                { value: 'Team Leader', label: 'Team Leader' },
-                                { value: 'Agent', label: 'Agent' },
-                            ]}
+                            options={positions.map((pos) => ({
+                                value: pos.account,
+                                label: pos.account, // Adjust based on your actual property
+                            }))}
                             value={newLeader.position}
-                            onChange={(value) => setNewLeader(prev => ({ ...prev, position: value }))}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: "position",
+                                        value: e.target.value,
+                                    },
+                                })
+                            }
                             label="Position"
                             name="position"
-                            required={true}
+                            required
                         />
                     </div>
                     <div className="mb-4">
                         <Select
-                            options={[
-                                { value: 'Account1', label: 'Account 1' },
-                                { value: 'Account2', label: 'Account 2' },
-                                { value: 'Account3', label: 'Account 3' },
-                            ]}
+                            options={accounts.map((acc) => ({
+                                value: acc.accountName,
+                                label: acc.accountName, // Adjust based on your actual property
+                            }))}
                             value={newLeader.account}
-                            onChange={(value) => setNewLeader(prev => ({ ...prev, account: value }))}
+                            onChange={(e) =>
+                                handleChange({
+                                    target: {
+                                        name: "account",
+                                        value: e.target.value,
+                                    },
+                                })
+                            }
                             label="Account"
                             name="account"
-                            required={true}
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -317,20 +262,25 @@ export default function TeamLeaderSection() {
                     </div>
                     <div className="mb-4">
                         <Input
-                            value="Active"
+                            value={newLeader.status}
                             label="Status"
                             name="status"
-                            required={true}
-                            readOnly="true"
+                            readOnly
                         />
                     </div>
-
-                    <div className="flex justify-end">
+                    <div className="flex justify-end space-x-4">
                         <Button
-                            className="flex items-center justify-center w-full"
-                            type="submit"
+                            type="button"
+                            onClick={handleCloseModal}
+                            className="bg-gray-200 hover:bg-gray-300"
                         >
-                            Add
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            className="bg-indigo-500 text-white hover:bg-indigo-600"
+                        >
+                            Add Team Leader
                         </Button>
                     </div>
                 </form>
