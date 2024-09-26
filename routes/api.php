@@ -33,7 +33,7 @@ Route::resource('time_in', TimeInController::class);
 Route::resource('sub_time_in', SubTimeInController::class);
 
 
-// adding back end users, site, positions, account, Team Leader, Accounts Manager
+// adding back end codes in the users, site, positions, account, Team Leader, Accounts Manager
 
 Route::apiResource('agents', AgentController::class);
 Route::apiResource('sites', SiteController::class);
