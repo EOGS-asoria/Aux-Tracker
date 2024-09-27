@@ -5,7 +5,7 @@ export default function Select({ options, value, onChange, label, name }) {
         <div className="w-full">
             <div className="relative">
                 <select
-                    className="peer pl-4 text-black placeholder-transparent w-full py-2.5 px-5 border-gray-500 border bg-transparent rounded-sm bg-white focus-within:outline-none focus-within:border-blue-500"
+                    className="peer pl-4 text-black placeholder-transparent w-full py-2.5 px-5 border-gray-500 border bg-transparent rounded-md bg-white focus-within:outline-none focus-within:border-blue-500"
                     value={value}
                     onChange={onChange}
                 > 
